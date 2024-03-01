@@ -20,11 +20,17 @@ namespace AntlrCSharp
                 StringBuilder text = new StringBuilder();
                 Console.WriteLine("Input the calculation.");
 
+
+                string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
+                string[] lines = File.ReadAllLines(fileLocation);
+                Console.WriteLine(lines[0]);
+                text.AppendLine(lines[0]);
+
                 // to type the EOF character and end the input: use CTRL+D, then press <enter>
-                while ((input = Console.ReadLine()) != "=")
-                {
-                    text.AppendLine(input);
-                }
+                //while ((input = Console.ReadLine()) != "=")
+                //{
+                //    text.AppendLine(input);
+                //}
                 
                 AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
                 CalculatorLexer calculatorLexer = new CalculatorLexer(inputStream);
