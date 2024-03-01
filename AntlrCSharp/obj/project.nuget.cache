@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uHPEVRCiQNw0M3Qs1rpbjv94RuvwDvEOwhf/RSIrZaqX8lbImkWLb4UcliErJ9r1iRiBotnVb4B2k5ocJeMpag==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\NumberSpeak\\AntlrCSharp\\AntlrCSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\limbo\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
+  ],
+  "logs": []
+}
