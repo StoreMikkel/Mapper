@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
@@ -23,8 +24,11 @@ namespace AntlrCSharp
 
                 string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
                 string[] lines = File.ReadAllLines(fileLocation);
-                Console.WriteLine(lines[0]);
-                text.AppendLine(lines[0]);
+            
+                foreach(var element in lines)
+                {
+                    text.AppendLine(element);
+                }
 
                 // to type the EOF character and end the input: use CTRL+D, then press <enter>
                 //while ((input = Console.ReadLine()) != "=")
@@ -36,6 +40,7 @@ namespace AntlrCSharp
                 CalculatorLexer calculatorLexer = new CalculatorLexer(inputStream);
                 CommonTokenStream commonTokenStream = new CommonTokenStream(calculatorLexer);
                 CalculatorParser calculatorParser = new CalculatorParser(commonTokenStream);
+                
 
                 CalculatorParser.InputContext inputContext = calculatorParser.input();                
                 BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();                

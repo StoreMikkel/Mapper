@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NumberSpeak")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a75f7b5f1ea22adf1bb3552bc93d48fc78b27e0a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+196d093413e1d5241c94b8a0bac4351df95671c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("NumberSpeak")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NumberSpeak")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

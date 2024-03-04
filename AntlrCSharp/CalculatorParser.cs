@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//limbo//Documents//SOFTWARE - UNI//P4//NumberSpeak//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -81,10 +81,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class InputContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext calculation() {
-			return GetRuleContext<CalculationContext>(0);
-		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(CalculatorParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext[] calculation() {
+			return GetRuleContexts<CalculationContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext calculation(int i) {
+			return GetRuleContext<CalculationContext>(i);
+		}
 		public InputContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -102,12 +105,25 @@ public partial class CalculatorParser : Parser {
 	public InputContext input() {
 		InputContext _localctx = new InputContext(Context, State);
 		EnterRule(_localctx, 0, RULE_input);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 8;
-			calculation();
-			State = 9;
+			State = 11;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while (_la==NUMBER) {
+				{
+				{
+				State = 8;
+				calculation();
+				}
+				}
+				State = 13;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			State = 14;
 			Match(Eof);
 			}
 		}
@@ -153,13 +169,13 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 11;
+			State = 16;
 			number();
-			State = 12;
+			State = 17;
 			@operator();
-			State = 13;
+			State = 18;
 			number();
-			State = 14;
+			State = 19;
 			Match(NEWLINE);
 			}
 		}
@@ -196,7 +212,7 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 16;
+			State = 21;
 			Match(NUMBER);
 			}
 		}
@@ -233,7 +249,7 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 18;
+			State = 23;
 			Match(OPERATOR);
 			}
 		}
@@ -249,11 +265,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,4,21,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,
-		1,1,2,1,2,1,3,1,3,1,3,0,0,4,0,2,4,6,0,0,16,0,8,1,0,0,0,2,11,1,0,0,0,4,
-		16,1,0,0,0,6,18,1,0,0,0,8,9,3,2,1,0,9,10,5,0,0,1,10,1,1,0,0,0,11,12,3,
-		4,2,0,12,13,3,6,3,0,13,14,3,4,2,0,14,15,5,4,0,0,15,3,1,0,0,0,16,17,5,1,
-		0,0,17,5,1,0,0,0,18,19,5,2,0,0,19,7,1,0,0,0,0
+		4,1,4,26,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,5,0,10,8,0,10,0,12,0,13,9,
+		0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,3,1,3,1,3,0,0,4,0,2,4,6,0,0,22,
+		0,11,1,0,0,0,2,16,1,0,0,0,4,21,1,0,0,0,6,23,1,0,0,0,8,10,3,2,1,0,9,8,1,
+		0,0,0,10,13,1,0,0,0,11,9,1,0,0,0,11,12,1,0,0,0,12,14,1,0,0,0,13,11,1,0,
+		0,0,14,15,5,0,0,1,15,1,1,0,0,0,16,17,3,4,2,0,17,18,3,6,3,0,18,19,3,4,2,
+		0,19,20,5,4,0,0,20,3,1,0,0,0,21,22,5,1,0,0,22,5,1,0,0,0,23,24,5,2,0,0,
+		24,7,1,0,0,0,1,11
 	};
 
 	public static readonly ATN _ATN =

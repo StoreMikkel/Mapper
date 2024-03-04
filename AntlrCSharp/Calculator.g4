@@ -2,7 +2,7 @@ grammar Calculator;
 
 /*Parser Rules*/
 
-input       : calculation EOF ;
+input       : calculation* EOF ;
 calculation : number operator number NEWLINE;
 number      : NUMBER ;
 operator    : OPERATOR ;
