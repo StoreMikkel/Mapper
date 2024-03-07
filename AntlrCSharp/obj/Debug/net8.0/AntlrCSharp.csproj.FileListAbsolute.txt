@@ -15,3 +15,4 @@ C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
+C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.sourcelink.json

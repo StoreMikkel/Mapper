@@ -44,6 +44,18 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCalculation([NotNull] CalculatorParser.CalculationContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExpression([NotNull] CalculatorParser.ExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTerm([NotNull] CalculatorParser.TermContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

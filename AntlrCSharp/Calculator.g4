@@ -3,7 +3,9 @@ grammar Calculator;
 /*Parser Rules*/
 
 input       : calculation EOF ;
-calculation : number operator number NEWLINE;
+calculation : expression;
+expression  : term | expression OPERATOR term;
+term        : number OPERATOR number;
 number      : NUMBER ;
 operator    : OPERATOR ;
 
