@@ -43,7 +43,7 @@ namespace AntlrCSharp
                 CalculatorParser.InputContext inputContext = calculatorParser.input();                
                 BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();                
                 visitor.Visit(inputContext);                
-                
+                Console.WriteLine("{0}", visitor.Lines.Count);
                 foreach(var line in visitor.Lines)
                 {
                     Console.WriteLine("New line");
