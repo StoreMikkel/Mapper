@@ -1,14 +1,19 @@
 grammar Calculator;
 
 /*Parser Rules*/
+input: calculation+ EOF;
 
-input       : calculation* EOF ;
-calculation : number operator number NEWLINE;
-number      : NUMBER ;
-operator    : OPERATOR ;
+calculation: expression NEWLINE;
+
+expression: term
+          | expression OPERATOR term;
+
+term: number
+    | term OPERATOR number;
+
+number: NUMBER;
 
 /*Lexer Rules*/
-
 NUMBER        : [0-9]+ ;
 OPERATOR      : ('+' | '-' | '/' | '*') ;
 WHITESPACE    : (' '|'\t')+ -> skip;

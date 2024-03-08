@@ -1,4 +1,4 @@
-// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c:/Users/ajapo/Desktop/Repositories/CalculatorLanguage/AntlrCSharp/Calculator.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -89,10 +89,13 @@ public class CalculatorParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InputContext extends ParserRuleContext {
-		public CalculationContext calculation() {
-			return getRuleContext(CalculationContext.class,0);
-		}
 		public TerminalNode EOF() { return getToken(CalculatorParser.EOF, 0); }
+		public List<CalculationContext> calculation() {
+			return getRuleContexts(CalculationContext.class);
+		}
+		public CalculationContext calculation(int i) {
+			return getRuleContext(CalculationContext.class,i);
+		}
 		public InputContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -110,12 +113,25 @@ public class CalculatorParser extends Parser {
 	public final InputContext input() throws RecognitionException {
 		InputContext _localctx = new InputContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_input);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(8);
-			calculation();
-			setState(9);
+			setState(11);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==NUMBER) {
+				{
+				{
+				setState(8);
+				calculation();
+				}
+				}
+				setState(13);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(14);
 			match(EOF);
 			}
 		}
@@ -162,13 +178,13 @@ public class CalculatorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(11);
+			setState(16);
 			number();
-			setState(12);
+			setState(17);
 			operator();
-			setState(13);
+			setState(18);
 			number();
-			setState(14);
+			setState(19);
 			match(NEWLINE);
 			}
 		}
@@ -206,7 +222,7 @@ public class CalculatorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
+			setState(21);
 			match(NUMBER);
 			}
 		}
@@ -244,7 +260,7 @@ public class CalculatorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(18);
+			setState(23);
 			match(OPERATOR);
 			}
 		}
@@ -260,19 +276,22 @@ public class CalculatorParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0004\u0015\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
-		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0001\u0000"+
-		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0000\u0000"+
-		"\u0004\u0000\u0002\u0004\u0006\u0000\u0000\u0010\u0000\b\u0001\u0000\u0000"+
-		"\u0000\u0002\u000b\u0001\u0000\u0000\u0000\u0004\u0010\u0001\u0000\u0000"+
-		"\u0000\u0006\u0012\u0001\u0000\u0000\u0000\b\t\u0003\u0002\u0001\u0000"+
-		"\t\n\u0005\u0000\u0000\u0001\n\u0001\u0001\u0000\u0000\u0000\u000b\f\u0003"+
-		"\u0004\u0002\u0000\f\r\u0003\u0006\u0003\u0000\r\u000e\u0003\u0004\u0002"+
-		"\u0000\u000e\u000f\u0005\u0004\u0000\u0000\u000f\u0003\u0001\u0000\u0000"+
-		"\u0000\u0010\u0011\u0005\u0001\u0000\u0000\u0011\u0005\u0001\u0000\u0000"+
-		"\u0000\u0012\u0013\u0005\u0002\u0000\u0000\u0013\u0007\u0001\u0000\u0000"+
-		"\u0000\u0000";
+		"\u0004\u0001\u0004\u001a\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0005\u0000"+
+		"\n\b\u0000\n\u0000\f\u0000\r\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0000\u0000\u0004\u0000\u0002\u0004"+
+		"\u0006\u0000\u0000\u0016\u0000\u000b\u0001\u0000\u0000\u0000\u0002\u0010"+
+		"\u0001\u0000\u0000\u0000\u0004\u0015\u0001\u0000\u0000\u0000\u0006\u0017"+
+		"\u0001\u0000\u0000\u0000\b\n\u0003\u0002\u0001\u0000\t\b\u0001\u0000\u0000"+
+		"\u0000\n\r\u0001\u0000\u0000\u0000\u000b\t\u0001\u0000\u0000\u0000\u000b"+
+		"\f\u0001\u0000\u0000\u0000\f\u000e\u0001\u0000\u0000\u0000\r\u000b\u0001"+
+		"\u0000\u0000\u0000\u000e\u000f\u0005\u0000\u0000\u0001\u000f\u0001\u0001"+
+		"\u0000\u0000\u0000\u0010\u0011\u0003\u0004\u0002\u0000\u0011\u0012\u0003"+
+		"\u0006\u0003\u0000\u0012\u0013\u0003\u0004\u0002\u0000\u0013\u0014\u0005"+
+		"\u0004\u0000\u0000\u0014\u0003\u0001\u0000\u0000\u0000\u0015\u0016\u0005"+
+		"\u0001\u0000\u0000\u0016\u0005\u0001\u0000\u0000\u0000\u0017\u0018\u0005"+
+		"\u0002\u0000\u0000\u0018\u0007\u0001\u0000\u0000\u0000\u0001\u000b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
