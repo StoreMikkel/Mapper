@@ -16,12 +16,13 @@ namespace AntlrCSharp
         public static void Main(string[] args)
     {
         string input =  "1 + 2 + 3 + 3 + 1 + 2 + 2 + 2\n" +
-                        "4 / 2 - 1\n"; // Example input with multiple calculations
+                        "5 + 5 * 10\n"; // Example input with multiple calculations
         AntlrInputStream inputStream = new AntlrInputStream(input);
         CalculatorLexer lexer = new CalculatorLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(tokenStream);
         IParseTree tree = parser.input();
+        Console.WriteLine("h");
 
         BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
         visitor.Visit(tree);

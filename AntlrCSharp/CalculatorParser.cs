@@ -36,18 +36,19 @@ public partial class CalculatorParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		NUMBER=1, OPERATOR=2, WHITESPACE=3, NEWLINE=4;
+		T__0=1, T__1=2, NUMBER=3, OPERATOR1=4, OPERATOR2=5, WHITESPACE=6, NEWLINE=7;
 	public const int
 		RULE_input = 0, RULE_calculation = 1, RULE_expression = 2, RULE_term = 3, 
-		RULE_number = 4;
+		RULE_factor = 4, RULE_number = 5;
 	public static readonly string[] ruleNames = {
-		"input", "calculation", "expression", "term", "number"
+		"input", "calculation", "expression", "term", "factor", "number"
 	};
 
 	private static readonly string[] _LiteralNames = {
+		null, "'('", "')'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "NUMBER", "OPERATOR", "WHITESPACE", "NEWLINE"
+		null, null, null, "NUMBER", "OPERATOR1", "OPERATOR2", "WHITESPACE", "NEWLINE"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -110,21 +111,21 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 11;
+			State = 13;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 10;
+				State = 12;
 				calculation();
 				}
 				}
-				State = 13;
+				State = 15;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( _la==NUMBER );
-			State = 15;
+			} while ( _la==T__0 || _la==NUMBER );
+			State = 17;
 			Match(Eof);
 			}
 		}
@@ -164,9 +165,9 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 17;
+			State = 19;
 			expression(0);
-			State = 18;
+			State = 20;
 			Match(NEWLINE);
 			}
 		}
@@ -188,7 +189,7 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR() { return GetToken(CalculatorParser.OPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR1() { return GetToken(CalculatorParser.OPERATOR1, 0); }
 		public ExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -219,11 +220,11 @@ public partial class CalculatorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 21;
+			State = 23;
 			term(0);
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 28;
+			State = 30;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,1,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
@@ -235,16 +236,16 @@ public partial class CalculatorParser : Parser {
 					{
 					_localctx = new ExpressionContext(_parentctx, _parentState);
 					PushNewRecursionContext(_localctx, _startState, RULE_expression);
-					State = 23;
-					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
-					State = 24;
-					Match(OPERATOR);
 					State = 25;
+					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
+					State = 26;
+					Match(OPERATOR1);
+					State = 27;
 					term(0);
 					}
 					} 
 				}
-				State = 30;
+				State = 32;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,1,Context);
 			}
@@ -262,13 +263,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class TermContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
-			return GetRuleContext<NumberContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
+			return GetRuleContext<FactorContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TermContext term() {
 			return GetRuleContext<TermContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR() { return GetToken(CalculatorParser.OPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR2() { return GetToken(CalculatorParser.OPERATOR2, 0); }
 		public TermContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -299,11 +300,11 @@ public partial class CalculatorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 32;
-			number();
+			State = 34;
+			factor();
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 39;
+			State = 41;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
@@ -315,16 +316,16 @@ public partial class CalculatorParser : Parser {
 					{
 					_localctx = new TermContext(_parentctx, _parentState);
 					PushNewRecursionContext(_localctx, _startState, RULE_term);
-					State = 34;
-					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
-					State = 35;
-					Match(OPERATOR);
 					State = 36;
-					number();
+					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
+					State = 37;
+					Match(OPERATOR2);
+					State = 38;
+					factor();
 					}
 					} 
 				}
-				State = 41;
+				State = 43;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			}
@@ -337,6 +338,67 @@ public partial class CalculatorParser : Parser {
 		}
 		finally {
 			UnrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public partial class FactorContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
+			return GetRuleContext<NumberContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public FactorContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_factor; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFactor(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public FactorContext factor() {
+		FactorContext _localctx = new FactorContext(Context, State);
+		EnterRule(_localctx, 8, RULE_factor);
+		try {
+			State = 49;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case NUMBER:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 44;
+				number();
+				}
+				break;
+			case T__0:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 45;
+				Match(T__0);
+				State = 46;
+				expression(0);
+				State = 47;
+				Match(T__1);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
 		}
 		return _localctx;
 	}
@@ -359,11 +421,11 @@ public partial class CalculatorParser : Parser {
 	[RuleVersion(0)]
 	public NumberContext number() {
 		NumberContext _localctx = new NumberContext(Context, State);
-		EnterRule(_localctx, 8, RULE_number);
+		EnterRule(_localctx, 10, RULE_number);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 42;
+			State = 51;
 			Match(NUMBER);
 			}
 		}
@@ -399,18 +461,21 @@ public partial class CalculatorParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,4,45,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,4,0,12,8,0,11,0,12,
-		0,13,1,0,1,0,1,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,5,2,27,8,2,10,2,12,2,
-		30,9,2,1,3,1,3,1,3,1,3,1,3,1,3,5,3,38,8,3,10,3,12,3,41,9,3,1,4,1,4,1,4,
-		0,2,4,6,5,0,2,4,6,8,0,0,42,0,11,1,0,0,0,2,17,1,0,0,0,4,20,1,0,0,0,6,31,
-		1,0,0,0,8,42,1,0,0,0,10,12,3,2,1,0,11,10,1,0,0,0,12,13,1,0,0,0,13,11,1,
-		0,0,0,13,14,1,0,0,0,14,15,1,0,0,0,15,16,5,0,0,1,16,1,1,0,0,0,17,18,3,4,
-		2,0,18,19,5,4,0,0,19,3,1,0,0,0,20,21,6,2,-1,0,21,22,3,6,3,0,22,28,1,0,
-		0,0,23,24,10,1,0,0,24,25,5,2,0,0,25,27,3,6,3,0,26,23,1,0,0,0,27,30,1,0,
-		0,0,28,26,1,0,0,0,28,29,1,0,0,0,29,5,1,0,0,0,30,28,1,0,0,0,31,32,6,3,-1,
-		0,32,33,3,8,4,0,33,39,1,0,0,0,34,35,10,1,0,0,35,36,5,2,0,0,36,38,3,8,4,
-		0,37,34,1,0,0,0,38,41,1,0,0,0,39,37,1,0,0,0,39,40,1,0,0,0,40,7,1,0,0,0,
-		41,39,1,0,0,0,42,43,5,1,0,0,43,9,1,0,0,0,3,13,28,39
+		4,1,7,54,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,4,0,14,8,
+		0,11,0,12,0,15,1,0,1,0,1,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,5,2,29,8,2,
+		10,2,12,2,32,9,2,1,3,1,3,1,3,1,3,1,3,1,3,5,3,40,8,3,10,3,12,3,43,9,3,1,
+		4,1,4,1,4,1,4,1,4,3,4,50,8,4,1,5,1,5,1,5,0,2,4,6,6,0,2,4,6,8,10,0,0,51,
+		0,13,1,0,0,0,2,19,1,0,0,0,4,22,1,0,0,0,6,33,1,0,0,0,8,49,1,0,0,0,10,51,
+		1,0,0,0,12,14,3,2,1,0,13,12,1,0,0,0,14,15,1,0,0,0,15,13,1,0,0,0,15,16,
+		1,0,0,0,16,17,1,0,0,0,17,18,5,0,0,1,18,1,1,0,0,0,19,20,3,4,2,0,20,21,5,
+		7,0,0,21,3,1,0,0,0,22,23,6,2,-1,0,23,24,3,6,3,0,24,30,1,0,0,0,25,26,10,
+		1,0,0,26,27,5,4,0,0,27,29,3,6,3,0,28,25,1,0,0,0,29,32,1,0,0,0,30,28,1,
+		0,0,0,30,31,1,0,0,0,31,5,1,0,0,0,32,30,1,0,0,0,33,34,6,3,-1,0,34,35,3,
+		8,4,0,35,41,1,0,0,0,36,37,10,1,0,0,37,38,5,5,0,0,38,40,3,8,4,0,39,36,1,
+		0,0,0,40,43,1,0,0,0,41,39,1,0,0,0,41,42,1,0,0,0,42,7,1,0,0,0,43,41,1,0,
+		0,0,44,50,3,10,5,0,45,46,5,1,0,0,46,47,3,4,2,0,47,48,5,2,0,0,48,50,1,0,
+		0,0,49,44,1,0,0,0,49,45,1,0,0,0,50,9,1,0,0,0,51,52,5,3,0,0,52,11,1,0,0,
+		0,4,15,30,41,49
 	};
 
 	public static readonly ATN _ATN =

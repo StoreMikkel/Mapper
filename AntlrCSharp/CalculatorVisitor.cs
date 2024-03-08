@@ -56,6 +56,12 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTerm([NotNull] CalculatorParser.TermContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFactor([NotNull] CalculatorParser.FactorContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
