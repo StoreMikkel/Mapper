@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//limbo//Documents//SOFTWARE - UNI//P4//NumberSpeak//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -82,10 +82,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class InputContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext calculation() {
-			return GetRuleContext<CalculationContext>(0);
-		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(CalculatorParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext[] calculation() {
+			return GetRuleContexts<CalculationContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public CalculationContext calculation(int i) {
+			return GetRuleContext<CalculationContext>(i);
+		}
 		public InputContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -103,12 +106,25 @@ public partial class CalculatorParser : Parser {
 	public InputContext input() {
 		InputContext _localctx = new InputContext(Context, State);
 		EnterRule(_localctx, 0, RULE_input);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 12;
-			calculation();
 			State = 13;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			do {
+				{
+				{
+				State = 12;
+				calculation();
+				}
+				}
+				State = 15;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			} while ( _la==NUMBER );
+			State = 17;
 			Match(Eof);
 			}
 		}
@@ -124,8 +140,12 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class CalculationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NEWLINE() { return GetToken(CalculatorParser.NEWLINE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
+			return GetRuleContexts<ExpressionContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression(int i) {
+			return GetRuleContext<ExpressionContext>(i);
 		}
 		public CalculationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -144,11 +164,26 @@ public partial class CalculatorParser : Parser {
 	public CalculationContext calculation() {
 		CalculationContext _localctx = new CalculationContext(Context, State);
 		EnterRule(_localctx, 2, RULE_calculation);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 15;
-			expression(0);
+			State = 20;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			do {
+				{
+				{
+				State = 19;
+				expression(0);
+				}
+				}
+				State = 22;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			} while ( _la==NUMBER );
+			State = 24;
+			Match(NEWLINE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -200,13 +235,13 @@ public partial class CalculatorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 18;
+			State = 27;
 			term();
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 25;
+			State = 34;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,0,Context);
+			_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( ParseListeners!=null )
@@ -216,18 +251,18 @@ public partial class CalculatorParser : Parser {
 					{
 					_localctx = new ExpressionContext(_parentctx, _parentState);
 					PushNewRecursionContext(_localctx, _startState, RULE_expression);
-					State = 20;
+					State = 29;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
-					State = 21;
+					State = 30;
 					Match(OPERATOR);
-					State = 22;
+					State = 31;
 					term();
 					}
 					} 
 				}
-				State = 27;
+				State = 36;
 				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,0,Context);
+				_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			}
 			}
 		}
@@ -249,7 +284,9 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number(int i) {
 			return GetRuleContext<NumberContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR() { return GetToken(CalculatorParser.OPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public OperatorContext @operator() {
+			return GetRuleContext<OperatorContext>(0);
+		}
 		public TermContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -268,14 +305,27 @@ public partial class CalculatorParser : Parser {
 		TermContext _localctx = new TermContext(Context, State);
 		EnterRule(_localctx, 6, RULE_term);
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 28;
-			number();
-			State = 29;
-			Match(OPERATOR);
-			State = 30;
-			number();
+			State = 42;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
+			case 1:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 37;
+				number();
+				State = 38;
+				@operator();
+				State = 39;
+				number();
+				}
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 41;
+				number();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -311,7 +361,7 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 32;
+			State = 44;
 			Match(NUMBER);
 			}
 		}
@@ -348,7 +398,7 @@ public partial class CalculatorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 34;
+			State = 46;
 			Match(OPERATOR);
 			}
 		}
@@ -377,15 +427,19 @@ public partial class CalculatorParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,4,37,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,1,0,1,
-		1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,5,2,24,8,2,10,2,12,2,27,9,2,1,3,1,3,1,3,
-		1,3,1,4,1,4,1,5,1,5,1,5,0,1,4,6,0,2,4,6,8,10,0,0,31,0,12,1,0,0,0,2,15,
-		1,0,0,0,4,17,1,0,0,0,6,28,1,0,0,0,8,32,1,0,0,0,10,34,1,0,0,0,12,13,3,2,
-		1,0,13,14,5,0,0,1,14,1,1,0,0,0,15,16,3,4,2,0,16,3,1,0,0,0,17,18,6,2,-1,
-		0,18,19,3,6,3,0,19,25,1,0,0,0,20,21,10,1,0,0,21,22,5,2,0,0,22,24,3,6,3,
-		0,23,20,1,0,0,0,24,27,1,0,0,0,25,23,1,0,0,0,25,26,1,0,0,0,26,5,1,0,0,0,
-		27,25,1,0,0,0,28,29,3,8,4,0,29,30,5,2,0,0,30,31,3,8,4,0,31,7,1,0,0,0,32,
-		33,5,1,0,0,33,9,1,0,0,0,34,35,5,2,0,0,35,11,1,0,0,0,1,25
+		4,1,4,49,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,4,0,14,8,
+		0,11,0,12,0,15,1,0,1,0,1,1,4,1,21,8,1,11,1,12,1,22,1,1,1,1,1,2,1,2,1,2,
+		1,2,1,2,1,2,5,2,33,8,2,10,2,12,2,36,9,2,1,3,1,3,1,3,1,3,1,3,3,3,43,8,3,
+		1,4,1,4,1,5,1,5,1,5,0,1,4,6,0,2,4,6,8,10,0,0,46,0,13,1,0,0,0,2,20,1,0,
+		0,0,4,26,1,0,0,0,6,42,1,0,0,0,8,44,1,0,0,0,10,46,1,0,0,0,12,14,3,2,1,0,
+		13,12,1,0,0,0,14,15,1,0,0,0,15,13,1,0,0,0,15,16,1,0,0,0,16,17,1,0,0,0,
+		17,18,5,0,0,1,18,1,1,0,0,0,19,21,3,4,2,0,20,19,1,0,0,0,21,22,1,0,0,0,22,
+		20,1,0,0,0,22,23,1,0,0,0,23,24,1,0,0,0,24,25,5,4,0,0,25,3,1,0,0,0,26,27,
+		6,2,-1,0,27,28,3,6,3,0,28,34,1,0,0,0,29,30,10,1,0,0,30,31,5,2,0,0,31,33,
+		3,6,3,0,32,29,1,0,0,0,33,36,1,0,0,0,34,32,1,0,0,0,34,35,1,0,0,0,35,5,1,
+		0,0,0,36,34,1,0,0,0,37,38,3,8,4,0,38,39,3,10,5,0,39,40,3,8,4,0,40,43,1,
+		0,0,0,41,43,3,8,4,0,42,37,1,0,0,0,42,41,1,0,0,0,43,7,1,0,0,0,44,45,5,1,
+		0,0,45,9,1,0,0,0,46,47,5,2,0,0,47,11,1,0,0,0,4,15,22,34,42
 	};
 
 	public static readonly ATN _ATN =

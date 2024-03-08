@@ -23,26 +23,48 @@ namespace AntlrCSharp
 
         public override object VisitExpression( ExpressionContext context)
         {
-            NumberContext[] number = context.number();
-
-            
-            List<string> list = new List<string>();
-        
-            foreach (var element in number)
-            {
-             list.Add(element.GetText().Trim('"'));
-            }
-            String[] str = list.ToArray();
+            TermContext str = context.term();
             string op = context.OPERATOR().GetText();
 
-            string[] operatorArr = [op];
-            CalculatorLine line = new CalculatorLine() {Numbers = str, Operators = operatorArr };
+            NumberContext[] expressionNumbers = context.expression().term().number();
+            OperatorContext expressionOperator = context.expression().term().@operator();
+            int expressionResult = 0;
+            int NumberExpression1 = int.Parse(expressionNumbers[0].GetText());
+            int NumberExpression2 = int.Parse(expressionNumbers[1].GetText());
+            switch(expressionOperator.GetText()){
+                case "+":
+                    expressionResult = NumberExpression1 + NumberExpression2;
+                    break;
+                case "-":
+                    expressionResult = NumberExpression1 - NumberExpression2;
+                    break;
+                case "/":
+                    expressionResult = NumberExpression1 / NumberExpression2;
+                    break;
+                case "*":
+                    expressionResult = NumberExpression1 * NumberExpression2;
+                    break;
+            }
+
+            int result = 0;
+            int termInt = int.Parse(str.GetText());
+            switch(op){
+                case "+":
+                    result = expressionResult + termInt;
+                    break;
+                case "-":
+                    result = expressionResult - termInt;
+                    break;
+                case "/":
+                    result = expressionResult / termInt;
+                    break;
+                case "*":
+                    result = expressionResult * termInt;
+                    break;
+            }
 
 
-            /*
-            string[] strArr = [number.GetText()];
-            CalculatorLine line = new CalculatorLine() {Numbers = strArr };
-            */
+            CalculatorLine line = new CalculatorLine() {Result = result};
             Lines.Add(line);
 
             return line;

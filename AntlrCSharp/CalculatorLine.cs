@@ -8,7 +8,7 @@ namespace AntlrCSharp
 {
     public class CalculatorLine
     {
-        public string[] Numbers { get; set; }
-        public string[] Operators { get; set; }
+        public int Result { get; set; }
+        
     }
 }

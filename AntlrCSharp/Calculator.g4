@@ -2,10 +2,10 @@ grammar Calculator;
 
 /*Parser Rules*/
 
-input       : calculation EOF ;
-calculation : expression;
+input       : calculation+ EOF;
+calculation : expression+ NEWLINE;
 expression  : term | expression OPERATOR term;
-term        : number OPERATOR number;
+term        : number operator number | number;
 number      : NUMBER ;
 operator    : OPERATOR ;
 

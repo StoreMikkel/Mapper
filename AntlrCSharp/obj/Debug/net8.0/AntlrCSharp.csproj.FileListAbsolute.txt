@@ -16,3 +16,21 @@ C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
 C:\Users\limbo\Documents\SOFTWARE - UNI\P4\NumberSpeak\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.sourcelink.json
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.csproj.AssemblyReference.cache
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.AssemblyInfoInputs.cache
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.AssemblyInfo.cs
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.csproj.CoreCompileInputs.cache
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.sourcelink.json
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.dll
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\refint\AntlrCSharp.dll
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.exe
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.deps.json
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.runtimeconfig.json
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.dll
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.pdb
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\Antlr4.Runtime.Standard.dll
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSh.17F4D0D3.Up2Date
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll

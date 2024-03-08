@@ -20,7 +20,7 @@ namespace AntlrCSharp
                 StringBuilder text = new StringBuilder();
                 Console.WriteLine("Input the calculation.");
 
-                string fileLocation = @"C:\Users\limbo\Documents\calcLangTest.txt";
+                string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
                 string[] lines = File.ReadAllLines(fileLocation);
             
                 foreach(var element in lines)
@@ -47,23 +47,14 @@ namespace AntlrCSharp
                 foreach(var line in visitor.Lines)
                 {
                     Console.WriteLine("New line");
-                    foreach (var element in line.Numbers)
-                    {
-                        Console.WriteLine("{0}", element);
-                    }
-                    foreach(var element in line.Operators)
-                    {
-                        Console.WriteLine("{0}", element);
-                    }
+                    Console.WriteLine("Expression: {0}", line.Result);
+                   
                     
-                }
-                /*
-                foreach(var line in visitor.Lines)
-                {
-                    int number1 = int.Parse(line.Number1);
-                    int number2 = int.Parse(line.Number2);
+                    /*
+                    int number1 = int.Parse(line.expression);
+                    int number2 = int.Parse(line.Numbers);
                     int result = 0;
-                    switch(line.Operator){
+                    switch(line.Operators){
                         case "+":
                             result = number1 + number2;
                             break;
@@ -77,9 +68,10 @@ namespace AntlrCSharp
                             result = number1 * number2;
                             break;
                     }
-                    Console.WriteLine("{0}", result);
+                    Console.WriteLine("Result is: {0}", result);
+                    */
                 }
-                */
+                
             }
             catch (Exception ex)
             {                
