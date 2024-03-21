@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c:/Users/ajapo/Desktop/Repositories/CalculatorLanguage/AntlrCSharp/Calculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -44,15 +44,27 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCalculation([NotNull] CalculatorParser.CalculationContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExpression([NotNull] CalculatorParser.ExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTerm([NotNull] CalculatorParser.TermContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFactor([NotNull] CalculatorParser.FactorContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNumber([NotNull] CalculatorParser.NumberContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.operator"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOperator([NotNull] CalculatorParser.OperatorContext context);
 }

@@ -13,65 +13,19 @@ namespace AntlrCSharp
 {
     class Program
     {
-        private static void Main(string[] args)
-        {
-            try
-            {
-                string input = "";
-                StringBuilder text = new StringBuilder();
-                Console.WriteLine("Input the calculation.");
+        public static void Main(string[] args)
+    {
+        string input =  "1 + 2 + 3 + 3 + 1 + 2 + 2 + 2\n" +
+                        "5 + 5 * 10\n"; // Example input with multiple calculations
+        AntlrInputStream inputStream = new AntlrInputStream(input);
+        CalculatorLexer lexer = new CalculatorLexer(inputStream);
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        CalculatorParser parser = new CalculatorParser(tokenStream);
+        IParseTree tree = parser.input();
+        Console.WriteLine("h");
 
-
-                string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
-                string[] lines = File.ReadAllLines(fileLocation);
-            
-                foreach(var element in lines)
-                {
-                    text.AppendLine(element);
-                }
-
-                // to type the EOF character and end the input: use CTRL+D, then press <enter>
-                //while ((input = Console.ReadLine()) != "=")
-                //{
-                //    text.AppendLine(input);
-                //}
-                
-                AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-                CalculatorLexer calculatorLexer = new CalculatorLexer(inputStream);
-                CommonTokenStream commonTokenStream = new CommonTokenStream(calculatorLexer);
-                CalculatorParser calculatorParser = new CalculatorParser(commonTokenStream);
-                
-
-                CalculatorParser.InputContext inputContext = calculatorParser.input();                
-                BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();                
-                visitor.Visit(inputContext);                
-
-                foreach(var line in visitor.Lines)
-                {
-                    int number1 = int.Parse(line.Number1);
-                    int number2 = int.Parse(line.Number2);
-                    int result = 0;
-                    switch(line.Operator){
-                        case "+":
-                            result = number1 + number2;
-                            break;
-                        case "-":
-                            result = number1 - number2;
-                            break;
-                        case "/":
-                            result = number1 / number2;
-                            break;
-                        case "*":
-                            result = number1 * number2;
-                            break;
-                    }
-                    Console.WriteLine("{0}", result);
-                }
-            }
-            catch (Exception ex)
-            {                
-                Console.WriteLine("Error: " + ex);                
-            }
-        }
+        BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+        visitor.Visit(tree);
+    }
     }
 }

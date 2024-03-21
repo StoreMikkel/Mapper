@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bja9Wjfdg+fl26iyEjF3EnL6G8/uaBqPBSboHABzao06CBm1d0v5P5Kd3R3gsdlZalz8sZ0k0V0L3afRXBl24g==",
+  "dgSpecHash": "9N6Hg4pefMpNOFe5hFvV7qlOAYGIxssQdcrAMbEl+Lp6HyU8/yxSekRBlvD8UNEAwsMtYNK+qkQ1FgAEvfvKRA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+  "projectFilePath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Mikkel\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
+    "C:\\Users\\ajapo\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
   ],
   "logs": []
 }
