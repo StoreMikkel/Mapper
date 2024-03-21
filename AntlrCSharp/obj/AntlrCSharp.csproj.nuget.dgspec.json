@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {}
+    "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
+    "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+        "projectUniqueName": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
         "projectName": "AntlrCSharp",
-        "projectPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
-        "packagesPath": "C:\\Users\\ajapo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\obj\\",
+        "projectPath": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+        "packagesPath": "C:\\Users\\limbo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ajapo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\limbo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
