@@ -8,5 +8,6 @@ LPAREN=7
 RPAREN=8
 IF=9
 ELSE=10
+TAB=11
 '('=7
 ')'=8
