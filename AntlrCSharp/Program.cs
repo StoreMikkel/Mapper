@@ -15,9 +15,15 @@ namespace AntlrCSharp
     {
         public static void Main(string[] args)
     {
-        string input =  "1 + 2 + 3 + 3 + 1 + 2 + 2 + 2\n" +
-                        "5 + 5 * 10\n"; // Example input with multiple calculations
-        AntlrInputStream inputStream = new AntlrInputStream(input);
+        StringBuilder text = new StringBuilder();
+        string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
+                string[] lines = File.ReadAllLines(fileLocation);
+            
+                foreach(var element in lines)
+                {
+                    text.AppendLine(element);
+                }
+        AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
         CalculatorLexer lexer = new CalculatorLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(tokenStream);
