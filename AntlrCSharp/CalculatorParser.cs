@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//limbo//Documents//SOFTWARE - UNI//P4//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -36,8 +36,8 @@ public partial class CalculatorParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, NUMBER=3, OPERATOR1=4, OPERATOR2=5, LOGOPERATOR=6, WHITESPACE=7, 
-		NEWLINE=8, LPAREN=9, RPAREN=10, IF=11, ELSE=12;
+		NUMBER=1, OPERATOR1=2, OPERATOR2=3, LOGOPERATOR=4, WHITESPACE=5, NEWLINE=6, 
+		LPAREN=7, RPAREN=8, IF=9, ELSE=10;
 	public const int
 		RULE_input = 0, RULE_statement = 1, RULE_ifStatement = 2, RULE_condition = 3, 
 		RULE_calculation = 4, RULE_expression = 5, RULE_term = 6, RULE_factor = 7, 
@@ -48,10 +48,10 @@ public partial class CalculatorParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'('", "')'"
+		null, null, null, null, null, null, null, "'('", "')'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, "NUMBER", "OPERATOR1", "OPERATOR2", "LOGOPERATOR", "WHITESPACE", 
+		null, "NUMBER", "OPERATOR1", "OPERATOR2", "LOGOPERATOR", "WHITESPACE", 
 		"NEWLINE", "LPAREN", "RPAREN", "IF", "ELSE"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
@@ -128,7 +128,7 @@ public partial class CalculatorParser : Parser {
 				State = 21;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 2058L) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 642L) != 0) );
 			State = 23;
 			Match(Eof);
 			}
@@ -179,8 +179,8 @@ public partial class CalculatorParser : Parser {
 				ifStatement();
 				}
 				break;
-			case T__0:
 			case NUMBER:
+			case LPAREN:
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 26;
@@ -527,9 +527,11 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
 			return GetRuleContext<NumberContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LPAREN() { return GetToken(CalculatorParser.LPAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RPAREN() { return GetToken(CalculatorParser.RPAREN, 0); }
 		public FactorContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -558,15 +560,15 @@ public partial class CalculatorParser : Parser {
 				number();
 				}
 				break;
-			case T__0:
+			case LPAREN:
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 69;
-				Match(T__0);
+				Match(LPAREN);
 				State = 70;
 				expression(0);
 				State = 71;
-				Match(T__1);
+				Match(RPAREN);
 				}
 				break;
 			default:
@@ -642,7 +644,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,12,78,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,10,78,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,2,8,7,8,1,0,4,0,20,8,0,11,0,12,0,21,1,0,1,0,1,1,1,1,3,1,28,8,1,1,2,
 		1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,38,8,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,5,
 		1,5,1,5,1,5,1,5,1,5,5,5,53,8,5,10,5,12,5,56,9,5,1,6,1,6,1,6,1,6,1,6,1,
@@ -651,18 +653,18 @@ public partial class CalculatorParser : Parser {
 		29,1,0,0,0,6,39,1,0,0,0,8,43,1,0,0,0,10,46,1,0,0,0,12,57,1,0,0,0,14,73,
 		1,0,0,0,16,75,1,0,0,0,18,20,3,2,1,0,19,18,1,0,0,0,20,21,1,0,0,0,21,19,
 		1,0,0,0,21,22,1,0,0,0,22,23,1,0,0,0,23,24,5,0,0,1,24,1,1,0,0,0,25,28,3,
-		4,2,0,26,28,3,8,4,0,27,25,1,0,0,0,27,26,1,0,0,0,28,3,1,0,0,0,29,30,5,11,
-		0,0,30,31,5,9,0,0,31,32,3,6,3,0,32,33,5,10,0,0,33,34,5,8,0,0,34,37,3,2,
-		1,0,35,36,5,12,0,0,36,38,3,2,1,0,37,35,1,0,0,0,37,38,1,0,0,0,38,5,1,0,
-		0,0,39,40,3,10,5,0,40,41,5,6,0,0,41,42,3,10,5,0,42,7,1,0,0,0,43,44,3,10,
-		5,0,44,45,5,8,0,0,45,9,1,0,0,0,46,47,6,5,-1,0,47,48,3,12,6,0,48,54,1,0,
-		0,0,49,50,10,1,0,0,50,51,5,4,0,0,51,53,3,12,6,0,52,49,1,0,0,0,53,56,1,
+		4,2,0,26,28,3,8,4,0,27,25,1,0,0,0,27,26,1,0,0,0,28,3,1,0,0,0,29,30,5,9,
+		0,0,30,31,5,7,0,0,31,32,3,6,3,0,32,33,5,8,0,0,33,34,5,6,0,0,34,37,3,2,
+		1,0,35,36,5,10,0,0,36,38,3,2,1,0,37,35,1,0,0,0,37,38,1,0,0,0,38,5,1,0,
+		0,0,39,40,3,10,5,0,40,41,5,4,0,0,41,42,3,10,5,0,42,7,1,0,0,0,43,44,3,10,
+		5,0,44,45,5,6,0,0,45,9,1,0,0,0,46,47,6,5,-1,0,47,48,3,12,6,0,48,54,1,0,
+		0,0,49,50,10,1,0,0,50,51,5,2,0,0,51,53,3,12,6,0,52,49,1,0,0,0,53,56,1,
 		0,0,0,54,52,1,0,0,0,54,55,1,0,0,0,55,11,1,0,0,0,56,54,1,0,0,0,57,58,6,
-		6,-1,0,58,59,3,14,7,0,59,65,1,0,0,0,60,61,10,1,0,0,61,62,5,5,0,0,62,64,
+		6,-1,0,58,59,3,14,7,0,59,65,1,0,0,0,60,61,10,1,0,0,61,62,5,3,0,0,62,64,
 		3,14,7,0,63,60,1,0,0,0,64,67,1,0,0,0,65,63,1,0,0,0,65,66,1,0,0,0,66,13,
-		1,0,0,0,67,65,1,0,0,0,68,74,3,16,8,0,69,70,5,1,0,0,70,71,3,10,5,0,71,72,
-		5,2,0,0,72,74,1,0,0,0,73,68,1,0,0,0,73,69,1,0,0,0,74,15,1,0,0,0,75,76,
-		5,3,0,0,76,17,1,0,0,0,6,21,27,37,54,65,73
+		1,0,0,0,67,65,1,0,0,0,68,74,3,16,8,0,69,70,5,7,0,0,70,71,3,10,5,0,71,72,
+		5,8,0,0,72,74,1,0,0,0,73,68,1,0,0,0,73,69,1,0,0,0,74,15,1,0,0,0,75,76,
+		5,1,0,0,76,17,1,0,0,0,6,21,27,37,54,65,73
 	};
 
 	public static readonly ATN _ATN =

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {}
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+        "projectUniqueName": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
         "projectName": "AntlrCSharp",
-        "projectPath": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
-        "packagesPath": "C:\\Users\\limbo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\limbo\\Documents\\SOFTWARE - UNI\\P4\\CalculatorLanguage\\AntlrCSharp\\obj\\",
+        "projectPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+        "packagesPath": "C:\\Users\\Mikkel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\limbo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Mikkel\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

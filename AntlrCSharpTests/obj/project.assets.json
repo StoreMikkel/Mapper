@@ -1044,19 +1044,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ajapo\\.nuget\\packages\\": {}
+    "C:\\Users\\Mikkel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
+      "projectUniqueName": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
       "projectName": "AntlrCSharpTests",
-      "projectPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
-      "packagesPath": "C:\\Users\\ajapo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharpTests\\obj\\",
+      "projectPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
+      "packagesPath": "C:\\Users\\Mikkel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharpTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ajapo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Mikkel\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1068,8 +1068,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
-              "projectPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj"
+            "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
+              "projectPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj"
             }
           }
         }

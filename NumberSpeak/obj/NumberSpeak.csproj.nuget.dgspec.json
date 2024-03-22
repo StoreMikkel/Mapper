@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {}
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
+        "projectUniqueName": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
         "projectName": "NumberSpeak",
-        "projectPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
-        "packagesPath": "C:\\Users\\ajapo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\NumberSpeak\\obj\\",
+        "projectPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
+        "packagesPath": "C:\\Users\\Mikkel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ajapo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Mikkel\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

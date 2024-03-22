@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AntlrCSharp
-build_property.ProjectDir = c:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\
+build_property.ProjectDir = C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
