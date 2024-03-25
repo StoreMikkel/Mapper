@@ -5,19 +5,24 @@ input            : statement+ EOF;
 
 statement        : calculation 
                  | ifStatement
-                 | whileStatement;
+                 | whileStatement
+                 | variableDeclaration
+                 | variableAssignment;
 
 calculation      : expression NEWLINE;
 
 expression       : term
                  | expression OPERATOR1 term
-                 | expression COMPARISON_OPERATOR term; // Added comparison operator
+                 | expression COMPARISON_OPERATOR term
+                 | IDENTIFIER; // Added comparison operator
 
 term             : factor
-                 | term OPERATOR2 factor;
+                 | term OPERATOR2 factor
+                 | IDENTIFIER;
 
 factor           : number
-                 | '(' expression ')';
+                 | '(' expression ')'
+                 |IDENTIFIER;
 
 number           : NUMBER;
 
@@ -27,6 +32,10 @@ condition        : '(' expression ')';
 
 whileStatement   : 'while' condition '{' statement* '}';
 
+variableDeclaration : 'var' IDENTIFIER '=' expression NEWLINE;
+
+variableAssignment : IDENTIFIER '=' expression NEWLINE;
+
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
@@ -35,3 +44,4 @@ COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added compariso
 IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
 WHITESPACE       : (' '|'\t')+ -> skip;
 NEWLINE          : ('\r'? '\n' | '\r')+ ;
+KEYWORD          : ('var');

@@ -24,11 +24,12 @@ namespace AntlrCSharp
              }*/
 
     
-        //string input =  "(1 + 2 + 3 + 3 + 1 + 2 + 2 + 2)*2\n" + "(5 + 5) * 10\n"; // Example input with multiple calculations
+        string input =  "(1 + 2 + 3 + 3 + 1 + 2 + 2 + 2)*2\n" + "(5 + 5) * 10\n" +
+         "var a = 5*5\n     var b = a + 5\n     var c = a*b\n   c\n"; // Example input with multiple calculations
 
-        /*string input2 = "if (2 > 3) { 2 + 3 \n} else{4+6\n}";
+        //string input2 = "var a = 5\n var b = 3\n" + "if (a > b) { a - 1 \n} else{4+6\n}";
 
-        AntlrInputStream inputStream = new AntlrInputStream(input2);
+        AntlrInputStream inputStream = new AntlrInputStream(input);
         CalculatorLexer lexer = new CalculatorLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(tokenStream);
@@ -38,12 +39,11 @@ namespace AntlrCSharp
         BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
         visitor.Visit(tree);
 
-        IParseTree parseTree = parser.input(); // Replace 'StartRule' with the name of your parser rule
-        Console.WriteLine(parseTree.ToStringTree(parser));*/
+        
 
 
 
-        string input = "if (6 > 5) {6 + 1\n} else { 6 - 1\n}";
+        /*string input = "if (6 > 5) {6 + 1\n} else { 6 - 1\n}";
 
         var inputStream = new AntlrInputStream(input);
         var lexer = new CalculatorLexer(inputStream);
@@ -63,7 +63,7 @@ namespace AntlrCSharp
         // Write the transpiled C# code to the file
         File.WriteAllText(outputFile, result);
 
-        Console.WriteLine("Transpilation completed. Output saved to: " + outputFile);
+        Console.WriteLine("Transpilation completed. Output saved to: " + outputFile);*/
 
         }
     

@@ -29,6 +29,19 @@ namespace AntlrCSharp
 
     public override object VisitExpression(CalculatorParser.ExpressionContext context)
 {
+        if (context.IDENTIFIER() != null)
+            {
+                string identifier = context.IDENTIFIER().GetText();
+                if (variables.ContainsKey(identifier))
+                {
+                    return variables[identifier];
+                }
+                else
+                {
+                    throw new Exception("Variable " + identifier + " not defined.");
+                }
+            }
+
     if (context.OPERATOR1() != null)
     {
         object left = Visit(context.expression());
@@ -65,6 +78,18 @@ namespace AntlrCSharp
 
     public override object VisitTerm(CalculatorParser.TermContext context)
     {
+        if (context.IDENTIFIER() != null)
+            {
+                string identifier = context.IDENTIFIER().GetText();
+                if (variables.ContainsKey(identifier))
+                {
+                    return variables[identifier];
+                }
+                else
+                {
+                    throw new Exception("Variable " + identifier + " not defined.");
+                }
+            }
         if (context.OPERATOR2() != null)
         {
             object left = Visit(context.term());
@@ -78,6 +103,18 @@ namespace AntlrCSharp
 
     public override object VisitFactor(CalculatorParser.FactorContext context)
     {
+        if (context.IDENTIFIER() != null)
+            {
+                string identifier = context.IDENTIFIER().GetText();
+                if (variables.ContainsKey(identifier))
+                {
+                    return variables[identifier];
+                }
+                else
+                {
+                    throw new Exception("Variable " + identifier + " not defined.");
+                }
+            }
         if (context.number() != null)
         {
             return int.Parse(context.number().GetText());
@@ -116,6 +153,22 @@ namespace AntlrCSharp
     }
     return result;
 }
+
+public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            object value = Visit(context.expression());
+            variables[identifier] = value;
+            return value;
+        }
+
+        public override object VisitVariableAssignment(CalculatorParser.VariableAssignmentContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            object value = Visit(context.expression());
+            variables[identifier] = value;
+            return value;
+        }
 
     public override object VisitNumber(CalculatorParser.NumberContext context)
     {
