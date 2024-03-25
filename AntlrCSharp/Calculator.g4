@@ -14,15 +14,18 @@ calculation      : expression NEWLINE;
 expression       : term
                  | expression OPERATOR1 term
                  | expression COMPARISON_OPERATOR term
-                 | IDENTIFIER; // Added comparison operator
+                 | IDENTIFIER
+                 | STRING_LITERAL; // Added comparison operator
 
 term             : factor
                  | term OPERATOR2 factor
-                 | IDENTIFIER;
+                 | IDENTIFIER
+                 | STRING_LITERAL;
 
 factor           : number
                  | '(' expression ')'
-                 |IDENTIFIER;
+                 | IDENTIFIER
+                 | STRING_LITERAL;
 
 number           : NUMBER;
 
@@ -32,7 +35,7 @@ condition        : '(' expression ')';
 
 whileStatement   : 'while' condition '{' statement* '}';
 
-variableDeclaration : 'var' IDENTIFIER '=' expression NEWLINE;
+variableDeclaration : TYPE IDENTIFIER '=' expression NEWLINE;
 
 variableAssignment : IDENTIFIER '=' expression NEWLINE;
 
@@ -43,5 +46,7 @@ OPERATOR2        : ('/' | '*');
 COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
 IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
 WHITESPACE       : (' '|'\t')+ -> skip;
-NEWLINE          : ('\r'? '\n' | '\r')+ ;
-KEYWORD          : ('var');
+NEWLINE          : ('\n'| '\r')+;
+STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
+/*TYPE declarations */
+TYPE             : ('int '|'double '|'string ');

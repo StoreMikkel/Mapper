@@ -40,7 +40,10 @@ namespace AntlrCSharp
                 {
                     throw new Exception("Variable " + identifier + " not defined.");
                 }
-            }
+            }else if (context.STRING_LITERAL() != null)
+        {
+            return context.STRING_LITERAL().GetText(); // Return the string literal
+        }
 
     if (context.OPERATOR1() != null)
     {
@@ -50,8 +53,8 @@ namespace AntlrCSharp
             throw new InvalidOperationException("Invalid expression: sub-expression is null.");
 
         string op = context.OPERATOR1().GetText();
-        if (op == "+") return (int)left + (int)right;
-        else if (op == "-") return (int)left - (int)right;
+        if (op == "+") return (double)left + (double)right;
+        else if (op == "-") return (double)left - (double)right;
     }
     else if (context.COMPARISON_OPERATOR() != null)
     {
@@ -63,12 +66,12 @@ namespace AntlrCSharp
         string op = context.COMPARISON_OPERATOR().GetText();
         switch (op)
         {
-            case ">": return (int)left > (int)right;
-            case "<": return (int)left < (int)right;
-            case "==": return (int)left == (int)right;
-            case "!=": return (int)left != (int)right;
-            case ">=": return (int)left >= (int)right;
-            case "<=": return (int)left <= (int)right;
+            case ">": return (double)left > (double)right;
+            case "<": return (double)left < (double)right;
+            case "==": return (double)left == (double)right;
+            case "!=": return (double)left != (double)right;
+            case ">=": return (double)left >= (double)right;
+            case "<=": return (double)left <= (double)right;
             default:
                 throw new InvalidOperationException("Invalid comparison operator: " + op);
         }
@@ -89,14 +92,18 @@ namespace AntlrCSharp
                 {
                     throw new Exception("Variable " + identifier + " not defined.");
                 }
-            }
+            }else if (context.STRING_LITERAL() != null)
+        {
+            return context.STRING_LITERAL().GetText(); // Return the string literal
+        }
+
         if (context.OPERATOR2() != null)
         {
             object left = Visit(context.term());
             object right = Visit(context.factor());
             string op = context.OPERATOR2().GetText();
-            if (op == "*") return (int)left * (int)right;
-            else if (op == "/") return (int)left / (int)right;
+            if (op == "*") return (double)left * (double)right;
+            else if (op == "/") return (double)left / (double)right;
         }
         return Visit(context.factor());
     }
@@ -114,10 +121,13 @@ namespace AntlrCSharp
                 {
                     throw new Exception("Variable " + identifier + " not defined.");
                 }
-            }
+            }else if (context.STRING_LITERAL() != null)
+        {
+            return context.STRING_LITERAL().GetText(); // Return the string literal
+        }
         if (context.number() != null)
         {
-            return int.Parse(context.number().GetText());
+            return double.Parse(context.number().GetText());
         }
         else
         {
@@ -142,7 +152,7 @@ namespace AntlrCSharp
     public override object VisitWhileStatement(CalculatorParser.WhileStatementContext context)
 {
     object result = null;
-    while ((int)Visit(context.condition()) != 0)
+    while ((double)Visit(context.condition()) != 0)
     {
         foreach (var statement in context.statement())
         {
@@ -155,24 +165,52 @@ namespace AntlrCSharp
 }
 
 public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context)
-        {
-            string identifier = context.IDENTIFIER().GetText();
-            object value = Visit(context.expression());
-            variables[identifier] = value;
-            return value;
+    {
+        string identifier = context.IDENTIFIER().GetText();
+        object value = Visit(context.expression());
+
+        // Add type checking for variable declaration
+        if (value is double && context.TYPE().GetText() == "int ")
+        { // If the declared type is int but the value is double, convert it to int
+            value = (int)(double)value;
+        }else if(value is double && context.TYPE().GetText()=="string " || value is int && context.TYPE().GetText()=="string "){
+            throw new Exception ("Type mismatch in variable declaration, value is double/int, declarations is string: " + identifier);
+        }else if(value is string && context.TYPE().GetText()=="int " || value is string && context.TYPE().GetText()=="double "){
+            throw new Exception ("Type mismatch in variable declaration, value is string, declarations is int/double: " + identifier);
         }
 
+        variables[identifier] = value;
+        return value;
+    }
+
         public override object VisitVariableAssignment(CalculatorParser.VariableAssignmentContext context)
+    {
+        string identifier = context.IDENTIFIER().GetText();
+        object value = Visit(context.expression());
+
+        // Add type checking for variable assignment
+        if (value is double && variables[identifier] is int)
         {
-            string identifier = context.IDENTIFIER().GetText();
-            object value = Visit(context.expression());
-            variables[identifier] = value;
-            return value;
+            // If the assigned value is double but the variable type is int, convert it to int
+            variables[identifier] = (int)(double)value;
         }
+        else if (value is int && variables[identifier] is double)
+        {
+            // If the assigned value is int but the variable type is double, convert it to double
+            variables[identifier] = (double)(int)value;
+        }
+        else if (value.GetType() != variables[identifier].GetType())
+        {
+            // If the assigned value and variable type do not match, throw an exception
+            throw new Exception("Type mismatch in variable assignment for variable " + identifier);
+        }
+
+        return value;
+    }
 
     public override object VisitNumber(CalculatorParser.NumberContext context)
     {
-        return int.Parse(context.NUMBER().GetText());
+        return double.Parse(context.NUMBER().GetText());
     }
 
 }

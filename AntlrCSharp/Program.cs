@@ -15,21 +15,19 @@ namespace AntlrCSharp
     {
         public static void Main(string[] args){
 
-         /*StringBuilder text = new StringBuilder();
+         StringBuilder text = new StringBuilder();
          string fileLocation = @"C:\Users\ajapo\Desktop\yeppers.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
                 text.AppendLine(element);
-             }*/
-
-    
-        string input =  "(1 + 2 + 3 + 3 + 1 + 2 + 2 + 2)*2\n" + "(5 + 5) * 10\n" +
-         "var a = 5*5\n     var b = a + 5\n     var c = a*b\n   c\n"; // Example input with multiple calculations
+             }
+        //string input =  "(1 + 2 + 3 + 3 + 1 + 2 + 2 + 2)*2\n" + "(5 + 5) * 10\n" +
+        //"double a = 5*5.5\n     double b = a + 5\n     double c = a/b\n   c\n string d = 'asd'\n d\n "; // Example input with multiple calculations
 
         //string input2 = "var a = 5\n var b = 3\n" + "if (a > b) { a - 1 \n} else{4+6\n}";
 
-        AntlrInputStream inputStream = new AntlrInputStream(input);
+        AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
         CalculatorLexer lexer = new CalculatorLexer(inputStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(tokenStream);
