@@ -14,6 +14,7 @@ namespace AntlrCSharp
 {
     public class BasicCalculatorVisitor : CalculatorBaseVisitor<object>
     {
+        Hashtable symbol_table = new Hashtable();
         //List of Lines to visit
         public override object VisitCalculation(CalculatorParser.CalculationContext context)
         {
@@ -111,11 +112,30 @@ namespace AntlrCSharp
             {
                 return Visit(context.expression());
             }
+            else if(context.id() != null)
+            {
+                return Visit(context.id());
+            }
             else
             {
                 // Handle other cases (e.g., unary operators)
                 return null;
             }
+        }
+
+        public override object VisitAssignment(CalculatorParser.AssignmentContext context)
+        {
+            object expression = Visit(context.expression());
+            symbol_table.Add(context.ID().GetText(), (dynamic)expression);
+            Console.WriteLine("Added " + context.ID().GetText() + " = " + (dynamic)expression);
+            return 0;
+        }
+
+        public override object VisitId(CalculatorParser.IdContext context)
+        {
+            //Lookup value in table
+            Console.WriteLine("Returning " + context.ID().GetText() + " = " + symbol_table[context.ID().GetText()]);
+            return symbol_table[context.ID().GetText()];
         }
 
     }
