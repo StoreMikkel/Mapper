@@ -53,8 +53,8 @@ namespace AntlrCSharp
             throw new InvalidOperationException("Invalid expression: sub-expression is null.");
 
         string op = context.OPERATOR1().GetText();
-        if (op == "+") return (double)left + (double)right;
-        else if (op == "-") return (double)left - (double)right;
+        if (op == "+") return (dynamic)left + (dynamic)right;
+        else if (op == "-") return (dynamic)left - (dynamic)right;
     }
     else if (context.COMPARISON_OPERATOR() != null)
     {
@@ -66,15 +66,18 @@ namespace AntlrCSharp
         string op = context.COMPARISON_OPERATOR().GetText();
         switch (op)
         {
-            case ">": return (double)left > (double)right;
-            case "<": return (double)left < (double)right;
-            case "==": return (double)left == (double)right;
-            case "!=": return (double)left != (double)right;
-            case ">=": return (double)left >= (double)right;
-            case "<=": return (double)left <= (double)right;
+            case ">": return (dynamic)left > (dynamic)right;
+            case "<": return (dynamic)left < (dynamic)right;
+            case "==": return (dynamic)left == (dynamic)right;
+            case "!=": return (dynamic)left != (dynamic)right;
+            case ">=": return (dynamic)left >= (dynamic)right;
+            case "<=": return (dynamic)left <= (dynamic)right;
             default:
                 throw new InvalidOperationException("Invalid comparison operator: " + op);
         }
+    }
+    else if(context.BOOLEAN_LITERAL() != null){
+        return bool.Parse(context.BOOLEAN_LITERAL().GetText());
     }
     return Visit(context.term());
 }
@@ -102,9 +105,12 @@ namespace AntlrCSharp
             object left = Visit(context.term());
             object right = Visit(context.factor());
             string op = context.OPERATOR2().GetText();
-            if (op == "*") return (double)left * (double)right;
-            else if (op == "/") return (double)left / (double)right;
+            if (op == "*") return (dynamic)left * (dynamic)right;
+            else if (op == "/") return (dynamic)left / (dynamic)right;
         }
+        else if(context.BOOLEAN_LITERAL() != null){
+        return bool.Parse(context.BOOLEAN_LITERAL().GetText());
+    }
         return Visit(context.factor());
     }
 
@@ -125,9 +131,12 @@ namespace AntlrCSharp
         {
             return context.STRING_LITERAL().GetText(); // Return the string literal
         }
+        else if(context.BOOLEAN_LITERAL() != null){
+            return bool.Parse(context.BOOLEAN_LITERAL().GetText());
+        }
         if (context.number() != null)
         {
-            return double.Parse(context.number().GetText());
+            return Visit(context.number());
         }
         else
         {
@@ -142,7 +151,7 @@ namespace AntlrCSharp
     {
         return Visit(context.statement(0)); // Visit the 'if' block
     }
-    else if (context.ChildCount > 4) // Check if 'else' block exists
+    else if (context.ELSE() != null) // Check if 'else' block exists
     {
         return Visit(context.statement(1)); // Visit the 'else' block
     }
@@ -152,7 +161,7 @@ namespace AntlrCSharp
     public override object VisitWhileStatement(CalculatorParser.WhileStatementContext context)
 {
     object result = null;
-    while ((double)Visit(context.condition()) != 0)
+    while ((dynamic)Visit(context.condition()) != 0)
     {
         foreach (var statement in context.statement())
         {
@@ -169,16 +178,21 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         string identifier = context.IDENTIFIER().GetText();
         object value = Visit(context.expression());
 
-        // Add type checking for variable declaration
-        if (value is double && context.TYPE().GetText() == "int ")
-        { // If the declared type is int but the value is double, convert it to int
-            value = (int)(double)value;
-        }else if(value is double && context.TYPE().GetText()=="string " || value is int && context.TYPE().GetText()=="string "){
-            throw new Exception ("Type mismatch in variable declaration, value is double/int, declarations is string: " + identifier);
-        }else if(value is string && context.TYPE().GetText()=="int " || value is string && context.TYPE().GetText()=="double "){
-            throw new Exception ("Type mismatch in variable declaration, value is string, declarations is int/double: " + identifier);
+        if(value is int && context.TYPE().GetText() == "double " ){
+            value = (double)(int)value;
         }
 
+        else if(value is double && context.TYPE().GetText() != "double ") {
+            throw new Exception("Type mismatch in variable declaration, value is double, declarations is " + context.TYPE().GetText());
+        }else if (value is int && context.TYPE().GetText() != "int "){
+            throw new Exception ("Type mismatch in variable declaration, value is int, declarations is " + context.TYPE().GetText());
+        }else if (value is string && context.TYPE().GetText() != "string "){
+            throw new Exception ("Type mismatch in variable declaration, value is string, declarations is " + context.TYPE().GetText());
+        }else if (value is Boolean && context.TYPE().GetText() != "boolean "){
+            throw new Exception ("Type mismatch in variable declaration, value is boolean, declarations is " + context.TYPE().GetText());
+        }
+
+        
         variables[identifier] = value;
         return value;
     }
@@ -205,13 +219,82 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
             throw new Exception("Type mismatch in variable assignment for variable " + identifier);
         }
 
+        variables[identifier] = value;
         return value;
     }
 
     public override object VisitNumber(CalculatorParser.NumberContext context)
     {
-        return double.Parse(context.NUMBER().GetText());
+        string numberText = context.NUMBER().GetText();
+
+        if(int.TryParse(numberText, out int intValue)){
+            return intValue;
+        }
+        if(double.TryParse(numberText, out double doublevalue)){
+            return doublevalue;
+        }
+        return 0;
     }
+
+    public override object VisitCrementer(CalculatorParser.CrementerContext context){
+        
+        string identifier = context.IDENTIFIER().GetText();
+        int currentValue = Convert.ToInt32(variables[identifier]);
+       
+        if (context.INCREMENTER() != null)
+        {
+            currentValue++;
+            variables[identifier] = currentValue;
+        }
+        else if (context.DECREMENTER() != null)
+        {
+            currentValue--;
+            variables[identifier] = currentValue;
+        }
+        return currentValue;
+    }
+
+    public override object VisitForLoop(CalculatorParser.ForLoopContext context){
+
+       
+        Visit(context.children[2]);
+        while ((bool)Visit(context.compare())){
+            // Visit the statements inside the for loop
+            foreach (var statement in context.statement())
+            {
+                Visit(statement);
+            }
+            // Visit the increment/decrement part of the for loop
+            Visit(context.crementer());
+        }
+        return null;
+    }
+
+    public override object VisitCompare(CalculatorParser.CompareContext context){
+        
+        if (context.COMPARISON_OPERATOR() != null)
+        {
+            object left = Visit(context.expression());
+            object right = Visit(context.term());
+            if (left == null || right == null)
+                throw new InvalidOperationException("Invalid expression: sub-expression is null.");
+
+            string op = context.COMPARISON_OPERATOR().GetText();
+            switch (op)
+            {
+                case ">": return (dynamic)left > (dynamic)right;
+                case "<": return (dynamic)left < (dynamic)right;
+                case "==": return (dynamic)left == (dynamic)right;
+                case "!=": return (dynamic)left != (dynamic)right;
+                case ">=": return (dynamic)left >= (dynamic)right;
+                case "<=": return (dynamic)left <= (dynamic)right;
+                default:
+                    throw new InvalidOperationException("Invalid comparison operator: " + op);
+            }
+        }
+        return 0;
+    }
+    
 
 }
 }

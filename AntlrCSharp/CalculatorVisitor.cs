@@ -103,4 +103,22 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariableAssignment([NotNull] CalculatorParser.VariableAssignmentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.forLoop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitForLoop([NotNull] CalculatorParser.ForLoopContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.crementer"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCrementer([NotNull] CalculatorParser.CrementerContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.compare"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCompare([NotNull] CalculatorParser.CompareContext context);
 }
