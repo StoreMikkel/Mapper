@@ -20,6 +20,51 @@ namespace AntlrCSharp
         return VisitChildren(context);
     }
 
+    public override object VisitStatement(CalculatorParser.StatementContext context)
+    {
+        // Determine the type of statement and delegate to the appropriate method
+        if (context.calculation() != null)
+        {
+            return VisitCalculation(context.calculation());
+        }
+        else if (context.ifStatement() != null)
+        {
+            return VisitIfStatement(context.ifStatement());
+        }
+        else if (context.whileStatement() != null)
+        {
+            return VisitWhileStatement(context.whileStatement());
+        }
+        else if (context.variableDeclaration() != null){
+            return VisitVariableDeclaration(context.variableDeclaration());
+        }
+        else if (context.variableAssignment() != null){
+            return VisitVariableAssignment(context.variableAssignment());
+        }
+        else if (context.forLoop() != null){
+            return VisitForLoop(context.forLoop());
+        }
+        else if (context.crementer() != null){
+            return VisitCrementer(context.crementer());
+        }
+        else if (context.arrayDeclaration() != null){
+            return VisitArrayDeclaration(context.arrayDeclaration());
+        }
+        else if(context.arrayAccess() != null){
+            return VisitArrayAccess(context.arrayAccess());
+        }
+        else if(context.arrayAssignement() != null){
+            return VisitArrayAssignement(context.arrayAssignement());
+        }
+        else if(context.arrayDeclaration2d != null){
+            return VisitArrayDeclaration2d(context.arrayDeclaration2d());
+        }
+        
+        // Add other statement types as needed...
+
+        throw new NotSupportedException("Unsupported statement type: " + context.GetText());
+    }
+
     public override object VisitCalculation(CalculatorParser.CalculationContext context)
     {
         object result = Visit(context.expression());
@@ -304,11 +349,13 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
     }
 
     public override object VisitArrayDeclaration(CalculatorParser.ArrayDeclarationContext context){
-        
+        Console.WriteLine("Visiting array");
         string identifier = context.IDENTIFIER().GetText();
         List<object> valuesFromArray = new List<object>();
         
-        if(context.expression() != null){
+        if(context.expression().Length > 0){
+            Console.WriteLine("Expression is there " + context.expression().Length);
+            
             foreach(var expression in context.expression()){
                 object value = Visit(expression);
 
@@ -345,6 +392,7 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
     }
     
     public override object VisitArrayAssignement(CalculatorParser.ArrayAssignementContext context){
+        Console.WriteLine("Visit array assignement");
         string identifier = context.IDENTIFIER().GetText();
         object[] array = (object[])variables[identifier];
         object value = Visit(context.expression());
@@ -355,6 +403,28 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         variables[identifier] = array;
         
         return value;
+    }
+
+    public override object VisitArrayDeclaration2d(CalculatorParser.ArrayDeclaration2dContext context){
+        Console.WriteLine("Visiting 2darray");
+        string identifier = context.IDENTIFIER().GetText();
+        int rows = int.Parse(context.number(0).GetText());
+        int columns = int.Parse(context.number(1).GetText());
+        int bracketAmount = context.LEFTCURLYBRACKET().Length - 1;
+        int expressionLength = context.expression().Length;
+
+        //If values are initialized, check if there is as many expressions as declared in '[,]'
+        if(expressionLength > 0){
+            if(rows != bracketAmount){
+                throw new Exception("Bracket faggot, rows is " + rows + " rows declared " + bracketAmount);
+            }
+            if(columns != expressionLength/bracketAmount){
+                throw new Exception("Bracket faggot columns is " + columns + " columns declared " + expressionLength/bracketAmount);
+            }
+        }
+        //Typechecking
+
+        return new int[] { rows, columns };
     }
 
 }

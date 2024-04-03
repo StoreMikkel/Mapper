@@ -10,8 +10,10 @@ statement        : calculation
                  | variableAssignment
                  | forLoop
                  | crementer
-                 | arrayDeclaration
-                 | arrayAssignement;
+                 | arrayDeclaration 
+                 | arrayDeclaration2d
+                 | arrayAssignement
+                 | arrayAccess;
 
 calculation      : expression (NEWLINE)?;
 
@@ -53,25 +55,28 @@ forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')'
 crementer          : IDENTIFIER INCREMENTER | IDENTIFIER DECREMENTER;
 compare            : expression COMPARISON_OPERATOR term;
 
-arrayDeclaration   : TYPE IDENTIFIER '[]' '=' '{'(expression (','expression)*)?'}' (NEWLINE)?;
-arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
+arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET NEWLINE;
+arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET '=' expression NEWLINE;
 arrayAccess        : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET (NEWLINE)?;
-
+arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
 OPERATOR2        : ('/' | '*');
 COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
 BOOLEAN_LITERAL  : ('true'|'false');
+EQUALS           : '=';
+LEFTARRAYBRACKET : '[';
+RIGHTARRAYBRACKET : ']';
+LEFTCURLYBRACKET : '{';
+RIGHTCURLYBRACKET: '}';
 IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
-LEFTARRAYBRACKET : ('[');
-RIGHTARRAYBRACKET : (']');
-INCREMENTER      : ('++');
-DECREMENTER      : ('--');
+INCREMENTER      : '++';
+DECREMENTER      : '--';
 WHITESPACE       : (' '|'\t')+ -> skip;
 NEWLINE          : ('\n'| '\r')+;
 STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
 
 /*TYPE declarations */
 TYPE             : ('int '|'double '|'string ' | 'boolean ');
-ELSE             : ('else ');
+ELSE             : 'else ';
