@@ -121,4 +121,22 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitCompare([NotNull] CalculatorParser.CompareContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayDeclaration([NotNull] CalculatorParser.ArrayDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAssignement([NotNull] CalculatorParser.ArrayAssignementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAccess([NotNull] CalculatorParser.ArrayAccessContext context);
 }

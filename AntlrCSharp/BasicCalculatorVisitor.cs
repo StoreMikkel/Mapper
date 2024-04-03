@@ -79,12 +79,15 @@ namespace AntlrCSharp
     else if(context.BOOLEAN_LITERAL() != null){
         return bool.Parse(context.BOOLEAN_LITERAL().GetText());
     }
+    if(context.arrayAccess() != null){
+            return Visit(context.arrayAccess());
+        }
     return Visit(context.term());
 }
 
     public override object VisitTerm(CalculatorParser.TermContext context)
     {
-        if (context.IDENTIFIER() != null)
+         if (context.IDENTIFIER() != null)
             {
                 string identifier = context.IDENTIFIER().GetText();
                 if (variables.ContainsKey(identifier))
@@ -99,7 +102,6 @@ namespace AntlrCSharp
         {
             return context.STRING_LITERAL().GetText(); // Return the string literal
         }
-
         if (context.OPERATOR2() != null)
         {
             object left = Visit(context.term());
@@ -111,6 +113,9 @@ namespace AntlrCSharp
         else if(context.BOOLEAN_LITERAL() != null){
         return bool.Parse(context.BOOLEAN_LITERAL().GetText());
     }
+        if(context.arrayAccess() != null){
+            return Visit(context.arrayAccess());
+        }
         return Visit(context.factor());
     }
 
@@ -137,6 +142,9 @@ namespace AntlrCSharp
         if (context.number() != null)
         {
             return Visit(context.number());
+        }
+        if(context.arrayAccess() != null){
+            return Visit(context.arrayAccess());
         }
         else
         {
@@ -294,7 +302,60 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         }
         return 0;
     }
+
+    public override object VisitArrayDeclaration(CalculatorParser.ArrayDeclarationContext context){
+        
+        string identifier = context.IDENTIFIER().GetText();
+        List<object> valuesFromArray = new List<object>();
+        
+        if(context.expression() != null){
+            foreach(var expression in context.expression()){
+                object value = Visit(expression);
+
+                if(value is int && context.TYPE().GetText() == "double " ){
+                    value = (double)(int)value;
+                }
+                if(value is double && context.TYPE().GetText() != "double ") {
+                    throw new Exception("Type mismatch in variable declaration, value is double, declarations is " + context.TYPE().GetText());
+                }else if (value is int && context.TYPE().GetText() != "int "){
+                    throw new Exception ("Type mismatch in variable declaration, value is int, declarations is " + context.TYPE().GetText());
+                }else if (value is string && context.TYPE().GetText() != "string "){
+                    throw new Exception ("Type mismatch in variable declaration, value is string, declarations is " + context.TYPE().GetText());
+                }else if (value is Boolean && context.TYPE().GetText() != "boolean "){
+                    throw new Exception ("Type mismatch in variable declaration, value is boolean, declarations is " + context.TYPE().GetText());
+                }
+
+                valuesFromArray.Add(value);
+            }
+            variables[identifier] = valuesFromArray.ToArray();
+        }else{
+            variables[identifier] = valuesFromArray.ToArray();
+        }
+                
+        return valuesFromArray.ToArray();
+    }
+    public override object VisitArrayAccess(CalculatorParser.ArrayAccessContext context){
+        string identifier = context.IDENTIFIER().GetText();
+        object indexValue = Visit(context.number());
+        int index = (int)indexValue; 
+        object[] array = (object[])variables[identifier];
+        
     
+        return array[index];
+    }
+    
+    public override object VisitArrayAssignement(CalculatorParser.ArrayAssignementContext context){
+        string identifier = context.IDENTIFIER().GetText();
+        object[] array = (object[])variables[identifier];
+        object value = Visit(context.expression());
+        object indexValue = Visit(context.number());
+        int index = (int)indexValue;
+        
+        array[index] = value;
+        variables[identifier] = array;
+        
+        return value;
+    }
 
 }
 }

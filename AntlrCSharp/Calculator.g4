@@ -9,7 +9,9 @@ statement        : calculation
                  | variableDeclaration
                  | variableAssignment
                  | forLoop
-                 | crementer;
+                 | crementer
+                 | arrayDeclaration
+                 | arrayAssignement;
 
 calculation      : expression (NEWLINE)?;
 
@@ -18,19 +20,22 @@ expression       : term
                  | expression COMPARISON_OPERATOR term
                  | IDENTIFIER
                  | STRING_LITERAL // Added comparison operator
-                 | BOOLEAN_LITERAL;
+                 | BOOLEAN_LITERAL
+                 | arrayAccess;
 
 term             : factor
                  | term OPERATOR2 factor
                  | IDENTIFIER
                  | STRING_LITERAL
-                 | BOOLEAN_LITERAL;
+                 | BOOLEAN_LITERAL
+                 | arrayAccess;
 
 factor           : number
                  | '(' expression ')'
                  | IDENTIFIER
                  | STRING_LITERAL
-                 | BOOLEAN_LITERAL;
+                 | BOOLEAN_LITERAL
+                 | arrayAccess;
 
 number           : NUMBER;
 
@@ -48,6 +53,10 @@ forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')'
 crementer          : IDENTIFIER INCREMENTER | IDENTIFIER DECREMENTER;
 compare            : expression COMPARISON_OPERATOR term;
 
+arrayDeclaration   : TYPE IDENTIFIER '[]' '=' '{'(expression (','expression)*)?'}' (NEWLINE)?;
+arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
+arrayAccess        : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET (NEWLINE)?;
+
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
@@ -55,6 +64,8 @@ OPERATOR2        : ('/' | '*');
 COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
 BOOLEAN_LITERAL  : ('true'|'false');
 IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
+LEFTARRAYBRACKET : ('[');
+RIGHTARRAYBRACKET : (']');
 INCREMENTER      : ('++');
 DECREMENTER      : ('--');
 WHITESPACE       : (' '|'\t')+ -> skip;
