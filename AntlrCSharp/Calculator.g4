@@ -13,7 +13,9 @@ statement        : calculation
                  | arrayDeclaration 
                  | arrayDeclaration2d
                  | arrayAssignement
-                 | arrayAccess;
+                 | arrayAccess
+                 | arrayAssignment2d
+                 | arrayAccess2d;
 
 calculation      : expression (NEWLINE)?;
 
@@ -23,21 +25,24 @@ expression       : term
                  | IDENTIFIER
                  | STRING_LITERAL // Added comparison operator
                  | BOOLEAN_LITERAL
-                 | arrayAccess;
+                 | arrayAccess
+                 | arrayAccess2d;
 
 term             : factor
                  | term OPERATOR2 factor
                  | IDENTIFIER
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
-                 | arrayAccess;
+                 | arrayAccess
+                 | arrayAccess2d;
 
 factor           : number
                  | '(' expression ')'
                  | IDENTIFIER
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
-                 | arrayAccess;
+                 | arrayAccess
+                 | arrayAccess2d;
 
 number           : NUMBER;
 
@@ -59,6 +64,8 @@ arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFT
 arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET '=' expression NEWLINE;
 arrayAccess        : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET (NEWLINE)?;
 arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
+arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
+arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET (NEWLINE)?;
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;

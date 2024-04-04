@@ -145,4 +145,16 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitArrayDeclaration2d([NotNull] CalculatorParser.ArrayDeclaration2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignment2d"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAssignment2d([NotNull] CalculatorParser.ArrayAssignment2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess2d"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAccess2d([NotNull] CalculatorParser.ArrayAccess2dContext context);
 }

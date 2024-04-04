@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AntlrCSharp;
 using static CalculatorParser;
@@ -56,8 +58,14 @@ namespace AntlrCSharp
         else if(context.arrayAssignement() != null){
             return VisitArrayAssignement(context.arrayAssignement());
         }
-        else if(context.arrayDeclaration2d != null){
+        else if(context.arrayDeclaration2d() != null){
             return VisitArrayDeclaration2d(context.arrayDeclaration2d());
+        }
+        else if(context.arrayAssignment2d() != null){
+            return VisitArrayAssignment2d(context.arrayAssignment2d());
+        }
+        else if(context.arrayAccess2d() != null){
+            return VisitArrayAccess2d(context.arrayAccess2d());
         }
         
         // Add other statement types as needed...
@@ -125,7 +133,10 @@ namespace AntlrCSharp
         return bool.Parse(context.BOOLEAN_LITERAL().GetText());
     }
     if(context.arrayAccess() != null){
-            return Visit(context.arrayAccess());
+        return Visit(context.arrayAccess());
+    }
+    if(context.arrayAccess2d() != null){
+            return Visit(context.arrayAccess2d());
         }
     return Visit(context.term());
 }
@@ -161,6 +172,9 @@ namespace AntlrCSharp
         if(context.arrayAccess() != null){
             return Visit(context.arrayAccess());
         }
+        if(context.arrayAccess2d() != null){
+            return Visit(context.arrayAccess2d());
+        }
         return Visit(context.factor());
     }
 
@@ -190,6 +204,9 @@ namespace AntlrCSharp
         }
         if(context.arrayAccess() != null){
             return Visit(context.arrayAccess());
+        }
+        if(context.arrayAccess2d() != null){
+            return Visit(context.arrayAccess2d());
         }
         else
         {
@@ -399,9 +416,20 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         object indexValue = Visit(context.number());
         int index = (int)indexValue;
         
-        array[index] = value;
-        variables[identifier] = array;
+        //Cast ints to doubles
+        if (value.GetType() == typeof(int) && array[index].GetType() == typeof(double)){
+            value = Convert.ToDouble(value);
+            array[index] = value;
+        }
+        //Type checking
+        if (value.GetType() != array[index].GetType())
+        {
+            throw new Exception("Type mismatch in variable assignment for variable " + identifier);
+        }
         
+        array[index] = value;  
+        
+        variables[identifier] = array;
         return value;
     }
 
@@ -412,6 +440,9 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         int columns = int.Parse(context.number(1).GetText());
         int bracketAmount = context.LEFTCURLYBRACKET().Length - 1;
         int expressionLength = context.expression().Length;
+        
+        
+        object[,] array2d = new object[rows, columns];
 
         //If values are initialized, check if there is as many expressions as declared in '[,]'
         if(expressionLength > 0){
@@ -421,12 +452,50 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
             if(columns != expressionLength/bracketAmount){
                 throw new Exception("Bracket faggot columns is " + columns + " columns declared " + expressionLength/bracketAmount);
             }
-        }
-        //Typechecking
+            //Create array with declared values
+            int counter = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    object value = Visit(context.expression(counter));
+                    array2d[i,j] = value;
+                    counter++;
+                    
+                }
+            }
+            
 
-        return new int[] { rows, columns };
+        }
+        variables[identifier] = array2d;
+
+        return array2d;
     }
 
-}
+        public override object VisitArrayAssignment2d(CalculatorParser.ArrayAssignment2dContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            object[,] array = (object[,])variables[identifier];
+            int rowIndex = int.Parse(context.number(0).GetText());
+            int columnIndex = int.Parse(context.number(1).GetText());
+            
+            object value = Visit(context.expression());
+            array[rowIndex, columnIndex] = value;
+            variables[identifier] = array;
+            
+            
+            return value;
+        }
+
+        public override object VisitArrayAccess2d(CalculatorParser.ArrayAccess2dContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            int rowIndex = int.Parse(context.number(0).GetText());
+            int columnIndex = int.Parse(context.number(1).GetText());             
+            object[,] array = (object[,])variables[identifier];
+            return array[rowIndex, columnIndex];
+        }
+
+    }
 }
 
