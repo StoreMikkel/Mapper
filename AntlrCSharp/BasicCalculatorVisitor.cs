@@ -67,6 +67,10 @@ namespace AntlrCSharp
         else if(context.arrayAccess2d() != null){
             return VisitArrayAccess2d(context.arrayAccess2d());
         }
+        else if(context.breakStatement() != null){
+            return VisitBreakStatement(context.breakStatement());
+        }
+        
         
         // Add other statement types as needed...
 
@@ -119,6 +123,7 @@ namespace AntlrCSharp
         string op = context.COMPARISON_OPERATOR().GetText();
         switch (op)
         {
+            
             case ">": return (dynamic)left > (dynamic)right;
             case "<": return (dynamic)left < (dynamic)right;
             case "==": return (dynamic)left == (dynamic)right;
@@ -137,7 +142,10 @@ namespace AntlrCSharp
     }
     if(context.arrayAccess2d() != null){
             return Visit(context.arrayAccess2d());
-        }
+    }
+    if(context.randomStatement() != null){
+            return VisitRandomStatement(context.randomStatement());
+    }
     return Visit(context.term());
 }
 
@@ -175,6 +183,9 @@ namespace AntlrCSharp
         if(context.arrayAccess2d() != null){
             return Visit(context.arrayAccess2d());
         }
+        if(context.randomStatement() != null){
+            return VisitRandomStatement(context.randomStatement());
+    }
         return Visit(context.factor());
     }
 
@@ -208,6 +219,9 @@ namespace AntlrCSharp
         if(context.arrayAccess2d() != null){
             return Visit(context.arrayAccess2d());
         }
+        if(context.randomStatement() != null){
+            return VisitRandomStatement(context.randomStatement());
+        }
         else
         {
             return Visit(context.expression());
@@ -216,7 +230,7 @@ namespace AntlrCSharp
 
     public override object VisitIfStatement(CalculatorParser.IfStatementContext context)
 {
-    bool conditionValue = (bool)Visit(context.GetChild(2)); // Assuming the condition is the third child
+    bool conditionValue = (bool)Visit(context.expression()); // Assuming the condition is the third child
     if (conditionValue)
     {
         return Visit(context.statement(0)); // Visit the 'if' block
@@ -225,21 +239,26 @@ namespace AntlrCSharp
     {
         return Visit(context.statement(1)); // Visit the 'else' block
     }
-    return null; // No 'else' block and condition evaluates to false
+    return false; // No 'else' block and condition evaluates to false
 }
 
     public override object VisitWhileStatement(CalculatorParser.WhileStatementContext context)
 {
     object result = null;
-    while ((dynamic)Visit(context.condition()) != 0)
-    {
+    bool breakflag = false;
+
+    while ((dynamic)Visit(context.expression()) is true && breakflag is false){
         foreach (var statement in context.statement())
-        {
-            result = Visit(statement);
-            if (result != null) // Assuming null means "break" or "return" in this context
-                return result;
+         {
+             result = Visit(statement);
+             //Check for breaks
+             if(result == null){
+                 breakflag = true;
+            }
+                
         }
     }
+    
     return result;
 }
 
@@ -326,18 +345,22 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
     public override object VisitForLoop(CalculatorParser.ForLoopContext context){
 
-       
-        Visit(context.children[2]);
-        while ((bool)Visit(context.compare())){
+       bool breakFlag = false;
+       object result = null;
+       Visit(context.children[2]);
+       while ((bool)Visit(context.compare()) && breakFlag == false){
             // Visit the statements inside the for loop
             foreach (var statement in context.statement())
             {
-                Visit(statement);
+                result = Visit(statement);
+                if(result == null){
+                    breakFlag = true;
+                }
             }
             // Visit the increment/decrement part of the for loop
             Visit(context.crementer());
         }
-        return null;
+        return result;
     }
 
     public override object VisitCompare(CalculatorParser.CompareContext context){
@@ -426,7 +449,7 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         {
             throw new Exception("Type mismatch in variable assignment for variable " + identifier);
         }
-        
+
         array[index] = value;  
         
         variables[identifier] = array;
@@ -464,8 +487,6 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
                     
                 }
             }
-            
-
         }
         variables[identifier] = array2d;
 
@@ -496,6 +517,24 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
             return array[rowIndex, columnIndex];
         }
 
+        public override object VisitBreakStatement(CalculatorParser.BreakStatementContext context){
+            //throw new Exception();
+            return null;
+        }
+
+        public override object VisitRandomStatement(CalculatorParser.RandomStatementContext context)
+        {
+            Random number = new Random();
+            int number1 = int.Parse(context.number(0).GetText());
+            int number2 = int.Parse(context.number(1).GetText()) + 1;
+            int randomNumber = number.Next(number1, number2);
+
+            Console.WriteLine("Random number generated: " + randomNumber);
+            return randomNumber;
+        }
+
     }
+
+    
 }
 

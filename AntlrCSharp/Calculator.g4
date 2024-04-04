@@ -15,7 +15,8 @@ statement        : calculation
                  | arrayAssignement
                  | arrayAccess
                  | arrayAssignment2d
-                 | arrayAccess2d;
+                 | arrayAccess2d
+                 | breakStatement;
 
 calculation      : expression (NEWLINE)?;
 
@@ -26,7 +27,8 @@ expression       : term
                  | STRING_LITERAL // Added comparison operator
                  | BOOLEAN_LITERAL
                  | arrayAccess
-                 | arrayAccess2d;
+                 | arrayAccess2d
+                 | randomStatement;
 
 term             : factor
                  | term OPERATOR2 factor
@@ -34,7 +36,8 @@ term             : factor
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
                  | arrayAccess
-                 | arrayAccess2d;
+                 | arrayAccess2d
+                 | randomStatement;
 
 factor           : number
                  | '(' expression ')'
@@ -42,15 +45,14 @@ factor           : number
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
                  | arrayAccess
-                 | arrayAccess2d;
+                 | arrayAccess2d
+                 | randomStatement;
 
 number           : NUMBER;
 
 ifStatement      : 'if' '(' expression ')' '{' statement+ '}' (ELSE '{' statement+ '}' NEWLINE)?; // Adjusted ifStatement rule
 
-condition        : '(' expression ')';
-
-whileStatement   : 'while' condition '{' statement* '}';
+whileStatement   : 'while' '(' expression ')' '{' statement+ '}';
 
 variableDeclaration : TYPE IDENTIFIER '=' expression (NEWLINE)?;
 
@@ -66,12 +68,17 @@ arrayAccess        : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET (NEWLI
 arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
 arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
 arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET (NEWLINE)?;
+breakStatement     : BREAK (NEWLINE)?;
+randomStatement    : RANDOM '(' number ',' number ')' (NEWLINE)?;
+
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
 OPERATOR2        : ('/' | '*');
 COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
 BOOLEAN_LITERAL  : ('true'|'false');
+BREAK            : 'BREAK';
+RANDOM           : 'RANDOM';
 EQUALS           : '=';
 LEFTARRAYBRACKET : '[';
 RIGHTARRAYBRACKET : ']';

@@ -10,7 +10,7 @@ using static CalculatorParser;
 
 
 
-public class YourLanguageToCSharpVisitor : CalculatorBaseVisitor<string> {
+/*public class YourLanguageToCSharpVisitor : CalculatorBaseVisitor<string> {
     public override string VisitInput(CalculatorParser.InputContext context) {
         string result = "";
         result += "using System.Collections;\n" + "using System.Collections.Generic;\n" + "using UnityEngine;\n"
@@ -88,4 +88,4 @@ public class YourLanguageToCSharpVisitor : CalculatorBaseVisitor<string> {
         }
         return $"while ({condition}) {{\n{statements}\n}}";
     }
-}
+}*/

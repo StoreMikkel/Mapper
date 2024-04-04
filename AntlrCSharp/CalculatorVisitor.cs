@@ -80,12 +80,6 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitIfStatement([NotNull] CalculatorParser.IfStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.condition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCondition([NotNull] CalculatorParser.ConditionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.whileStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -157,4 +151,16 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitArrayAccess2d([NotNull] CalculatorParser.ArrayAccess2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.breakStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBreakStatement([NotNull] CalculatorParser.BreakStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.randomStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomStatement([NotNull] CalculatorParser.RandomStatementContext context);
 }
