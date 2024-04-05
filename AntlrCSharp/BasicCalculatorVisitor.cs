@@ -239,16 +239,52 @@ namespace AntlrCSharp
 
     public override object VisitIfStatement(CalculatorParser.IfStatementContext context)
 {
-    bool conditionValue = (bool)Visit(context.expression()); // Assuming the condition is the third child
+    //Initialize conditionvalue with first expression
+    bool conditionValue = (bool)Visit(context.expression(0));
+    
+    //Iterate over any other expression and apply boolean operators
+    for(int i = 1; i <context.expression().Length; i++){
+        bool expressionValue = (bool)Visit(context.expression(i));
+        conditionValue = ApplyBooleanOperator(conditionValue, expressionValue, context.BOOLEANOPERATORS(i-1).GetText());
+
+    }
+
+    int elseTokenIndex = context.ELSE()?.Symbol.TokenIndex ?? int.MaxValue;
+
     if (conditionValue)
     {
-        return Visit(context.statement(0)); // Visit the 'if' block
+        foreach(var statement in context.statement()){
+            if(statement.Stop.TokenIndex < elseTokenIndex){
+                Visit(statement);
+            }
+        }
+        
     }
     else if (context.ELSE() != null) // Check if 'else' block exists
     {
-        return Visit(context.statement(1)); // Visit the 'else' block
+        foreach(var statement in context.statement()){
+            if(statement.Stop.TokenIndex > elseTokenIndex){
+                Visit(statement);
+            }
+        }
+        
     }
     return false; // No 'else' block and condition evaluates to false
+}
+
+// Function to apply the boolean operator
+bool ApplyBooleanOperator(bool operand1, bool operand2, string booleanOperator)
+{
+    switch (booleanOperator)
+    {
+        case "&&":
+            return operand1 && operand2;
+        case "||":
+            return operand1 || operand2;
+        // Add more cases for other operators if needed
+        default:
+            throw new ArgumentException("Invalid boolean operator");
+    }
 }
 
     public override object VisitWhileStatement(CalculatorParser.WhileStatementContext context)
@@ -270,6 +306,7 @@ namespace AntlrCSharp
     
     return result;
 }
+
 
 public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context)
     {
@@ -596,9 +633,37 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         public override object VisitRandomStatement(CalculatorParser.RandomStatementContext context)
         {
             Random number = new Random();
-            int number1 = int.Parse(context.number(0).GetText());
-            int number2 = int.Parse(context.number(1).GetText()) + 1;
-            int randomNumber = number.Next(number1, number2);
+            string number1String;
+            object number1;
+
+            if(context.expression(0) != null && context.children[2].GetType() == context.expression(0).GetType()){
+                number1 = Visit(context.expression(0));
+                number1String = number1.ToString();
+            }else{
+                number1String = context.number(0).GetText();
+            }
+            
+            object number2;
+            string number2String;
+            if(context.expression(0) != null && context.children[4].GetType() == context.expression(0).GetType() && context.children[2].GetType() != context.expression(0).GetType()){
+                number2 = Visit(context.expression(0));
+                number2String = number2.ToString();
+            }else if(context.expression(0) != null && context.children[4].GetType() == context.expression(0).GetType() && context.children[2].GetType() == context.expression(0).GetType()){
+                number2 = Visit(context.expression(1));
+                number2String = number2.ToString();
+            }
+            else if(context.children[2].GetType() == context.expression().GetType()){
+                number2String = context.number(0).GetText();
+            }
+            else{
+                number2String = context.number(1).GetText();
+            }
+            
+            int numberToUse1 = int.Parse(number1String);
+            int numberToUse2 = int.Parse(number2String);
+            
+
+            int randomNumber = number.Next(numberToUse1, numberToUse2);
 
             Console.WriteLine("Random number generated: " + randomNumber);
             return randomNumber;
@@ -650,6 +715,8 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
             return true;
 
         }
+
+        
         
 
     }

@@ -52,7 +52,7 @@ factor           : number
 
 number           : NUMBER;
 
-ifStatement      : 'if' '(' expression ')' '{' statement+ '}' (ELSE '{' statement+ '}' NEWLINE)?; // Adjusted ifStatement rule
+ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{' statement+ '}' (ELSE '{' statement+ '}' NEWLINE)?; // Adjusted ifStatement rule
 
 whileStatement   : 'while' '(' expression ')' '{' statement+ '}';
 
@@ -71,13 +71,14 @@ arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (n
 arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
 arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET (NEWLINE)?;
 breakStatement     : BREAK (NEWLINE)?;
-randomStatement    : RANDOM '(' number ',' number ')' (NEWLINE)?;
+randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')' (NEWLINE)?;
 fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL|NEWLINE) ',' STRING_LITERAL ')' (NEWLINE)?;
 fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')' (NEWLINE)?;
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
 OPERATOR2        : ('/' | '*');
+BOOLEANOPERATORS : ('||'| '&&');
 COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
 BOOLEAN_LITERAL  : ('true'|'false');
 BREAK            : 'BREAK';
