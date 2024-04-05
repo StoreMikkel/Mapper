@@ -9,13 +9,16 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AntlrCSharp;
 using static CalculatorParser;
+using System.IO;
 
 namespace AntlrCSharp
 {
     public class BasicCalculatorVisitor : CalculatorBaseVisitor<object>
     {
-        //List of Lines to visit
+        //Value table
         private Dictionary<string, object> variables = new Dictionary<string, object>();
+        //List of write files
+        private HashSet<string> writtenFiles = new HashSet<string>();
 
     public override object VisitInput(CalculatorParser.InputContext context)
     {
@@ -69,6 +72,9 @@ namespace AntlrCSharp
         }
         else if(context.breakStatement() != null){
             return VisitBreakStatement(context.breakStatement());
+        }
+        else if(context.fileWriteStatement() != null){
+            return VisitFileWriteStatement(context.fileWriteStatement());
         }
         
         
@@ -531,6 +537,24 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
             Console.WriteLine("Random number generated: " + randomNumber);
             return randomNumber;
+        }
+
+        public override object VisitFileWriteStatement(CalculatorParser.FileWriteStatementContext context){
+            string textToWrite = context.STRING_LITERAL(0).GetText();
+            string fileName = context.STRING_LITERAL(1).GetText();
+
+            fileName = fileName.Substring(1,fileName.Length - 2);
+            textToWrite = textToWrite.Substring(1, textToWrite.Length - 2);
+
+            try{
+                using(StreamWriter writer = new StreamWriter(fileName, writtenFiles.Contains(fileName))){
+                    writer.WriteLine(textToWrite);
+                }
+                writtenFiles.Add(fileName);
+            }catch(Exception ex){
+                throw new Exception("Cant print to file, yep");
+            }
+            return true;
         }
 
     }

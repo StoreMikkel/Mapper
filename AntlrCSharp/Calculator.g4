@@ -16,7 +16,8 @@ statement        : calculation
                  | arrayAccess
                  | arrayAssignment2d
                  | arrayAccess2d
-                 | breakStatement;
+                 | breakStatement
+                 | fileWriteStatement;
 
 calculation      : expression (NEWLINE)?;
 
@@ -70,7 +71,7 @@ arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRA
 arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET (NEWLINE)?;
 breakStatement     : BREAK (NEWLINE)?;
 randomStatement    : RANDOM '(' number ',' number ')' (NEWLINE)?;
-
+fileWriteStatement : 'fileWrite' '(' STRING_LITERAL ',' STRING_LITERAL ')' (NEWLINE)?;
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;

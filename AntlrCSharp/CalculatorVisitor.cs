@@ -163,4 +163,10 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitRandomStatement([NotNull] CalculatorParser.RandomStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFileWriteStatement([NotNull] CalculatorParser.FileWriteStatementContext context);
 }
