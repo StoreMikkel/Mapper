@@ -17,7 +17,8 @@ statement        : calculation
                  | arrayAssignment2d
                  | arrayAccess2d
                  | breakStatement
-                 | fileWriteStatement;
+                 | fileWriteStatement
+                 | fileWriteNewline;
 
 calculation      : expression (NEWLINE)?;
 
@@ -64,14 +65,15 @@ crementer          : IDENTIFIER INCREMENTER | IDENTIFIER DECREMENTER;
 compare            : expression COMPARISON_OPERATOR term;
 
 arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET NEWLINE;
-arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET '=' expression NEWLINE;
-arrayAccess        : IDENTIFIER LEFTARRAYBRACKET number RIGHTARRAYBRACKET (NEWLINE)?;
-arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
-arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
-arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET number ',' number RIGHTARRAYBRACKET (NEWLINE)?;
+arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression NEWLINE;
+arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET (NEWLINE)?;
+arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
+arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
+arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET (NEWLINE)?;
 breakStatement     : BREAK (NEWLINE)?;
 randomStatement    : RANDOM '(' number ',' number ')' (NEWLINE)?;
-fileWriteStatement : 'fileWrite' '(' STRING_LITERAL ',' STRING_LITERAL ')' (NEWLINE)?;
+fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL|NEWLINE) ',' STRING_LITERAL ')' (NEWLINE)?;
+fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')' (NEWLINE)?;
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;

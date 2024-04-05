@@ -76,6 +76,9 @@ namespace AntlrCSharp
         else if(context.fileWriteStatement() != null){
             return VisitFileWriteStatement(context.fileWriteStatement());
         }
+        else if(context.fileWriteNewline() != null){
+            return VisitFileWriteNewline(context.fileWriteNewline());
+        }
         
         
         // Add other statement types as needed...
@@ -428,8 +431,14 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         return valuesFromArray.ToArray();
     }
     public override object VisitArrayAccess(CalculatorParser.ArrayAccessContext context){
-        string identifier = context.IDENTIFIER().GetText();
-        object indexValue = Visit(context.number());
+        string identifier = context.IDENTIFIER(0).GetText();
+        object indexValue;
+        if(context.IDENTIFIER(1) != null){
+            indexValue = variables[context.IDENTIFIER(1).GetText()];
+        }else {
+            indexValue = Visit(context.number());
+        }
+        
         int index = (int)indexValue; 
         object[] array = (object[])variables[identifier];
         
@@ -438,11 +447,18 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
     }
     
     public override object VisitArrayAssignement(CalculatorParser.ArrayAssignementContext context){
-        Console.WriteLine("Visit array assignement");
-        string identifier = context.IDENTIFIER().GetText();
+        string identifier = context.IDENTIFIER(0).GetText();
+
         object[] array = (object[])variables[identifier];
+        
         object value = Visit(context.expression());
-        object indexValue = Visit(context.number());
+        
+        object indexValue;
+        if(context.IDENTIFIER(1) != null){
+            indexValue = variables[context.IDENTIFIER(1).GetText()];
+        }else {
+            indexValue = Visit(context.number());
+        }
         int index = (int)indexValue;
         
         //Cast ints to doubles
@@ -464,9 +480,26 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
     public override object VisitArrayDeclaration2d(CalculatorParser.ArrayDeclaration2dContext context){
         Console.WriteLine("Visiting 2darray");
-        string identifier = context.IDENTIFIER().GetText();
-        int rows = int.Parse(context.number(0).GetText());
-        int columns = int.Parse(context.number(1).GetText());
+        string identifier = context.IDENTIFIER(0).GetText();
+
+        object rowIndex;
+        if(context.IDENTIFIER(1) != null){
+            rowIndex = variables[context.IDENTIFIER(1).GetText()];
+        }else {
+            rowIndex = Visit(context.number(0));
+        }
+
+        object columnIndex;
+        if(context.IDENTIFIER(2) != null){
+            columnIndex = variables[context.IDENTIFIER(2).GetText()];
+        }else {
+            columnIndex = Visit(context.number(1));
+        }
+
+        int rows = (int)rowIndex;
+        int columns = (int)columnIndex;
+
+
         int bracketAmount = context.LEFTCURLYBRACKET().Length - 1;
         int expressionLength = context.expression().Length;
         
@@ -501,13 +534,28 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
         public override object VisitArrayAssignment2d(CalculatorParser.ArrayAssignment2dContext context)
         {
-            string identifier = context.IDENTIFIER().GetText();
+            string identifier = context.IDENTIFIER(0).GetText();
             object[,] array = (object[,])variables[identifier];
-            int rowIndex = int.Parse(context.number(0).GetText());
-            int columnIndex = int.Parse(context.number(1).GetText());
+            
+            object rowIndex;
+            if(context.IDENTIFIER(1) != null){
+                rowIndex = variables[context.IDENTIFIER(1).GetText()];
+            }else {
+                rowIndex = Visit(context.number(0));
+            }
+
+            object columnIndex;
+            if(context.IDENTIFIER(2) != null){
+                columnIndex = variables[context.IDENTIFIER(2).GetText()];
+            }else {
+                columnIndex = Visit(context.number(1));
+            }
+
+            int rows = (int)rowIndex;
+            int columns = (int)columnIndex;
             
             object value = Visit(context.expression());
-            array[rowIndex, columnIndex] = value;
+            array[rows, columns] = value;
             variables[identifier] = array;
             
             
@@ -516,11 +564,28 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
         public override object VisitArrayAccess2d(CalculatorParser.ArrayAccess2dContext context)
         {
-            string identifier = context.IDENTIFIER().GetText();
-            int rowIndex = int.Parse(context.number(0).GetText());
-            int columnIndex = int.Parse(context.number(1).GetText());             
+            string identifier = context.IDENTIFIER(0).GetText();
+            
+            object rowIndex;
+            if(context.IDENTIFIER(1) != null){
+                rowIndex = variables[context.IDENTIFIER(1).GetText()];
+            }else {
+                rowIndex = Visit(context.number(0));
+            }
+
+            object columnIndex;
+            if(context.IDENTIFIER(2) != null){
+                columnIndex = variables[context.IDENTIFIER(2).GetText()];
+            }else {
+                columnIndex = Visit(context.number(1));
+            }
+
+            int row = (int)rowIndex;
+            int columns = (int)columnIndex;
+            
+                       
             object[,] array = (object[,])variables[identifier];
-            return array[rowIndex, columnIndex];
+            return array[row, columns];
         }
 
         public override object VisitBreakStatement(CalculatorParser.BreakStatementContext context){
@@ -540,22 +605,52 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
         }
 
         public override object VisitFileWriteStatement(CalculatorParser.FileWriteStatementContext context){
-            string textToWrite = context.STRING_LITERAL(0).GetText();
-            string fileName = context.STRING_LITERAL(1).GetText();
+
+            string textToWrite;
+            string fileName;
+            if(context.arrayAccess2d() != null){
+                textToWrite = (string)Visit(context.arrayAccess2d());
+                fileName = context.STRING_LITERAL(0).GetText();
+            } else{
+                textToWrite = context.STRING_LITERAL(0).GetText();            
+                fileName = context.STRING_LITERAL(1).GetText();
+            }
+            
 
             fileName = fileName.Substring(1,fileName.Length - 2);
             textToWrite = textToWrite.Substring(1, textToWrite.Length - 2);
 
+
             try{
                 using(StreamWriter writer = new StreamWriter(fileName, writtenFiles.Contains(fileName))){
-                    writer.WriteLine(textToWrite);
+                    writer.Write(textToWrite);
                 }
+                
                 writtenFiles.Add(fileName);
             }catch(Exception ex){
-                throw new Exception("Cant print to file, yep");
+                throw new Exception("Cant print to file, yep " + ex);
             }
             return true;
         }
+
+        public override object VisitFileWriteNewline(CalculatorParser.FileWriteNewlineContext context){
+            string fileName = context.STRING_LITERAL().GetText();
+            fileName = fileName.Substring(1,fileName.Length - 2);
+            try{
+                using(StreamWriter writer = new StreamWriter(fileName, true)){
+                    
+                    writer.WriteLine();
+                    
+                }
+                
+                writtenFiles.Add(fileName);
+            }catch(Exception ex){
+                throw new Exception("Cant print to file, yep " + ex);
+            }
+            return true;
+
+        }
+        
 
     }
 

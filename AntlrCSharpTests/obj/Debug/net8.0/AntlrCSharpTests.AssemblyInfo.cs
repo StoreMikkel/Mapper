@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AntlrCSharpTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+112ce75ef0546ea7db9f54974a9c5156d0d7bc6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2aed77faa74882c6f34dba059f45feac5a00b12")]
 [assembly: System.Reflection.AssemblyProductAttribute("AntlrCSharpTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AntlrCSharpTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

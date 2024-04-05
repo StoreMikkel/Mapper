@@ -169,4 +169,10 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFileWriteStatement([NotNull] CalculatorParser.FileWriteStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteNewline"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFileWriteNewline([NotNull] CalculatorParser.FileWriteNewlineContext context);
 }
