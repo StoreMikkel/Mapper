@@ -125,19 +125,39 @@ namespace AntlrCSharp
 
         public override object VisitAssignment(CalculatorParser.AssignmentContext context)
         {
-            object expression = Visit(context.expression());
-            symbol_table.Add(context.ID().GetText(), (dynamic)expression);
-            Console.WriteLine("Added " + context.ID().GetText() + " = " + (dynamic)expression);
+            object value = Visit(context.expression());
+            string type = context.TYPE().GetText();
+
+            // Check if type of expression is same as type declared
+            if (type == "int" && value.GetType() == typeof(int))
+            {
+                var assignmentTuple = Tuple.Create(context.ID().GetText(), value);
+                symbol_table.Add(context.ID().GetText(), assignmentTuple);
+                Console.WriteLine("Added " + context.ID().GetText() + " = " + (dynamic)value);
+            }
+            else if (type == "double" && value.GetType() == typeof(double))
+            {
+                var assignmentTuple = Tuple.Create(context.ID().GetText(), value);
+                symbol_table.Add(context.ID().GetText(), assignmentTuple);
+                Console.WriteLine("Added " + context.ID().GetText() + " = " + (dynamic)value);
+            }
+            else
+            {
+                Console.WriteLine("Type mismatch: " + type + " != " + value.GetType().ToString());
+            }
             return 0;
         }
 
         public override object VisitId(CalculatorParser.IdContext context)
         {
             //Lookup value in table
-            Console.WriteLine("Returning " + context.ID().GetText() + " = " + symbol_table[context.ID().GetText()]);
-            return symbol_table[context.ID().GetText()];
+            var value = symbol_table[context.ID().GetText()];
+            if(value is Tuple<string, int> tuple)
+            {
+                return tuple.Item2;
+            }
+            return 0;
         }
-
     }
 }
 
