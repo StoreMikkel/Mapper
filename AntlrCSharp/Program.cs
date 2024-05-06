@@ -16,53 +16,38 @@ namespace AntlrCSharp
         public static void Main(string[] args){
 
          StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\ajapo\Desktop\Algorithm.txt";
+         string fileLocation = @"C:\Users\ajapo\Desktop\SimpleRoomAlgorithmFærdig.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
                 text.AppendLine(element);
              }
-        //string input =  "(1 + 2 + 3 + 3 + 1 + 2 + 2 + 2)*2\n" + "(5 + 5) * 10\n" +
-        //"double a = 5*5.5\n     double b = a + 5\n     double c = a/b\n   c\n string d = 'asd'\n d\n "; // Example input with multiple calculations
-
-        //string input2 = "var a = 5\n var b = 3\n" + "if (a > b) { a - 1 \n} else{4+6\n}";
-
-        AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-        CalculatorLexer lexer = new CalculatorLexer(inputStream);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        CalculatorParser parser = new CalculatorParser(tokenStream);
-        IParseTree tree = parser.input();
-        Console.WriteLine("h");
-
-        BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
-        visitor.Visit(tree);
-
         
+        try{
+            AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
+            CalculatorLexer lexer = new CalculatorLexer(inputStream);
+            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+            CalculatorParser parser = new CalculatorParser(tokenStream);
 
+            IParseTree tree = parser.input();
 
-
-        /*string input = "if (6 > 5) {6 + 1\n} else { 6 - 1\n}";
-
-        var inputStream = new AntlrInputStream(input);
-        var lexer = new CalculatorLexer(inputStream);
-        var tokenStream = new CommonTokenStream(lexer);
-        var parser = new CalculatorParser(tokenStream);
-        var tree = parser.input();
-
-        var visitor = new YourLanguageToCSharpVisitor();
-        var result = visitor.Visit(tree);
-        Console.WriteLine(result);
-
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-        // Specify the output file name and path on the desktop
-        string outputFile = Path.Combine(desktopPath, "output.cs");
-
-        // Write the transpiled C# code to the file
-        File.WriteAllText(outputFile, result);
-
-        Console.WriteLine("Transpilation completed. Output saved to: " + outputFile);*/
-
+        /*tokenStream.Fill();
+            foreach (var token in tokenStream.GetTokens())
+            {
+                Console.WriteLine($"Token Type: {token.Type}, Text: {token.Text}, Start Index: {token.StartIndex}, Stop Index: {token.StopIndex}");
+            }*/
+        
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(tree);
+        }catch (Exception ex){
+            if(ex is ParseCanceledException ew){
+                Console.WriteLine("holy smokes johnny");
+                Console.WriteLine(ew.CancellationToken);
+                
+            }
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+        
         }
     
     }

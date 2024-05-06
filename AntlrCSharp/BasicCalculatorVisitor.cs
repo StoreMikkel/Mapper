@@ -79,11 +79,14 @@ namespace AntlrCSharp
         else if(context.fileWriteNewline() != null){
             return VisitFileWriteNewline(context.fileWriteNewline());
         }
+        else{
+            return "Unsupported Statement xdd";
+        }
         
         
-        // Add other statement types as needed...
+        
 
-        throw new NotSupportedException("Unsupported statement type: " + context.GetText());
+        
     }
 
     public override object VisitCalculation(CalculatorParser.CalculationContext context)
@@ -160,7 +163,8 @@ namespace AntlrCSharp
 
     public override object VisitTerm(CalculatorParser.TermContext context)
     {
-         if (context.IDENTIFIER() != null)
+
+        if (context.IDENTIFIER() != null)
             {
                 string identifier = context.IDENTIFIER().GetText();
                 if (variables.ContainsKey(identifier))
@@ -393,7 +397,7 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
        bool breakFlag = false;
        object result = null;
-       Visit(context.children[2]);
+       Visit(context.variableDeclaration());
        while ((bool)Visit(context.compare()) && breakFlag == false){
             // Visit the statements inside the for loop
             foreach (var statement in context.statement())
@@ -665,7 +669,7 @@ public override object VisitVariableDeclaration(CalculatorParser.VariableDeclara
 
             int randomNumber = number.Next(numberToUse1, numberToUse2);
 
-            Console.WriteLine("Random number generated: " + randomNumber);
+            //Console.WriteLine("Random number generated: " + randomNumber);
             return randomNumber;
         }
 

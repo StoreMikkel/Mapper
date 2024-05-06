@@ -51,3 +51,4 @@ C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
+C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\nunit.framework.dll
