@@ -32,8 +32,6 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
-        
-        
         [TestMethod]
         public void TestValidIf()
         {
@@ -48,10 +46,62 @@ public class UnitTest1
         }
 
         [TestMethod]
+        public void TestValidIfElse()
+        {
+            // Arrange
+            string input = "int e = 3 int r = 5 if(e < r){10+10}else {1+1}"; // Example valid input
+
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
         public void TestValidAddition()
         {
             // Arrange
             string input = "int a = 2\n int b = 3\n a + b"; // Example valid input
+
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestValidMinus()
+        {
+            // Arrange
+            string input = "int a = 2\n int b = 3\n a - b"; // Example valid input
+
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestValidDivide()
+        {
+            // Arrange
+            string input = "int a = 2\n int b = 3\n a / b"; // Example valid input
+
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestValidMultiply()
+        {
+            // Arrange
+            string input = "int a = 2\n int b = 3\n a * b"; // Example valid input
 
             // Act
             bool result = ParseInput(input);
@@ -120,6 +170,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidArrayAccess()
         {
             // Arrange
@@ -131,10 +182,11 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidArray2dDeclaration()
         {
             // Arrange
-            string input = "int array[2,2] = {2,3} {2,3}"; 
+            string input = "int array[2,2]"; 
             // Act
             bool result = ParseInput(input);
 
@@ -142,6 +194,19 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void TestValidArray2dDeclarationWithValues()
+        {
+            // Arrange
+            string input = "int array[2,2] = {{2,2},{2,2}}"; 
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
         public void TestValidArray2dAssignment()
         {
             // Arrange
@@ -153,6 +218,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValid2dArrayAccess()
         {
             // Arrange
@@ -164,6 +230,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidBREAK()
         {
             // Arrange
@@ -175,6 +242,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidRandom()
         {
             // Arrange
@@ -186,6 +254,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidFileWrite()
         {
             // Arrange
@@ -197,6 +266,7 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void TestValidFileWriteNewline()
         {
             // Arrange
@@ -225,6 +295,8 @@ public class UnitTest1
             // Assert
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
         public void TestInvalidAssignment()
         {
             // Arrange
@@ -247,6 +319,19 @@ public class UnitTest1
             // Assert
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void TestInvalidIfElse()
+        {
+            // Arrange
+            string input = "if(e < r){10+10}else{1+1}"; // Example invalid input
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
 
         
 
@@ -279,6 +364,198 @@ public class UnitTest1
         {
             // Arrange
             string input = "int a = 2\n" + "int b = 3\n" + "a (+ b"; // Example invalid input
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidMinus()
+        {
+            // Arrange
+            string input = "int a = 2\n" + "int b = 3\n" + "int a - b"; // Example invalid input
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidDivide()
+        {
+            // Arrange
+            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; // Example invalid input
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidMultiply()
+        {
+            // Arrange
+            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; // Example invalid input
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidWhile()
+        {
+            // Arrange
+            string input = "while(BREAK){1+1}";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidForLoop()
+        {
+            // Arrange
+            string input = "for (i ; i < 5; i++) { x = x + i }";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidCrementer()
+        {
+            // Arrange
+            string input = "x+++";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidArrayDeclaration()
+        {
+            // Arrange
+            string input = "int array[] = {BREAK}";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidArrayAssignment()
+        {
+            // Arrange
+            string input = "array[5] = BREAK";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidArrayAccess()
+        {
+            // Arrange
+            string input = "array[BREAK]";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalid2dArrayDeclaration()
+        {
+            // Arrange
+            string input = "int array[BREAK,BREAK]";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalid2dArrayDeclarationWithValues()
+        {
+            // Arrange
+            string input = "int array[2,2] = {{BREAK,2},{2,2}}";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalid2dArrayAssignment()
+        {
+            // Arrange
+            string input = "int array[2,2] = BREAK";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalid2dArrayAccess()
+        {
+            // Arrange
+            string input = "array[BREAK,2]";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidRandom()
+        {
+            // Arrange
+            string input = "Random(BREAK,25)";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+        
+        [TestMethod]
+        public void TestInvalidFileWrite()
+        {
+            // Arrange
+            string input = "fileWrite(BREK,\"output.txt\")";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidFileWriteNewline()
+        {
+            // Arrange
+            string input = "fileWriteNewline(BREAK)";
             // Act
             bool result = ParseInput(input);
 

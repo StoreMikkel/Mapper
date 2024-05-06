@@ -16,7 +16,7 @@ namespace AntlrCSharp
         public static void Main(string[] args){
 
          StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\ajapo\Desktop\SimpleRoomAlgorithmFærdig.txt";
+         string fileLocation = @"C:\Users\ajapo\Desktop\Tests.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
@@ -39,14 +39,19 @@ namespace AntlrCSharp
         
             BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
             visitor.Visit(tree);
-        }catch (Exception ex){
-            if(ex is ParseCanceledException ew){
-                Console.WriteLine("holy smokes johnny");
-                Console.WriteLine(ew.CancellationToken);
+        }catch (Exception ex)
+            {
+                if (ex is ParseCanceledException)
+                {
+                    
+                     Console.WriteLine("Parsing was canceled.");
                 
+                }
+                else
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
             }
-            Console.WriteLine($"An error occurred: {ex.Message}");
-        }
         
         }
     

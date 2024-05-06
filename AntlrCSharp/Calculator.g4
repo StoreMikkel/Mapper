@@ -20,7 +20,7 @@ statement        : calculation
                  | fileWriteStatement
                  | fileWriteNewline;
 
-calculation      : expression (NEWLINE)?;
+calculation      : expression;
 
 expression       : term
                  | expression OPERATOR1 term
@@ -52,28 +52,28 @@ factor           : number
 
 number           : NUMBER;
 
-ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{' NEWLINE? statement+ '}' NEWLINE? (ELSE '{' statement+ '}')? NEWLINE?; // Adjusted ifStatement rule
+ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  statement+ '}'  (ELSE '{' statement+ '}')?; // Adjusted ifStatement rule
 
-whileStatement   : 'while' '(' expression ')' '{' NEWLINE? statement+ '}' NEWLINE?;
+whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
 
-variableDeclaration : TYPE IDENTIFIER '=' expression NEWLINE?;
+variableDeclaration : TYPE IDENTIFIER '=' expression;
 
-variableAssignment : IDENTIFIER '=' expression NEWLINE?;
+variableAssignment : IDENTIFIER '=' expression;
 
-forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' NEWLINE? statement+ '}' NEWLINE?;
-crementer          : IDENTIFIER INCREMENTER NEWLINE? | IDENTIFIER DECREMENTER NEWLINE?;
+forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' statement+ '}';
+crementer          : IDENTIFIER INCREMENTER| IDENTIFIER DECREMENTER;
 compare            : expression COMPARISON_OPERATOR term;
 
-arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET NEWLINE;
-arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression NEWLINE;
-arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET (NEWLINE)?;
-arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?(NEWLINE)?;
-arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression (NEWLINE)?;
-arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET (NEWLINE)?;
-breakStatement     : BREAK (NEWLINE)?;
-randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')' (NEWLINE)?;
-fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL|NEWLINE) ',' STRING_LITERAL ')' (NEWLINE)?;
-fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')' (NEWLINE)?;
+arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET;
+arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
+arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET;
+arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?;
+arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
+arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET;
+breakStatement     : BREAK;
+randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')';
+fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL) ',' STRING_LITERAL ')';
+fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
@@ -92,7 +92,7 @@ IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
 INCREMENTER      : '++';
 DECREMENTER      : '--';
 WHITESPACE       : (' '|'\t')+ -> skip;
-NEWLINE          : ('\n'| '\r')+;
+NEWLINE          : ('\n'| '\r')+ -> skip;
 STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
 
 /*TYPE declarations */
