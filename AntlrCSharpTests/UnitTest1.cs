@@ -1,6 +1,7 @@
 namespace AntlrCSharpTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Antlr4.Runtime;
+using AntlrCSharp;
 
 [TestClass]
 public class UnitTest1
@@ -538,6 +539,18 @@ public class UnitTest1
             // Assert
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void TestInvalidBREAK()
+        {
+            // Arrange
+            string input = "BRE;AK";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
         
         [TestMethod]
         public void TestInvalidFileWrite()
@@ -567,7 +580,7 @@ public class UnitTest1
         private bool ParseInput(string input)
         {
             AntlrInputStream inputStream = new AntlrInputStream(input);
-            CalculatorLexer lexer = new CalculatorLexer(inputStream);
+            CustomLexer lexer = new CustomLexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
             CustomParser parser = new CustomParser(tokenStream);
             

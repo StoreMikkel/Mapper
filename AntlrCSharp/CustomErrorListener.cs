@@ -6,10 +6,11 @@ using NUnit.Framework.Interfaces;
 
 
 
-public class CustomErrorListener : DefaultErrorStrategy
+public class CustomErrorListener : IAntlrErrorListener<int>
 {
-     public void SyntaxError(IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e){
+     public void SyntaxError(TextWriter output, IRecognizer recognizer, int offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e){
         Console.WriteLine($"Syntax error at line {line}, column {charPositionInLine}: {msg}");
+        throw e;
     }
 }
 

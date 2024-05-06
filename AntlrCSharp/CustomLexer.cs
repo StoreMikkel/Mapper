@@ -15,9 +15,9 @@ public class CustomLexer : CalculatorLexer
     public CustomLexer(ICharStream input) : base(input)
     {
         // Remove the default error listeners
-        //RemoveErrorListeners();
+        RemoveErrorListeners();
         // Add a custom error listener
-       // AddErrorListener(new CustomErrorListener());
+        AddErrorListener(new CustomErrorListener());
     }
 }
 }
