@@ -52,16 +52,16 @@ factor           : number
 
 number           : NUMBER;
 
-ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{' statement+ '}' (ELSE '{' statement+ '}' NEWLINE)?; // Adjusted ifStatement rule
+ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{' NEWLINE? statement+ '}' NEWLINE? (ELSE '{' statement+ '}')? NEWLINE?; // Adjusted ifStatement rule
 
-whileStatement   : 'while' '(' expression ')' '{' statement+ '}';
+whileStatement   : 'while' '(' expression ')' '{' NEWLINE? statement+ '}' NEWLINE?;
 
-variableDeclaration : TYPE IDENTIFIER '=' expression (NEWLINE)?;
+variableDeclaration : TYPE IDENTIFIER '=' expression NEWLINE?;
 
-variableAssignment : IDENTIFIER '=' expression (NEWLINE)?;
+variableAssignment : IDENTIFIER '=' expression NEWLINE?;
 
-forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' NEWLINE statement+ '}';
-crementer          : IDENTIFIER INCREMENTER | IDENTIFIER DECREMENTER;
+forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' NEWLINE? statement+ '}' NEWLINE?;
+crementer          : IDENTIFIER INCREMENTER NEWLINE? | IDENTIFIER DECREMENTER NEWLINE?;
 compare            : expression COMPARISON_OPERATOR term;
 
 arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET NEWLINE;
