@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {}
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj": {
+    "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
-        "projectName": "AntlrCSharp",
-        "projectPath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
-        "packagesPath": "C:\\Users\\ajapo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\obj\\",
+        "projectUniqueName": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
+        "projectName": "NumberSpeak",
+        "projectPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\NumberSpeak.csproj",
+        "packagesPath": "C:\\Users\\Mikkel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\NumberSpeak\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mikkel\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,16 +42,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Antlr4.Runtime.Standard": {
-              "target": "Package",
-              "version": "[4.13.1, )"
-            },
-            "NUnit": {
-              "target": "Package",
-              "version": "[3.13.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
