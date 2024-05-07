@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Bvkro4b0Vf+goj1yAYnEC0uvPKHZcf0X1djZZ7u6ap2RQ3JpU8ScR8UX7qYO1HMkP7ML7cim23PCbSY8TuVcMw==",
+  "dgSpecHash": "PvVQRbq47TZtA1pDhOBtJZsoQMrFyhRMo+hNXp7VRwT6CGqpMXRPyN2ZThfr0aSGSsswX8diCDtNyyWC+9ff9g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
+  "projectFilePath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharpTests\\AntlrCSharpTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ajapo\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512",
     "C:\\Users\\ajapo\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
