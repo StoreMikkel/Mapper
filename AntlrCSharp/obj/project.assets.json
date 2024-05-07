@@ -258,11 +258,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+      "projectUniqueName": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
       "projectName": "AntlrCSharp",
-      "projectPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+      "projectPath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
       "packagesPath": "C:\\Users\\ajapo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ajapo\\Desktop\\Repositories\\CalculatorLanguage\\AntlrCSharp\\obj\\",
+      "outputPath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ajapo\\AppData\\Roaming\\NuGet\\NuGet.Config"
