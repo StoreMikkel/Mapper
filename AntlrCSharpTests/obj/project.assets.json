@@ -1257,7 +1257,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mikkel\\.nuget\\packages\\": {}
+    "C:\\Users\\ajapo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1269,7 +1269,7 @@
       "outputPath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharpTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mikkel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ajapo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
