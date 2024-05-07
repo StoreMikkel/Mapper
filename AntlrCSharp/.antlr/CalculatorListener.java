@@ -1,4 +1,4 @@
-// Generated from c:/Users/ajapo/Desktop/Repositories/CalculatorLanguage/AntlrCSharp/Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -17,6 +17,36 @@ public interface CalculatorListener extends ParseTreeListener {
 	 */
 	void exitInput(CalculatorParser.InputContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement(CalculatorParser.StatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement(CalculatorParser.StatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatement(CalculatorParser.IfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatement(CalculatorParser.IfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(CalculatorParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(CalculatorParser.ConditionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CalculatorParser#calculation}.
 	 * @param ctx the parse tree
 	 */
@@ -27,6 +57,36 @@ public interface CalculatorListener extends ParseTreeListener {
 	 */
 	void exitCalculation(CalculatorParser.CalculationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(CalculatorParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(CalculatorParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerm(CalculatorParser.TermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerm(CalculatorParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(CalculatorParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(CalculatorParser.FactorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CalculatorParser#number}.
 	 * @param ctx the parse tree
 	 */
@@ -36,14 +96,4 @@ public interface CalculatorListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumber(CalculatorParser.NumberContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalculatorParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperator(CalculatorParser.OperatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalculatorParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperator(CalculatorParser.OperatorContext ctx);
 }
