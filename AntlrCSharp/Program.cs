@@ -13,25 +13,49 @@ namespace AntlrCSharp
 {
     class Program
     {
-        public static void Main(string[] args)
-    {
-        StringBuilder text = new StringBuilder();
-        string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
-                string[] lines = File.ReadAllLines(fileLocation);
-            
-                foreach(var element in lines)
-                {
-                    text.AppendLine(element);
-                }
-        AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-        CalculatorLexer lexer = new CalculatorLexer(inputStream);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        CalculatorParser parser = new CalculatorParser(tokenStream);
-        IParseTree tree = parser.input();
-        Console.WriteLine("h");
+        public static void Main(string[] args){
 
-        BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
-        visitor.Visit(tree);
+         StringBuilder text = new StringBuilder();
+         string fileLocation = @"C:\Users\ajapo\Desktop\Tests.txt";
+         string[] lines = File.ReadAllLines(fileLocation);
+         foreach(var element in lines)
+             {
+                text.AppendLine(element);
+             }
+        
+        try{
+            AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
+            CustomLexer lexer = new CustomLexer(inputStream);
+            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+            CustomParser parser = new CustomParser(tokenStream);
+
+            IParseTree tree = parser.input();
+
+        /*tokenStream.Fill();
+            foreach (var token in tokenStream.GetTokens())
+            {
+                Console.WriteLine($"Token Type: {token.Type}, Text: {token.Text}, Start Index: {token.StartIndex}, Stop Index: {token.StopIndex}");
+            }*/
+        
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(tree);
+        }catch (Exception ex)
+            {
+                if (ex is ParseCanceledException)
+                {
+                    
+                     Console.WriteLine("Parsing was canceled.");
+                
+                }
+                else
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
+            }
+        
+        }
+    
     }
-    }
+
+    
 }

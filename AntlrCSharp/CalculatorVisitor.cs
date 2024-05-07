@@ -44,24 +44,6 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] CalculatorParser.StatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.assignment"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitAssignment([NotNull] CalculatorParser.AssignmentContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.ifStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitIfStatement([NotNull] CalculatorParser.IfStatementContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.condition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCondition([NotNull] CalculatorParser.ConditionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.calculation"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -92,9 +74,105 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNumber([NotNull] CalculatorParser.NumberContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.id"/>.
+	/// Visit a parse tree produced by <see cref="CalculatorParser.ifStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitId([NotNull] CalculatorParser.IdContext context);
+	Result VisitIfStatement([NotNull] CalculatorParser.IfStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitWhileStatement([NotNull] CalculatorParser.WhileStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.variableDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableDeclaration([NotNull] CalculatorParser.VariableDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.variableAssignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableAssignment([NotNull] CalculatorParser.VariableAssignmentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.forLoop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitForLoop([NotNull] CalculatorParser.ForLoopContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.crementer"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCrementer([NotNull] CalculatorParser.CrementerContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.compare"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCompare([NotNull] CalculatorParser.CompareContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayDeclaration([NotNull] CalculatorParser.ArrayDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAssignement([NotNull] CalculatorParser.ArrayAssignementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAccess([NotNull] CalculatorParser.ArrayAccessContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayDeclaration2d"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayDeclaration2d([NotNull] CalculatorParser.ArrayDeclaration2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignment2d"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAssignment2d([NotNull] CalculatorParser.ArrayAssignment2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess2d"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAccess2d([NotNull] CalculatorParser.ArrayAccess2dContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.breakStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBreakStatement([NotNull] CalculatorParser.BreakStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.randomStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomStatement([NotNull] CalculatorParser.RandomStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFileWriteStatement([NotNull] CalculatorParser.FileWriteStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteNewline"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFileWriteNewline([NotNull] CalculatorParser.FileWriteNewlineContext context);
 }

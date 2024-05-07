@@ -51,21 +51,4 @@ C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
 C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.exe
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.deps.json
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.runtimeconfig.json
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.dll
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\AntlrCSharp.pdb
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\Antlr4.Runtime.Standard.dll
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.csproj.AssemblyReference.cache
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.AssemblyInfoInputs.cache
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.AssemblyInfo.cs
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.csproj.CoreCompileInputs.cache
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.sourcelink.json
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSh.17F4D0D3.Up2Date
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.dll
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\refint\AntlrCSharp.dll
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
-C:\Users\limbo\Documents\SOFTWARE - UNI\P4\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
+C:\Users\ajapo\Desktop\Repositories\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\nunit.framework.dll

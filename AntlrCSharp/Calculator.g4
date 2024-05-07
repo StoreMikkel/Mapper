@@ -1,30 +1,100 @@
 grammar Calculator;
 
 /* Parser Rules */
-input          : statement+ EOF;
-statement      : ifStatement | calculation | assignment;
-assignment     : TYPE ID ASSIGN expression NEWLINE;
-ifStatement    : IF LPAREN condition RPAREN NEWLINE TAB statement (ELSE NEWLINE TAB statement)?;
-condition      : expression LOGOPERATOR expression;
-calculation    : expression NEWLINE;
-expression     : term | expression OPERATOR1 term;
-term           : factor | term OPERATOR2 factor;
-factor         : number | '(' expression ')' | id;
-number         : NUMBER;
-id             : ID;
+input            : statement+ EOF;
 
-/*Lexer Rules*/
-NUMBER        : [0-9]+ ;
-OPERATOR1      : ('+' | '-' ) ;
-OPERATOR2       :( '/' | '*');
-LOGOPERATOR   : ('==' | '>=' | '<='| '!=' | '<' | '>');
-WHITESPACE    : (' ')+ -> skip;
-NEWLINE       : ('\r'? '\n' | '\r')+ ;
-LPAREN        : '(';
-RPAREN        : ')';
-IF            : ('if');
-ELSE          : ('else');
-TAB           :('\t');
-ID            : [A-Z]+;
-ASSIGN        : ('=');
-TYPE          : ('int' | 'double');
+statement        : calculation 
+                 | ifStatement
+                 | whileStatement
+                 | variableDeclaration
+                 | variableAssignment
+                 | forLoop
+                 | crementer
+                 | arrayDeclaration 
+                 | arrayDeclaration2d
+                 | arrayAssignement
+                 | arrayAccess
+                 | arrayAssignment2d
+                 | arrayAccess2d
+                 | breakStatement
+                 | fileWriteStatement
+                 | fileWriteNewline;
+
+calculation      : expression;
+
+expression       : term
+                 | expression OPERATOR1 term
+                 | expression COMPARISON_OPERATOR term
+                 | IDENTIFIER
+                 | STRING_LITERAL // Added comparison operator
+                 | BOOLEAN_LITERAL
+                 | arrayAccess
+                 | arrayAccess2d
+                 | randomStatement;
+
+term             : factor
+                 | term OPERATOR2 factor
+                 | IDENTIFIER
+                 | STRING_LITERAL
+                 | BOOLEAN_LITERAL
+                 | arrayAccess
+                 | arrayAccess2d
+                 | randomStatement;
+
+factor           : number
+                 | '(' expression ')'
+                 | IDENTIFIER
+                 | STRING_LITERAL
+                 | BOOLEAN_LITERAL
+                 | arrayAccess
+                 | arrayAccess2d
+                 | randomStatement;
+
+number           : NUMBER;
+
+ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  statement+ '}'  (ELSE '{' statement+ '}')?; // Adjusted ifStatement rule
+
+whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
+
+variableDeclaration : TYPE IDENTIFIER '=' expression;
+
+variableAssignment : IDENTIFIER '=' expression;
+
+forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' statement+ '}';
+crementer          : IDENTIFIER INCREMENTER| IDENTIFIER DECREMENTER;
+compare            : expression COMPARISON_OPERATOR term;
+
+arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET;
+arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
+arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET;
+arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?;
+arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
+arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET;
+breakStatement     : BREAK;
+randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')';
+fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL) ',' STRING_LITERAL ')';
+fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
+/* Lexer Rules */
+NUMBER           : [0-9]+ ;
+OPERATOR1        : ('+' | '-' ) ;
+OPERATOR2        : ('/' | '*');
+BOOLEANOPERATORS : ('||'| '&&');
+COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
+BOOLEAN_LITERAL  : ('true'|'false');
+BREAK            : 'BREAK';
+RANDOM           : 'RANDOM';
+EQUALS           : '=';
+LEFTARRAYBRACKET : '[';
+RIGHTARRAYBRACKET : ']';
+LEFTCURLYBRACKET : '{';
+RIGHTCURLYBRACKET: '}';
+IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
+INCREMENTER      : '++';
+DECREMENTER      : '--';
+WHITESPACE       : (' '|'\t')+ -> skip;
+NEWLINE          : ('\n'| '\r')+ -> skip;
+STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
+
+/*TYPE declarations */
+TYPE             : ('int '|'double '|'string ' | 'boolean ');
+ELSE             : 'else ';
