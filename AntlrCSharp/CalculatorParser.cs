@@ -2079,13 +2079,11 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class FileWriteStatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(CalculatorParser.STRING_LITERAL); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL(int i) {
-			return GetToken(CalculatorParser.STRING_LITERAL, i);
-		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayAccess2dContext arrayAccess2d() {
 			return GetRuleContext<ArrayAccess2dContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
 		public FileWriteStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2119,10 +2117,10 @@ public partial class CalculatorParser : Parser {
 				arrayAccess2d();
 				}
 				break;
-			case STRING_LITERAL:
+			case CHARACTER_LITERAL:
 				{
 				State = 338;
-				Match(STRING_LITERAL);
+				Match(CHARACTER_LITERAL);
 				}
 				break;
 			default:
@@ -2323,7 +2321,7 @@ public partial class CalculatorParser : Parser {
 		1,0,0,324,327,3,12,6,0,325,327,3,6,3,0,326,324,1,0,0,0,326,325,1,0,0,0,
 		327,328,1,0,0,0,328,331,5,7,0,0,329,332,3,12,6,0,330,332,3,6,3,0,331,329,
 		1,0,0,0,331,330,1,0,0,0,332,333,1,0,0,0,333,334,5,2,0,0,334,43,1,0,0,0,
-		335,336,5,8,0,0,336,339,5,1,0,0,337,340,3,38,19,0,338,340,5,29,0,0,339,
+		335,336,5,8,0,0,336,339,5,1,0,0,337,340,3,38,19,0,338,340,5,28,0,0,339,
 		337,1,0,0,0,339,338,1,0,0,0,340,341,1,0,0,0,341,342,5,7,0,0,342,343,5,
 		29,0,0,343,344,5,2,0,0,344,45,1,0,0,0,345,346,5,9,0,0,346,347,5,1,0,0,
 		347,348,5,29,0,0,348,349,5,2,0,0,349,47,1,0,0,0,34,51,71,84,92,94,106,

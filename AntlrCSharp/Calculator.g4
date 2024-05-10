@@ -75,7 +75,7 @@ arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number
 arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET;
 breakStatement     : BREAK;
 randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')';
-fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|STRING_LITERAL) ',' STRING_LITERAL ')';
+fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|CHARACTER_LITERAL) ',' STRING_LITERAL ')';
 fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
