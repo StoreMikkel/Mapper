@@ -700,44 +700,42 @@ namespace AntlrCSharp
 
         public override object VisitFileWriteStatement(CalculatorParser.FileWriteStatementContext context){
 
-            string textToWrite;
             string fileName;
-            if(context.arrayAccess2d() != null){
-                textToWrite = (string)Visit(context.arrayAccess2d());
-                fileName = context.STRING_LITERAL(0).GetText();
-            } else{
-                textToWrite = context.STRING_LITERAL(0).GetText();            
-                fileName = context.STRING_LITERAL(1).GetText();
-            }
-            
+            string identifier = context.arrayAccess2d().IDENTIFIER(0).GetText();          
 
-            fileName = fileName.Substring(1,fileName.Length - 2);
-            textToWrite = textToWrite.Substring(1, textToWrite.Length - 2);
+            Type declaredType = variableTypes[identifier];
 
+            if(declaredType == typeof(char)){
+                char charToWrite = (char)Visit(context.arrayAccess2d());
+                fileName = context.STRING_LITERAL().GetText();
+                fileName = fileName.Substring(1, fileName.Length - 2);
 
-            try{
+                try{
                 using(StreamWriter writer = new StreamWriter(fileName, writtenFiles.Contains(fileName))){
-                    writer.Write(textToWrite);
+                    writer.Write(charToWrite);
                 }
                 
-                writtenFiles.Add(fileName);
-            }catch(Exception ex){
-                throw new Exception("Cant print to file, yep " + ex);
+                    writtenFiles.Add(fileName);
+                    return true;
+                    
+                }catch(Exception ex){
+                    throw new Exception("Cant print to file, yep " + ex);
+                }
             }
-            return true;
+            return false;
+            
         }
 
         public override object VisitFileWriteNewline(CalculatorParser.FileWriteNewlineContext context){
             string fileName = context.STRING_LITERAL().GetText();
             fileName = fileName.Substring(1,fileName.Length - 2);
+            
             try{
                 using(StreamWriter writer = new StreamWriter(fileName, true)){
-                    
-                    writer.WriteLine();
-                    
+                    writer.WriteLine(); 
                 }
-                
                 writtenFiles.Add(fileName);
+
             }catch(Exception ex){
                 throw new Exception("Cant print to file, yep " + ex);
             }
