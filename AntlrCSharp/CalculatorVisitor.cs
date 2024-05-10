@@ -175,4 +175,16 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFileWriteNewline([NotNull] CalculatorParser.FileWriteNewlineContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapDeclaration([NotNull] CalculatorParser.MapDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapAccess([NotNull] CalculatorParser.MapAccessContext context);
 }

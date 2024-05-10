@@ -42,6 +42,8 @@ namespace AntlrCSharp
                     return typeof(bool);
                 case "char ":
                     return typeof(char);
+                case "map ":
+                    return typeof(Dictionary<string,char[,]>);
                 default:
                     throw new Exception($"Invalid type, what you doin rat: {typeName}");
             }
@@ -100,6 +102,12 @@ namespace AntlrCSharp
             }
             else if(context.fileWriteNewline() != null){
                 return VisitFileWriteNewline(context.fileWriteNewline());
+            }
+            else if(context.mapDeclaration() != null){
+                return VisitMapDeclaration(context.mapDeclaration());
+            }
+            else if(context.mapAccess() != null){
+                return VisitMapAccess(context.mapAccess());
             }
             else{
                 return "Unsupported Statement xdd";
@@ -175,6 +183,9 @@ namespace AntlrCSharp
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
             }
+            if(context.mapAccess() != null){
+                return VisitMapAccess(context.mapAccess());
+            }
             return Visit(context.term());
         }
 
@@ -217,6 +228,9 @@ namespace AntlrCSharp
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
             }
+            if(context.mapAccess() != null){
+                return VisitMapAccess(context.mapAccess());
+            }
 
             return Visit(context.factor());
         }   
@@ -251,7 +265,11 @@ namespace AntlrCSharp
             }
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
-            }else{
+            }
+            if(context.mapAccess() != null){
+                return VisitMapAccess(context.mapAccess());
+            }
+            else{
                 return Visit(context.expression());
             }
         }
@@ -742,8 +760,71 @@ namespace AntlrCSharp
             return true;
 
         }
-    }
 
-    
+        public override object VisitMapDeclaration(CalculatorParser.MapDeclarationContext context){
+
+            string identifier = context.IDENTIFIER().GetText();
+            int numKeyValuePairs = int.Parse(context.NUMBER(0).GetText());
+            int rows = int.Parse(context.NUMBER(1).GetText());
+            int columns = int.Parse(context.NUMBER(2).GetText());
+
+            string declaredTypeName = context.TYPE().GetText();
+            Type declaredType = GetTypeFromName(declaredTypeName);
+
+            List<string> keys = context.STRING_LITERAL().Select(x => x.GetText()).ToList();
+            
+
+            Dictionary<string, char[,]> map = new Dictionary<string, char[,]>();
+
+            for (int i = 0; i < numKeyValuePairs; i++){
+                // Create the 2D char array for each key
+                char[,] array = new char[rows, columns];
+
+                // Fill the array with characters
+                for (int r = 0; r < rows; r++){
+                    for (int c = 0; c < columns; c++)
+                    {
+                        array[r, c] = 'Q'; // Fill with space character, currently Q for testing purposes
+                    }
+                }
+
+                // Add the key-value pair to the map
+                map.Add(keys[i], array);
+            }
+
+            variableTypes[identifier] = declaredType;
+            variables[identifier] = map;
+            return map;
+        }
+
+        public override object VisitMapAccess(CalculatorParser.MapAccessContext context){
+
+            string identifier = context.IDENTIFIER().GetText();
+            
+
+            Dictionary<string,char[,]> map = (Dictionary<string,char[,]>)variables[identifier]; 
+
+            string key = context.STRING_LITERAL().GetText(); 
+            
+            if (map.ContainsKey(key)) {
+                var array = map[key];
+
+                //FOR TESTING PURPOSES
+                for (int i = 0; i < array.GetLength(0); i++) {
+                    for (int j = 0; j < array.GetLength(1); j++) {
+                        Console.Write(array[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+
+
+                return array;
+            } else {
+                throw new KeyNotFoundException($"Key '{key}' not found in the map.");
+            }
+        }
+
+
+    }
 }
 

@@ -18,7 +18,9 @@ statement        : calculation
                  | arrayAccess2d
                  | breakStatement
                  | fileWriteStatement
-                 | fileWriteNewline;
+                 | fileWriteNewline
+                 | mapDeclaration
+                 | mapAccess;
 
 calculation      : expression;
 
@@ -31,7 +33,8 @@ expression       : term
                  | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
-                 | randomStatement;
+                 | randomStatement
+                 | mapAccess;
 
 term             : factor
                  | term OPERATOR2 factor
@@ -41,7 +44,8 @@ term             : factor
                  | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
-                 | randomStatement;
+                 | randomStatement
+                 | mapAccess;
 
 factor           : number
                  | '(' expression ')'
@@ -51,7 +55,8 @@ factor           : number
                  | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
-                 | randomStatement;
+                 | randomStatement
+                 | mapAccess;
 
 number           : NUMBER;
 
@@ -77,6 +82,10 @@ breakStatement     : BREAK;
 randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')';
 fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|CHARACTER_LITERAL) ',' STRING_LITERAL ')';
 fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
+
+mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')' '=' STRING_LITERAL (',' STRING_LITERAL)*;
+mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
+
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
@@ -101,5 +110,5 @@ STRING_LITERAL    : '"' ( ~["\\\r\n] | '\\' . )* '"';
 
 
 /*TYPE declarations */
-TYPE             : ('int '|'double '|'string ' | 'boolean '| 'char ');
+TYPE             : ('int '|'double '|'string ' | 'boolean '| 'char ' | 'map ');
 ELSE             : 'else ';
