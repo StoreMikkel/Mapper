@@ -28,6 +28,7 @@ expression       : term
                  | IDENTIFIER
                  | STRING_LITERAL // Added comparison operator
                  | BOOLEAN_LITERAL
+                 | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement;
@@ -37,6 +38,7 @@ term             : factor
                  | IDENTIFIER
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
+                 | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement;
@@ -46,6 +48,7 @@ factor           : number
                  | IDENTIFIER
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
+                 | CHARACTER_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement;
@@ -93,8 +96,10 @@ INCREMENTER      : '++';
 DECREMENTER      : '--';
 WHITESPACE       : (' '|'\t')+ -> skip;
 NEWLINE          : ('\n'| '\r')+ -> skip;
-STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
+CHARACTER_LITERAL : '\'' . '\'';
+STRING_LITERAL    : '"' ( ~["\\\r\n] | '\\' . )* '"';
+
 
 /*TYPE declarations */
-TYPE             : ('int '|'double '|'string ' | 'boolean ');
+TYPE             : ('int '|'double '|'string ' | 'boolean '| 'char ');
 ELSE             : 'else ';
