@@ -295,6 +295,7 @@ namespace AntlrCSharp
                         Visit(statement);
                     }
                 }
+                return true;
             }
 
             else if (context.ELSE() != null){
@@ -575,10 +576,10 @@ namespace AntlrCSharp
 
             Array array2d;
 
-            if (declaredType == typeof(char)) {
-                array2d = new char[rows, columns];
-            } else if (declaredType == typeof(int)) {
+            if (declaredType == typeof(int)) {
                 array2d = new int[rows, columns];
+            } else if (declaredType == typeof(char)) {
+                array2d = new char[rows, columns];
             } else if (declaredType == typeof(double)) {
                 array2d = new double[rows, columns];
             }else if (declaredType == typeof(string)) {
@@ -608,6 +609,7 @@ namespace AntlrCSharp
                         }
 
                         CheckType(identifier, declaredType, value);
+                        
                         if (declaredType == typeof(char)) {
                             ((char[,])array2d)[i, j] = (char)value;
                         } else if (declaredType == typeof(int)) {
@@ -623,7 +625,11 @@ namespace AntlrCSharp
                 }
             }
             variableTypes[identifier] = declaredType;
+            Console.WriteLine(declaredType);
+            Console.WriteLine(array2d.GetType());
             variables[identifier] = array2d;
+
+            
 
             return array2d;
         }
@@ -631,10 +637,9 @@ namespace AntlrCSharp
         public override object VisitArrayAssignment2d(CalculatorParser.ArrayAssignment2dContext context)
         {
             string identifier = context.IDENTIFIER(0).GetText();
-            object[,] array = (object[,])variables[identifier];
-
             // Get the declared type of the array
             Type declaredType = variableTypes[identifier];
+            //object[,] array = (object[,])variables[identifier];
             
             object rowIndex;
             if(context.IDENTIFIER(1) != null){
@@ -652,22 +657,74 @@ namespace AntlrCSharp
 
             int rows = (int)rowIndex;
             int columns = (int)columnIndex;
-            // Check if the indices are within bounds of the array
-            if (rows < 0 || rows >= array.GetLength(0) || columns < 0 || columns >= array.GetLength(1)){
-                throw new Exception($"Index out of bounds for 2D array '{identifier}'");
-            }
-            
+
             object value = Visit(context.expression());
 
-            if(value is int && declaredType == typeof(double)){
+            if (value is int && variableTypes[identifier] == typeof(double)){
                 value = (double)(int)value;
             }
 
             CheckType(identifier,declaredType,value);
 
-            array[rows, columns] = value;
-            variables[identifier] = array;
-            
+            object arrayObject = variables[identifier];
+
+            if (declaredType == typeof(int)){
+                int[,] array = (int[,])arrayObject;
+                // Check if the indices are within bounds of the array
+                if (rows < 0 || rows >= array.GetLength(0) || columns < 0 || columns >= array.GetLength(1)){
+                    throw new Exception($"Index out of bounds for 2D array '{identifier}'");
+                }
+
+                int intValue = (int)value;
+
+                array[rows,columns] = intValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(char)){
+                char[,] array = (char[,])arrayObject;
+                // Check if the indices are within bounds of the array
+                if (rows < 0 || rows >= array.GetLength(0) || columns < 0 || columns >= array.GetLength(1)){
+                    throw new Exception($"Index out of bounds for 2D array '{identifier}'");
+                }
+
+                char charValue = (char)value;
+
+                array[rows,columns] = charValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(double)){
+                double[,] array = (double[,])arrayObject;
+                // Check if the indices are within bounds of the array
+                if (rows < 0 || rows >= array.GetLength(0) || columns < 0 || columns >= array.GetLength(1)){
+                    throw new Exception($"Index out of bounds for 2D array '{identifier}'");
+                }
+
+                
+                
+                double doubleValue = (double)value;
+
+                array[rows,columns] = doubleValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(string)){
+                string[,] array = (string[,])arrayObject;
+                // Check if the indices are within bounds of the array
+                if (rows < 0 || rows >= array.GetLength(0) || columns < 0 || columns >= array.GetLength(1)){
+                    throw new Exception($"Index out of bounds for 2D array '{identifier}'");
+                }
+
+                string stringValue = (string)value;
+
+                array[rows,columns] = stringValue;
+
+                variables[identifier] = array;
+            }
             
             return value;
         }
@@ -675,6 +732,7 @@ namespace AntlrCSharp
         public override object VisitArrayAccess2d(CalculatorParser.ArrayAccess2dContext context)
         {
             string identifier = context.IDENTIFIER(0).GetText();
+            Type declaredType = variableTypes[identifier];
             
             object rowIndex;
             if(context.IDENTIFIER(1) != null){
@@ -694,8 +752,30 @@ namespace AntlrCSharp
             int columns = (int)columnIndex;
             
                        
-            object[,] array = (object[,])variables[identifier];
-            return array[row, columns];
+            if (declaredType == typeof(int))
+            {
+                int[,] array = (int[,])variables[identifier];
+                return array[row, columns];
+            }
+            else if (declaredType == typeof(char))
+            {
+                char[,] array = (char[,])variables[identifier];
+                return array[row, columns];
+            }
+            else if (declaredType == typeof(double))
+            {
+                double[,] array = (double[,])variables[identifier];
+                return array[row, columns];
+            }
+            else if (declaredType == typeof(string))
+            {
+                string[,] array = (string[,])variables[identifier];
+                return array[row, columns];
+            }
+            else{
+                // Handle unsupported types or throw an exception
+                throw new Exception($"Unsupported type: {declaredType}");
+            }
         }
 
         public override object VisitBreakStatement(CalculatorParser.BreakStatementContext context){

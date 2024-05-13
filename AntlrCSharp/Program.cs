@@ -16,7 +16,7 @@ namespace AntlrCSharp
         public static void Main(string[] args){
 
          StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\ajapo\Desktop\Tests.txt";
+         string fileLocation = @"C:\Users\ajapo\Desktop\yep3.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
@@ -44,7 +44,7 @@ namespace AntlrCSharp
                 if (ex is ParseCanceledException)
                 {
                     
-                     Console.WriteLine("Parsing was canceled.");
+                     Console.WriteLine("Parsing was canceled." + ex.Message);
                 
                 }
                 else

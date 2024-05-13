@@ -279,6 +279,41 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void TestValidMapDeclaration()
+        {
+            // Arrange
+            string input = "map test(3)(50)(50) = \"lag1\" , \"lag2\", \"lag3\""; 
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestValidMapAccess()
+        {
+            // Arrange
+            string input = "access test(\"lag2\")"; 
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestValidMapModification()
+        {
+            // Arrange
+            string input = "modify test(\"lag2\") = nyTest1"; 
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
         
 
 
@@ -569,6 +604,42 @@ public class UnitTest1
         {
             // Arrange
             string input = "fileWriteNewline(BREAK)";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidMapDeclaration()
+        {
+            // Arrange
+            string input = "map test(3)(50) = \"lag1\" , \"lag2\", \"lag3\"";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidMapAccess()
+        {
+            // Arrange
+            string input = "access test(yep)";
+            // Act
+            bool result = ParseInput(input);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestInvalidMapModification()
+        {
+            // Arrange
+            string input = " test(\"lag2\") = nyTest1";
             // Act
             bool result = ParseInput(input);
 
