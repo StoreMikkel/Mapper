@@ -187,4 +187,10 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMapAccess([NotNull] CalculatorParser.MapAccessContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapModification"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapModification([NotNull] CalculatorParser.MapModificationContext context);
 }
