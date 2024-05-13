@@ -10,6 +10,7 @@ using Antlr4.Runtime.Tree;
 using AntlrCSharp;
 using static CalculatorParser;
 using System.IO;
+using System.ComponentModel.Design.Serialization;
 
 namespace AntlrCSharp
 {
@@ -886,7 +887,33 @@ namespace AntlrCSharp
             return true;
         }
 
+        public override object VisitMapBSP(CalculatorParser.MapBSPContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            string key = context.STRING_LITERAL().GetText();
+            int maxAcceptedSize = int.Parse(context.NUMBER().GetText());
+
+            Dictionary<string,char[,]> map = (Dictionary<string,char[,]>)variables[identifier]; 
+            if (map.ContainsKey(key)) {
+                var grid = map[key];
+                BSPNode root = new BSPNode();
+                Subset gridSubset = new Subset(0,0, grid.GetLength(1), grid.GetLength(0));
+                List<Subset> subsetList = new List<Subset>();
+                BSP_Partitioning partitioning = new BSP_Partitioning();
+                partitioning.run(gridSubset, root, 5, subsetList, grid);
+            } else {
+                throw new KeyNotFoundException($"Key '{key}' not found in the map.");
+            }
+            
+            
+
+            return null;
+
+        }
+
 
     }
+    
+
 }
 

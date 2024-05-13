@@ -16,7 +16,7 @@ namespace AntlrCSharp
         public static void Main(string[] args){
 
          StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\ajapo\Desktop\Tests.txt";
+         string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
