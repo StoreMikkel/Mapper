@@ -52,9 +52,9 @@ public class Subset
     public int Length()
     {
         int counter = 0;
-        for (int i = this.startX; i < this.endX; i++)
+        for (int i = this.startX; i <= this.endX; i++)
         {
-            for(int j = this.startY; j < this.endY; j++)
+            for(int j = this.startY; j <= this.endY; j++)
             {
                 counter++;
             }
@@ -102,13 +102,13 @@ public class BSP_Partitioning
         int subsetHeight = subset.getHeight();
         if (directionOfSplit == 1)
         {
-            int splitValue = random.Next(0, subsetWidth);
+            int splitValue = random.Next(subset.startX, subsetWidth);
             subsetList.Add(new Subset(subset.startX, subset.startY, splitValue, subset.endY));
             subsetList.Add(new Subset(splitValue, subset.startY, subset.endX, subset.endY));
         }
         if(directionOfSplit == 2)
         {
-            int splitValue = random.Next(0, subsetHeight);
+            int splitValue = random.Next(subset.startY, subsetHeight);
             subsetList.Add(new Subset(subset.startX, subset.startY, subset.endX, splitValue));
             subsetList.Add(new Subset(subset.startX, splitValue, subset.endX, subset.endY));
         }

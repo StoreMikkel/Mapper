@@ -44,7 +44,10 @@ namespace AntlrCSharp
                 if (ex is ParseCanceledException)
                 {
                     
-                     Console.WriteLine("Parsing was canceled.");
+                    Console.WriteLine("Parsing was canceled.");
+                    Console.WriteLine($"Error occurred while parsing with message: {ex.Message}");
+                    // Optionally, you can print the stack trace for more detailed debugging information
+                    Console.WriteLine($"StackTrace: {ex.StackTrace}");
                 
                 }
                 else

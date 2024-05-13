@@ -43,7 +43,7 @@ ELSE=34
 'fileWriteNewline'=9
 'access'=10
 'modify'=11
-'BSP'=12
+'bsp'=12
 'BREAK'=19
 'RANDOM'=20
 '='=21

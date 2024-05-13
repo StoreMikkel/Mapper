@@ -21,7 +21,8 @@ statement        : calculation
                  | fileWriteNewline
                  | mapDeclaration
                  | mapAccess
-                 | mapModification;
+                 | mapModification
+                 | mapBSP;
 
 calculation      : expression;
 
@@ -88,7 +89,7 @@ mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')
 mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
 
-mapBSP             : 'BSP' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
+mapBSP             : 'bsp' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
