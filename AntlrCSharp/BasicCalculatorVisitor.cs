@@ -109,6 +109,9 @@ namespace AntlrCSharp
             else if(context.mapAccess() != null){
                 return VisitMapAccess(context.mapAccess());
             }
+            else if(context.mapModification() != null){
+                return VisitMapModification(context.mapModification());
+            }
             else{
                 return "Unsupported Statement xdd";
             }
@@ -568,7 +571,22 @@ namespace AntlrCSharp
             int expressionLength = context.expression().Length;
             
             
-            object[,] array2d = new object[rows, columns];
+            //object[,] array2d = new object[rows, columns];
+
+            Array array2d;
+
+            if (declaredType == typeof(char)) {
+                array2d = new char[rows, columns];
+            } else if (declaredType == typeof(int)) {
+                array2d = new int[rows, columns];
+            } else if (declaredType == typeof(double)) {
+                array2d = new double[rows, columns];
+            }else if (declaredType == typeof(string)) {
+                array2d = new string[rows, columns];
+            } else {
+                // Handle unsupported types or throw an exception
+                throw new Exception($"Unsupported type: {declaredTypeName}");
+            }
 
             //If values are initialized, check if there is as many expressions as declared in '[,]'
             if(expressionLength > 0){
@@ -590,7 +608,15 @@ namespace AntlrCSharp
                         }
 
                         CheckType(identifier, declaredType, value);
-                        array2d[i,j] = value;
+                        if (declaredType == typeof(char)) {
+                            ((char[,])array2d)[i, j] = (char)value;
+                        } else if (declaredType == typeof(int)) {
+                            ((int[,])array2d)[i, j] = (int)value;
+                        } else if (declaredType == typeof(double)){
+                            ((double[,])array2d)[i, j] = (double)value;
+                        }else if (declaredType == typeof(string)){
+                            ((string[,])array2d)[i, j] = (string)value;
+                        }
                         counter++;
                         
                     }
@@ -822,6 +848,42 @@ namespace AntlrCSharp
             } else {
                 throw new KeyNotFoundException($"Key '{key}' not found in the map.");
             }
+        }
+
+
+        public override object VisitMapModification(CalculatorParser.MapModificationContext context){
+            
+            string identifier = context.IDENTIFIER(0).GetText();
+            string layerName = context.STRING_LITERAL().GetText();
+            string arrayIdentifier = context.IDENTIFIER(1).GetText();
+
+
+            if(variableTypes[identifier] != typeof(Dictionary<string,char[,]>)){
+                throw new Exception($"Variable {identifier} is not of type 'map'.");
+            }else if(variableTypes[arrayIdentifier] != typeof(char)){
+                throw new Exception($"Variable {arrayIdentifier} is not of type 'char[,]'.");
+            }
+
+            Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
+
+            char[,] newArray = (char[,])variables[arrayIdentifier];
+
+            if (map.ContainsKey(layerName)){
+
+                char[,] oldArray = map[layerName];
+                if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
+                    throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                }
+
+
+                map[layerName] = newArray;
+            }else{
+                throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
+            }
+            
+            variables[identifier] = map;
+            
+            return true;
         }
 
 
