@@ -860,15 +860,22 @@ namespace AntlrCSharp
 
             if(variableTypes[identifier] != typeof(Dictionary<string,char[,]>)){
                 throw new Exception($"Variable {identifier} is not of type 'map'.");
-            }else if(variableTypes[arrayIdentifier] != typeof(char[,])){
+            }else if(variableTypes[arrayIdentifier] != typeof(char)){
                 throw new Exception($"Variable {arrayIdentifier} is not of type 'char[,]'.");
             }
-            
+
             Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
 
             char[,] newArray = (char[,])variables[arrayIdentifier];
 
             if (map.ContainsKey(layerName)){
+
+                char[,] oldArray = map[layerName];
+                if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
+                    throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                }
+
+
                 map[layerName] = newArray;
             }else{
                 throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
