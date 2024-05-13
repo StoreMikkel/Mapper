@@ -88,7 +88,7 @@ mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')
 mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
 
-mapBSP : IDENTIFIER '(' STRING_LITERAL ')' '=' 'BSP(' NUMBER ')';
+mapBSP             : 'BSP' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
