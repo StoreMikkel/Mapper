@@ -53,6 +53,7 @@ namespace AntlrCSharp
                 else
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 }
             }
         

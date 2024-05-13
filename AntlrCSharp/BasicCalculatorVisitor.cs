@@ -892,7 +892,6 @@ namespace AntlrCSharp
 
         public override object VisitMapBSP(CalculatorParser.MapBSPContext context)
         {
-            Console.WriteLine("står i denne linje");
             string identifier = context.IDENTIFIER().GetText();
             string key = context.STRING_LITERAL().GetText();
             int maxAcceptedSize = int.Parse(context.NUMBER().GetText());
