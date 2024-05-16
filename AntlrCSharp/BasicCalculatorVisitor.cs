@@ -463,14 +463,27 @@ namespace AntlrCSharp
 
         public override object VisitArrayDeclaration(CalculatorParser.ArrayDeclarationContext context){
     
-            string identifier = context.IDENTIFIER().GetText();
-            List<object> valuesFromArray = new List<object>();
+            string identifier = context.IDENTIFIER(0).GetText();
             string declaredTypeName = context.TYPE().GetText();
 
             Type declaredType = GetTypeFromName(declaredTypeName);
+
+            object lengthArray;
+            if(context.IDENTIFIER(1) != null){
+                lengthArray = variables[context.IDENTIFIER(1).GetText()];
+            }else {
+                lengthArray = Visit(context.number());
+            }
+
+            int length = (int)lengthArray;
+
+
+            List<object> values = new List<object>();
             
-            
-            foreach (var expression in context.expression()){
+            int expressionLength = context.expression().Length;
+
+            if(expressionLength > 0){
+                foreach (var expression in context.expression()){
                 object value = Visit(expression);
 
                 if(value is int && declaredTypeName == "double " ){
@@ -479,19 +492,27 @@ namespace AntlrCSharp
 
                 CheckType(identifier, declaredType, value);
 
-                valuesFromArray.Add(value);
+                values.Add(value);
             }
+            }
+            
             // Convert list to array
-            object[] arrayValues = valuesFromArray.ToArray();
+            Array array = Array.CreateInstance(declaredType, length);
+            for (int i = 0; i < values.Count; i++) {
+                array.SetValue(values[i], i);
+            }
 
             // Assign array to variable
             variableTypes[identifier] = declaredType;
-            variables[identifier] = arrayValues;
+            variables[identifier] = array;
             
-            return arrayValues;
+            return array;
         }
+
         public override object VisitArrayAccess(CalculatorParser.ArrayAccessContext context){
             string identifier = context.IDENTIFIER(0).GetText();
+            Type declaredType = variableTypes[identifier];
+
             object indexValue;
 
             if(context.IDENTIFIER(1) != null){
@@ -501,17 +522,34 @@ namespace AntlrCSharp
             }
             
             int index = (int)indexValue; 
-            object[] array = (object[])variables[identifier];
-            
-        
-            return array[index];
+
+            if(declaredType == typeof(int)){
+                int[] array = (int[])variables[identifier];
+                return array[index];
+            }
+            else if (declaredType == typeof(char))
+            {
+                char[] array = (char[])variables[identifier];
+                return array[index];
+            }
+            else if (declaredType == typeof(double))
+            {
+                double[] array = (double[])variables[identifier];
+                return array[index];
+            }
+            else if (declaredType == typeof(string))
+            {
+                string[] array = (string[])variables[identifier];
+                return array[index];
+            }
+            else{
+                // Handle unsupported types or throw an exception
+                throw new Exception($"Unsupported type: {declaredType}");
+            }
         }
     
         public override object VisitArrayAssignement(CalculatorParser.ArrayAssignementContext context){
             string identifier = context.IDENTIFIER(0).GetText();
-            object[] array = (object[])variables[identifier];
-            object value = Visit(context.expression());
-
             // Get the declared type of the array
             Type declaredType = variableTypes[identifier];
             
@@ -523,22 +561,72 @@ namespace AntlrCSharp
             }
             int index = (int)indexValue;
 
-            // Check if the index is within the bounds of the array
-            if (index < 0 || index >= array.Length){
-                throw new IndexOutOfRangeException($"Index {index} is out of range for array {identifier}");
-            }
+            object value = Visit(context.expression());
             //Cast ints to doubles
             if (value.GetType() == typeof(int) && declaredType == typeof(double)){
                 value = Convert.ToDouble(value);
-                array[index] = value;
             }
 
             // Check if the assigned value matches the declared type
             CheckType(identifier, declaredType, value);
 
-            array[index] = value;  
+            object array = variables[identifier];
 
-            variables[identifier] = array;
+            if (declaredType == typeof(int)){
+                int[] newArray = (int[])array;
+                // Check if the index is within the bounds of the array
+                if (index < 0 || index >= newArray.Length){
+                    throw new IndexOutOfRangeException($"Index {index} is out of range for array {identifier}");
+                }
+
+                int intValue = (int)value;
+
+                newArray[index] = intValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(char)){
+                char[] newArray = (char[])array;
+                // Check if the index is within the bounds of the array
+                if (index < 0 || index >= newArray.Length){
+                    throw new IndexOutOfRangeException($"Index {index} is out of range for array {identifier}");
+                }
+
+                char charValue = (char)value;
+
+                newArray[index] = charValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(double)){
+                double[] newArray = (double[])array;
+                // Check if the index is within the bounds of the array
+                if (index < 0 || index >= newArray.Length){
+                    throw new IndexOutOfRangeException($"Index {index} is out of range for array {identifier}");
+                }
+
+                double doubleValue = (double)value;
+
+                newArray[index] = doubleValue;
+
+                variables[identifier] = array;
+            }
+
+            if (declaredType == typeof(string)){
+                string[] newArray = (string[])array;
+                // Check if the index is within the bounds of the array
+                if (index < 0 || index >= newArray.Length){
+                    throw new IndexOutOfRangeException($"Index {index} is out of range for array {identifier}");
+                }
+
+                string stringValue = (string)value;
+
+                newArray[index] = stringValue;
+
+                variables[identifier] = array;
+            }
 
             return value;
         }
