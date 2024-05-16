@@ -246,7 +246,7 @@ public class BSP_rooms
         {
             foreach(var node in group)
             {
-                if(node.GetSibling() != null && node.GetConnected() == false && node.GetRoom() != null && node.GetSibling().GetRoom() != null)
+                if(node.GetSibling() != null && node.GetConnected() == false && node.GetChildren()[0] == null)
                 {
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
