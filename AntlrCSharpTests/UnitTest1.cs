@@ -151,7 +151,7 @@ public class UnitTest1
         public void TestValidArrayDeclaration()
         {
             // Arrange
-            string input = "int array[] = {2,3,4,5}"; 
+            string input = "int array[4] = {2,3,4,5}"; 
             // Act
             bool result = ParseInput(input);
 

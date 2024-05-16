@@ -173,6 +173,202 @@ public class SemanticsTest1{
         }
 
         [TestMethod]
+        public void TestIntArrayDeclaration(){
+
+            CustomParser parser = ParseInput("int array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+
+            Assert.AreEqual(typeof(int[]).FullName, visitor.VisitStatement(context).GetType().FullName);
+        }
+
+        [TestMethod]
+        public void TestDoubleArrayDeclaration(){
+
+            CustomParser parser = ParseInput("double array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+
+            Assert.AreEqual(typeof(double[]).FullName, visitor.VisitStatement(context).GetType().FullName);
+        }
+
+        [TestMethod]
+        public void TestStringArrayDeclaration(){
+
+            CustomParser parser = ParseInput("string array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+
+            Assert.AreEqual(typeof(string[]).FullName, visitor.VisitStatement(context).GetType().FullName);
+        }
+
+        [TestMethod]
+        public void TestCharArrayDeclaration(){
+
+            CustomParser parser = ParseInput("char array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+
+            Assert.AreEqual(typeof(char[]).FullName, visitor.VisitStatement(context).GetType().FullName);
+        }
+
+        [TestMethod]
+        public void TestIntArrayAssignment(){
+
+            CustomParser parser = ParseInput("int array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0] = 5");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual(5, visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestDoubleArrayAssignment(){
+
+            CustomParser parser = ParseInput("double array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0] = 5");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual(5.0, visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestStringArrayAssignment(){
+
+            CustomParser parser = ParseInput("string array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0] = \"5\"");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual("\"5\"", visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestCharArrayAssignment(){
+
+            CustomParser parser = ParseInput("char array[2]");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0] = '5'");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual('5', visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestIntArrayAccess(){
+
+            CustomParser parser = ParseInput("int array[2] = {0,1}");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0]");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual(0, visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestDoubleArrayAccess(){
+
+            CustomParser parser = ParseInput("double array[2] = {0,1}");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0]");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual(0.0, visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestStringArrayAccess(){
+
+            CustomParser parser = ParseInput("string array[2] = {\"0\",\"1\"}");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0]");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual("\"0\"", visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
+        public void TestCharArrayAccess(){
+
+            CustomParser parser = ParseInput("char array[2] = {'0','1'}");
+
+            CustomParser.StatementContext context = parser.statement();
+
+            CustomParser parser2 = ParseInput("array[0]");
+
+            CustomParser.StatementContext context2 = parser2.statement();
+
+            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            visitor.Visit(context);
+            visitor.Visit(context2);
+
+            Assert.AreEqual('0', visitor.VisitStatement(context2));
+        }
+
+        [TestMethod]
         public void TestInt2dArrayDeclaration(){
 
             CustomParser parser = ParseInput("int array2d[2,2]");

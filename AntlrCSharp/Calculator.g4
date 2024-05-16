@@ -73,7 +73,7 @@ forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')'
 crementer          : IDENTIFIER INCREMENTER| IDENTIFIER DECREMENTER;
 compare            : expression COMPARISON_OPERATOR term;
 
-arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET RIGHTARRAYBRACKET '=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET;
+arrayDeclaration   : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)?;
 arrayAssignement   : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
 arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYBRACKET;
 arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?;
