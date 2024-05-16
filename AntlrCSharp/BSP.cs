@@ -6,15 +6,19 @@ public class BSPNode
     private BSPNode parent;
     private BSPNode sibling;
     private BSPNode[] children;
+    private int level;
+    private bool connected;
 
     private Subset subset;
 
-    public BSPNode()
+    public BSPNode(int assignlevel)
     {
         parent = null;
         sibling = null;
         children = new BSPNode[2]; // Assuming each node can have at most two children
         subset = null;
+        this.level = assignlevel;
+        connected = false;
     }
 
     public void SetParent(BSPNode parentNode)
@@ -57,6 +61,20 @@ public class BSPNode
         return this.subset;
     }
 
+    public int GetLevel()
+    {
+        return this.level;
+    }
+
+    public void SetConnected()
+    {
+        this.connected = true;
+    }
+    public bool GetConnected()
+    {
+        return connected;
+    }
+
 }
 
 public class Subset
@@ -79,6 +97,17 @@ public class Subset
         return ((this.endX-this.startX) * (this.endY-this.startY));
     }
 
+    public IEnumerable<(int x, int y)> GetTiles()
+    {
+        for (int y = startY; y <= endY; y++)
+        {
+            for (int x = startX; x <= endX; x++)
+            {
+                yield return (x, y);
+            }
+        }
+    }
+
 }
 
 public class BSP_rooms
@@ -90,6 +119,7 @@ public class BSP_rooms
     {
         partition(subset, node, maxAcceptedSize, nodeList);
         randomRoomPlacement(nodeList, grid);
+        BSP_corridors(nodeList, grid);
     }
     
     public void partition(Subset subset, BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList)
@@ -107,8 +137,8 @@ public class BSP_rooms
     }
     private void split(int directionOfSplit, Subset subset, BSPNode node, List<BSPNode> nodeList, int maxAcceptedSize)
     {
-        BSPNode leftChild = new BSPNode();
-        BSPNode rightChild = new BSPNode();
+        BSPNode leftChild = new BSPNode(node.GetLevel()+1);
+        BSPNode rightChild = new BSPNode(node.GetLevel()+1);
 
         if (directionOfSplit == 1)
         {
@@ -161,8 +191,8 @@ public class BSP_rooms
                 Console.WriteLine("(" + subset.startX + ", " + subset.startY + ")" + " (" + subset.endX + ", " + subset.endY + ")");
                 int roomTopLeftCornerX = random.Next(subset.startX, subset.endX);
                 int roomTopLeftCornerY = random.Next(subset.startY, subset.endY);
-                int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, subset.endX+1);
-                int roomBottomRightCornerY = random.Next(subset.startY, roomTopLeftCornerY+1);
+                int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, subset.endX);
+                int roomBottomRightCornerY = random.Next(subset.startY, roomTopLeftCornerY);
 
                 for(int i = roomTopLeftCornerX; i < roomBottomRightCornerX; i++)
                 {
@@ -173,6 +203,57 @@ public class BSP_rooms
                 }
             }
         }
+    }
+
+    private void BSP_corridors(List<BSPNode> nodeList, char[,] grid)
+    {
+        // Group nodes by their level
+        var groupedNodes = nodeList.GroupBy(n => n.GetLevel()).OrderByDescending(g => g.Key);
+        //Iterate through each group of nodes
+        foreach(var group in groupedNodes)
+        {
+            foreach(var node in group)
+            {
+                if(node.GetSibling() != null && node.GetConnected() == false)
+                {
+                    connect_rooms(node, node.GetSibling(), grid);
+                    node.SetConnected();
+                    node.GetSibling().SetConnected();
+                }
+            }
+            
+        }
+    }
+
+    private void connect_rooms(BSPNode fromRoom, BSPNode toRoom, char[,] grid)
+    {
+        int currentX = 0;
+        int currentY = 0;
+        int smallestXdifference = grid.GetLength(1);
+        int smallestYdifference = grid.GetLength(0);
+
+        foreach(var fromTile in fromRoom.GetSubset().GetTiles())
+        {
+            foreach(var toTile in toRoom.GetSubset().GetTiles())
+            {
+                if(fromTile.x == toTile.x)
+                {
+                    currentX = fromTile.x;
+                    currentY = fromTile.y;
+                    while(currentY != toTile.y)
+                    {
+                        currentY +=1;
+                        grid[currentX, currentY] = 'f';
+                    }
+                    return;
+                }
+            }
+
+        }
+
+
+        
+
     }
 
     
