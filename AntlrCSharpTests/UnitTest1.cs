@@ -11,7 +11,7 @@ public class UnitTest1
         public void TestValidDeclaration()
         {
             // Arrange
-            string input = "int x = 5"; // Example valid input
+            string input = "int x = 5"; 
 
             // Act
             bool result = ParseInput(input);
@@ -24,7 +24,7 @@ public class UnitTest1
         public void TestValidAssignment()
         {
             // Arrange
-            string input = "int x = 5" + "x = 6"; // Example valid input
+            string input = "int x = 5" + "x = 6"; 
 
             // Act
             bool result = ParseInput(input);
@@ -37,7 +37,7 @@ public class UnitTest1
         public void TestValidIf()
         {
             // Arrange
-            string input = "int e = 3 int r = 5 if(e < r){10+10}"; // Example valid input
+            string input = "int e = 3 int r = 5 if(e < r){10+10}"; 
 
             // Act
             bool result = ParseInput(input);
@@ -50,7 +50,7 @@ public class UnitTest1
         public void TestValidIfElse()
         {
             // Arrange
-            string input = "int e = 3 int r = 5 if(e < r){10+10}else {1+1}"; // Example valid input
+            string input = "int e = 3 int r = 5 if(e < r){10+10}else {1+1}";
 
             // Act
             bool result = ParseInput(input);
@@ -63,7 +63,7 @@ public class UnitTest1
         public void TestValidAddition()
         {
             // Arrange
-            string input = "int a = 2\n int b = 3\n a + b"; // Example valid input
+            string input = "int a = 2\n int b = 3\n a + b"; 
 
             // Act
             bool result = ParseInput(input);
@@ -76,7 +76,7 @@ public class UnitTest1
         public void TestValidMinus()
         {
             // Arrange
-            string input = "int a = 2\n int b = 3\n a - b"; // Example valid input
+            string input = "int a = 2\n int b = 3\n a - b"; 
 
             // Act
             bool result = ParseInput(input);
@@ -89,7 +89,7 @@ public class UnitTest1
         public void TestValidDivide()
         {
             // Arrange
-            string input = "int a = 2\n int b = 3\n a / b"; // Example valid input
+            string input = "int a = 2\n int b = 3\n a / b"; 
 
             // Act
             bool result = ParseInput(input);
@@ -102,7 +102,7 @@ public class UnitTest1
         public void TestValidMultiply()
         {
             // Arrange
-            string input = "int a = 2\n int b = 3\n a * b"; // Example valid input
+            string input = "int a = 2\n int b = 3\n a * b"; 
 
             // Act
             bool result = ParseInput(input);
@@ -315,16 +315,13 @@ public class UnitTest1
             Assert.IsTrue(result);
         }
         
-
-
-
         // INVALID FROM HERE
 
         [TestMethod]
         public void TestInvalidDeclaration()
         {
             // Arrange
-            string input = "int test * 2"; // Example invalid input
+            string input = "int test * 2"; 
             // Act
             bool result = ParseInput(input);
 
@@ -336,7 +333,7 @@ public class UnitTest1
         public void TestInvalidAssignment()
         {
             // Arrange
-            string input = "test = "; // Example invalid input
+            string input = "test = "; 
             // Act
             bool result = ParseInput(input);
 
@@ -348,7 +345,7 @@ public class UnitTest1
         public void TestInvalidIf()
         {
             // Arrange
-            string input = "if(e < r){}"; // Example invalid input
+            string input = "if(e < r){}"; 
             // Act
             bool result = ParseInput(input);
 
@@ -360,7 +357,7 @@ public class UnitTest1
         public void TestInvalidIfElse()
         {
             // Arrange
-            string input = "if(e < r){10+10}else{1+1}"; // Example invalid input
+            string input = "if(e < r){10+10}else{1+1}"; 
             // Act
             bool result = ParseInput(input);
 
@@ -375,7 +372,7 @@ public class UnitTest1
         public void TestInvalidAddition()
         {
             // Arrange
-            string input = "int a = 2\n int b = 3\n a +- b"; // Example invalid input
+            string input = "int a = 2\n int b = 3\n a +- b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -387,7 +384,7 @@ public class UnitTest1
         public void TestInvalidAddition2()
         {
             // Arrange
-            string input = "int a = 2\n" + "int b = 3\n" + "int a + int b"; // Example invalid input
+            string input = "int a = 2\n" + "int b = 3\n" + "int a + int b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -399,7 +396,7 @@ public class UnitTest1
         public void TestInvalidAddition3()
         {
             // Arrange
-            string input = "int a = 2\n" + "int b = 3\n" + "a (+ b"; // Example invalid input
+            string input = "int a = 2\n" + "int b = 3\n" + "a (+ b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -411,7 +408,7 @@ public class UnitTest1
         public void TestInvalidMinus()
         {
             // Arrange
-            string input = "int a = 2\n" + "int b = 3\n" + "int a - b"; // Example invalid input
+            string input = "int a = 2\n" + "int b = 3\n" + "int a - b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -423,7 +420,7 @@ public class UnitTest1
         public void TestInvalidDivide()
         {
             // Arrange
-            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; // Example invalid input
+            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -435,7 +432,7 @@ public class UnitTest1
         public void TestInvalidMultiply()
         {
             // Arrange
-            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; // Example invalid input
+            string input = "int a = 2\n" + "int b = 3\n" + "int a / b"; 
             // Act
             bool result = ParseInput(input);
 
@@ -665,7 +662,7 @@ public class UnitTest1
                 return true;  
             }
             catch (Exception ex){
-                // If a parsing error occurs, handle it and display the line number
+                // If a parsing error occurs, handle it
                 Console.WriteLine($"Parsing error: {ex.Message}");
                 
                 return false;
