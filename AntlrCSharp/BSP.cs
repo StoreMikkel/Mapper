@@ -10,6 +10,7 @@ public class BSPNode
     private bool connected;
 
     private Subset subset;
+    private Subset room;
 
     public BSPNode(int assignlevel)
     {
@@ -19,6 +20,7 @@ public class BSPNode
         subset = null;
         this.level = assignlevel;
         connected = false;
+        room = null;
     }
 
     public void SetParent(BSPNode parentNode)
@@ -75,6 +77,16 @@ public class BSPNode
         return connected;
     }
 
+    public void SetRoom(Subset subset)
+    {
+        this.room = subset;
+    }
+
+    public Subset GetRoom()
+    {
+        return this.room;
+    }
+
 }
 
 public class Subset
@@ -119,6 +131,19 @@ public class BSP_rooms
     {
         partition(subset, node, maxAcceptedSize, nodeList);
         randomRoomPlacement(nodeList, grid);
+        for (int row = 0; row < grid.GetLength(0); row++)
+{
+        // Iterate over each column in the current row
+        for (int col = 0; col < grid.GetLength(1); col++)
+        {
+            // Print the value of the current element
+            Console.Write(grid[row, col] + " ");
+        }
+        // Move to the next line after printing all columns in the current row
+        Console.WriteLine();
+        }
+        Console.WriteLine();
+        Console.WriteLine();
         BSP_corridors(nodeList, grid);
     }
     
@@ -149,6 +174,9 @@ public class BSP_rooms
 
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
+            leftChild.SetSibling(rightChild);
+            rightChild.SetSibling(leftChild);
+
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
 
@@ -168,6 +196,8 @@ public class BSP_rooms
 
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
+            leftChild.SetSibling(rightChild);
+            rightChild.SetSibling(leftChild);
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
 
@@ -188,19 +218,21 @@ public class BSP_rooms
             if(node.GetChildren()[0] == null)
             {
                 Subset subset = node.GetSubset();
-                Console.WriteLine("(" + subset.startX + ", " + subset.startY + ")" + " (" + subset.endX + ", " + subset.endY + ")");
                 int roomTopLeftCornerX = random.Next(subset.startX, subset.endX);
                 int roomTopLeftCornerY = random.Next(subset.startY, subset.endY);
                 int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, subset.endX);
                 int roomBottomRightCornerY = random.Next(subset.startY, roomTopLeftCornerY);
 
-                for(int i = roomTopLeftCornerX; i < roomBottomRightCornerX; i++)
+                for(int i = roomTopLeftCornerX; i <= roomBottomRightCornerX; i++)
                 {
-                    for(int j = roomBottomRightCornerY; j < roomTopLeftCornerY;j++)
+                    for(int j = roomBottomRightCornerY; j <= roomTopLeftCornerY;j++)
                     {
                         grid[i,j] = 'f';
                     }
                 }
+
+                Subset room = new Subset(roomTopLeftCornerX, roomTopLeftCornerY, roomBottomRightCornerX, roomBottomRightCornerY);
+                node.SetRoom(room);
             }
         }
     }
@@ -214,7 +246,7 @@ public class BSP_rooms
         {
             foreach(var node in group)
             {
-                if(node.GetSibling() != null && node.GetConnected() == false)
+                if(node.GetSibling() != null && node.GetConnected() == false && node.GetRoom() != null && node.GetSibling().GetRoom() != null)
                 {
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
@@ -231,24 +263,101 @@ public class BSP_rooms
         int currentY = 0;
         int smallestXdifference = grid.GetLength(1);
         int smallestYdifference = grid.GetLength(0);
+        int startX = 0;
+        int startY = 0;
+        int endX = 0;
+        int endY = 0;
 
-        foreach(var fromTile in fromRoom.GetSubset().GetTiles())
+        Console.WriteLine("Connecting new rooms");
+        foreach(var fromTile in fromRoom.GetRoom().GetTiles())
         {
-            foreach(var toTile in toRoom.GetSubset().GetTiles())
+            foreach(var toTile in toRoom.GetRoom().GetTiles())
             {
+                
                 if(fromTile.x == toTile.x)
                 {
                     currentX = fromTile.x;
                     currentY = fromTile.y;
                     while(currentY != toTile.y)
                     {
+                        grid[currentY, currentX] = 'c';
+                        Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
                         currentY +=1;
-                        grid[currentX, currentY] = 'f';
+                        
                     }
                     return;
                 }
+                if(fromTile.y == toTile.y)
+                {
+                    currentX = fromTile.x;
+                    currentY = fromTile.y;
+                    while(currentX != toTile.x)
+                    {
+                        grid[currentY, currentX] = 'c';
+                        Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
+                        currentX +=1;
+                        
+                    }
+                    return;
+                }
+                if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
+                {
+                    smallestXdifference = Math.Abs(fromTile.x - toTile.x);
+                    startX = fromTile.x;
+                    startY = fromTile.y;
+                    endX = toTile.x;
+                    endY = toTile.y;
+                }
+                if(Math.Abs(fromTile.y - toTile.y) < smallestXdifference)
+                {
+                    smallestYdifference = Math.Abs(fromTile.y - toTile.y);
+                    startX = fromTile.x;
+                    startY = fromTile.y;
+                    endX = toTile.x;
+                    endY = toTile.y;
+                }
+                
             }
 
+        }
+        if(smallestXdifference < smallestYdifference)
+        {
+            currentX = startX;
+            currentY = startY;
+            while(currentX != endX)
+            {
+                grid[currentY, currentX] = 'c';
+                Console.WriteLine("c in third: (" + currentX + ", " + currentY + ")");
+                currentX +=1;
+                
+            }
+            while(currentY != endY)
+            {
+                grid[currentY, currentX] = 'c';
+                Console.WriteLine("c in fourth: (" + currentX + ", " + currentY + ")");
+                currentY += 1;
+                
+            }
+            
+        }
+        else
+        {
+            currentX = startX;
+            currentY = startY;
+            while(currentY != endY)
+            {
+                grid[currentY, currentX] = 'c';
+                Console.WriteLine("c in fifth: (" + currentX + ", " + currentY + ")");
+                currentY += 1;
+                
+            }
+            while(currentX != endX)
+            {
+                grid[currentY, currentX] = 'c';
+                Console.WriteLine("c in sixth: (" + currentX + ", " + currentY + ")");
+                currentX +=1;
+                
+            }
         }
 
 
