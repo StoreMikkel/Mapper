@@ -32,6 +32,7 @@ expression       : term
                  | STRING_LITERAL // Added comparison operator
                  | BOOLEAN_LITERAL
                  | CHARACTER_LITERAL
+                 | DOUBLE_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
@@ -43,6 +44,7 @@ term             : factor
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
                  | CHARACTER_LITERAL
+                 | DOUBLE_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
@@ -54,6 +56,7 @@ factor           : number
                  | STRING_LITERAL
                  | BOOLEAN_LITERAL
                  | CHARACTER_LITERAL
+                 | DOUBLE_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
@@ -99,16 +102,17 @@ BREAK            : 'BREAK';
 RANDOM           : 'RANDOM';
 EQUALS           : '=';
 LEFTARRAYBRACKET : '[';
-RIGHTARRAYBRACKET : ']';
+RIGHTARRAYBRACKET: ']';
 LEFTCURLYBRACKET : '{';
 RIGHTCURLYBRACKET: '}';
 IDENTIFIER       : [a-zA-Z][a-zA-Z0-9]*;
+DOUBLE_LITERAL   : [0-9]+ '.' [0-9]+ ;
 INCREMENTER      : '++';
 DECREMENTER      : '--';
 WHITESPACE       : (' '|'\t')+ -> skip;
 NEWLINE          : ('\n'| '\r')+ -> skip;
-CHARACTER_LITERAL : '\'' . '\'';
-STRING_LITERAL    : '"' ( ~["\\\r\n] | '\\' . )* '"';
+CHARACTER_LITERAL: '\'' . '\'';
+STRING_LITERAL   : '"' ( ~["\\\r\n] | '\\' . )* '"';
 
 
 /*TYPE declarations */

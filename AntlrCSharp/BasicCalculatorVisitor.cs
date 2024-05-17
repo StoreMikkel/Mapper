@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -177,6 +178,10 @@ namespace AntlrCSharp
             else if(context.BOOLEAN_LITERAL() != null){
                 return bool.Parse(context.BOOLEAN_LITERAL().GetText());
             }
+            if(context.DOUBLE_LITERAL() != null){
+                Console.WriteLine(context.DOUBLE_LITERAL().GetText() + "EXPRESSION");
+                return double.Parse(context.DOUBLE_LITERAL().GetText());
+            }
             if(context.arrayAccess() != null){
                 return Visit(context.arrayAccess());
             }
@@ -221,6 +226,11 @@ namespace AntlrCSharp
             }else if(context.BOOLEAN_LITERAL() != null){
                 return bool.Parse(context.BOOLEAN_LITERAL().GetText());
             }
+            if(context.DOUBLE_LITERAL() != null){
+                Console.WriteLine(context.DOUBLE_LITERAL().GetText() + "TERM");
+
+                return double.Parse(context.DOUBLE_LITERAL().GetText());
+            }
 
             if(context.arrayAccess() != null){
                 return Visit(context.arrayAccess());
@@ -256,6 +266,19 @@ namespace AntlrCSharp
     
                 return character;
             }
+                if (context.DOUBLE_LITERAL() != null) {
+                    string stringDoubleLiteral = context.DOUBLE_LITERAL().GetText();
+                    
+                    
+                    if (double.TryParse(stringDoubleLiteral, NumberStyles.Any, CultureInfo.InvariantCulture, out double doubleValue)) {
+                        
+                        return doubleValue;
+                    } else {
+                        throw new Exception("Invalid double literal: " + stringDoubleLiteral);
+                    }
+                }
+                
+    
 
             if (context.number() != null){
                 return Visit(context.number());
