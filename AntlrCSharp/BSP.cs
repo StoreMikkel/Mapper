@@ -16,7 +16,7 @@ public class BSPNode
     {
         parent = null;
         sibling = null;
-        children = new BSPNode[2]; // Assuming each node can have at most two children
+        children = new BSPNode[2]; // Each node can have at most two children
         subset = null;
         this.level = assignlevel;
         connected = false;
@@ -85,6 +85,35 @@ public class BSPNode
     public Subset GetRoom()
     {
         return this.room;
+    }
+
+    public void SetRoomFromChildren()
+    {
+        // Ensure there are children nodes
+        if (children != null && children.Length > 0)
+        {
+            // Initialize room boundaries to the first child's room
+            int minX = children[0].GetRoom().startX;
+            int minY = children[0].GetRoom().startY;
+            int maxX = children[0].GetRoom().endX;
+            int maxY = children[0].GetRoom().endY;
+
+            // Iterate over other children to update room boundaries
+            for (int i = 1; i < children.Length; i++)
+            {
+                Subset childRoom = children[i].GetRoom();
+                if (childRoom != null)
+                {
+                    minX = Math.Min(minX, childRoom.startX);
+                    minY = Math.Min(minY, childRoom.startY);
+                    maxX = Math.Max(maxX, childRoom.endX);
+                    maxY = Math.Max(maxY, childRoom.endY);
+                }
+            }
+
+            // Set the room for the parent node
+            room = new Subset(minX, minY, maxX, maxY);
+        }
     }
 
 }
@@ -253,11 +282,18 @@ public class BSP_rooms
         {
             foreach(var node in group)
             {
-                if(node.GetSibling() != null && node.GetConnected() == false && node.GetChildren()[0] == null && node.GetSibling().GetRoom() != null)
+                if(node.GetSibling() != null && node.GetConnected() == false && node.GetSibling().GetRoom() != null)
                 {
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
                     node.GetSibling().SetConnected();
+                    // Set room for the parent node after connecting children
+                    if (node.GetParent() != null)
+                    {
+                        node.GetParent().SetRoomFromChildren();
+                        Console.WriteLine(node.GetParent().GetRoom());
+                    }
+
                 }
             }
             
@@ -305,70 +341,76 @@ public class BSP_rooms
 
         foreach(var fromTile in fromRoom.GetRoom().GetTiles())
         {
-            //Console.WriteLine("Checking a fromTile");
-            foreach(var toTile in toRoom.GetRoom().GetTiles())
+            if(grid[fromTile.y, fromTile.x] == 'f')
             {
-                //Console.WriteLine("Checking a toTile");
-                if(fromTile.x == toTile.x)
+                //Console.WriteLine("Checking a fromTile");
+                foreach(var toTile in toRoom.GetRoom().GetTiles())
                 {
-                    currentX = fromTile.x;
-                    currentY = fromTile.y;
-                    while(currentY != toTile.y)
+                    if(grid[toTile.y, toTile.x] == 'f')
                     {
-                        grid[currentY, currentX] = 'f';
-                        Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
-                        if(currentY < toTile.y)
+                        //Console.WriteLine("Checking a toTile");
+                        if(fromTile.x == toTile.x)
                         {
-                            currentY +=1;
+                            currentX = fromTile.x;
+                            currentY = fromTile.y;
+                            while(currentY != toTile.y)
+                            {
+                                grid[currentY, currentX] = 'f';
+                                //Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
+                                if(currentY < toTile.y)
+                                {
+                                    currentY +=1;
+                                }
+                                else
+                                {
+                                    currentY -=1;
+                                }
+                                
+                                
+                            }
+                            return;
                         }
-                        else
+                        if(fromTile.y == toTile.y)
                         {
-                            currentY -=1;
+                            currentX = fromTile.x;
+                            currentY = fromTile.y;
+                            while(currentX != toTile.x)
+                            {
+                                grid[currentY, currentX] = 'f';
+                                //Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
+                                if(currentX < toTile.x)
+                                {
+                                    currentX +=1;
+                                }
+                                else
+                                {
+                                    currentX -=1;
+                                }
+                            }
+                            return;
                         }
-                        
-                        
+                        //Console.WriteLine("fromTile: " + fromTile.x + ", " + fromTile.y + " toTile: " + toTile.x + ", " + toTile.y);
+                        //Console.WriteLine("Value of absolute x distance and smallestXdistance: " + Math.Abs(fromTile.x - toTile.x) + " and " + smallestXdifference);
+                        //Console.WriteLine("Value of absolute y distance and smallestYdistance: " + Math.Abs(fromTile.y - toTile.y) + " and " + smallestYdifference);
+                        if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
+                        {
+                            smallestXdifference = Math.Abs(fromTile.x - toTile.x);
+                            startX = fromTile.x;
+                            startY = fromTile.y;
+                            endX = toTile.x;
+                            endY = toTile.y;
+                        }
+                        if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
+                        {
+                            smallestYdifference = Math.Abs(fromTile.y - toTile.y);
+                            startX = fromTile.x;
+                            startY = fromTile.y;
+                            endX = toTile.x;
+                            endY = toTile.y;
+                        }
                     }
-                    return;
+                    
                 }
-                if(fromTile.y == toTile.y)
-                {
-                    currentX = fromTile.x;
-                    currentY = fromTile.y;
-                    while(currentX != toTile.x)
-                    {
-                        grid[currentY, currentX] = 'f';
-                        Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
-                        if(currentX < toTile.x)
-                        {
-                            currentX +=1;
-                        }
-                        else
-                        {
-                            currentX -=1;
-                        }
-                    }
-                    return;
-                }
-                //Console.WriteLine("fromTile: " + fromTile.x + ", " + fromTile.y + " toTile: " + toTile.x + ", " + toTile.y);
-                //Console.WriteLine("Value of absolute x distance and smallestXdistance: " + Math.Abs(fromTile.x - toTile.x) + " and " + smallestXdifference);
-                //Console.WriteLine("Value of absolute y distance and smallestYdistance: " + Math.Abs(fromTile.y - toTile.y) + " and " + smallestYdifference);
-                if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
-                {
-                    smallestXdifference = Math.Abs(fromTile.x - toTile.x);
-                    startX = fromTile.x;
-                    startY = fromTile.y;
-                    endX = toTile.x;
-                    endY = toTile.y;
-                }
-                if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
-                {
-                    smallestYdifference = Math.Abs(fromTile.y - toTile.y);
-                    startX = fromTile.x;
-                    startY = fromTile.y;
-                    endX = toTile.x;
-                    endY = toTile.y;
-                }
-                
             }
 
         }
@@ -379,7 +421,7 @@ public class BSP_rooms
             while(currentX != endX)
             {
                 grid[currentY, currentX] = 'f';
-                Console.WriteLine("c in third: (" + currentX + ", " + currentY + ")");
+                //Console.WriteLine("c in third: (" + currentX + ", " + currentY + ")");
                 if(currentX < endX)
                 {
                     currentX +=1;
@@ -393,7 +435,7 @@ public class BSP_rooms
             while(currentY != endY)
             {
                 grid[currentY, currentX] = 'f';
-                Console.WriteLine("c in fourth: (" + currentX + ", " + currentY + ")");
+                //Console.WriteLine("c in fourth: (" + currentX + ", " + currentY + ")");
                 if(currentY < endY)
                 {
                     currentY +=1;
@@ -415,7 +457,7 @@ public class BSP_rooms
             while(currentY != endY)
             {
                 grid[currentY, currentX] = 'f';
-                Console.WriteLine("c in fifth: (" + currentX + ", " + currentY + ")");
+                //Console.WriteLine("c in fifth: (" + currentX + ", " + currentY + ")");
                 if(currentY < endY)
                 {
                     currentY +=1;
@@ -429,7 +471,7 @@ public class BSP_rooms
             while(currentX != endX)
             {
                 grid[currentY, currentX] = 'f';
-                Console.WriteLine("c in sixth: (" + currentX + ", " + currentY + ")");
+                //Console.WriteLine("c in sixth: (" + currentX + ", " + currentY + ")");
                 if(currentX < endX)
                 {
                     currentX +=1;
