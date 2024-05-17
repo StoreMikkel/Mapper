@@ -111,6 +111,11 @@ public class Subset
 
     public IEnumerable<(int x, int y)> GetTiles()
     {
+        int startX = Math.Min(this.startX, this.endX);
+        int endX = Math.Max(this.startX, this.endX);
+        int startY = Math.Min(this.startY, this.endY);
+        int endY = Math.Max(this.startY, this.endY);
+
         for (int y = startY; y <= endY; y++)
         {
             for (int x = startX; x <= endX; x++)
@@ -131,16 +136,15 @@ public class BSP_rooms
     {
         partition(subset, node, maxAcceptedSize, nodeList);
         randomRoomPlacement(nodeList, grid);
-        for (int row = 0; row < grid.GetLength(0); row++)
-{
-        // Iterate over each column in the current row
-        for (int col = 0; col < grid.GetLength(1); col++)
-        {
-            // Print the value of the current element
-            Console.Write(grid[row, col] + " ");
-        }
-        // Move to the next line after printing all columns in the current row
-        Console.WriteLine();
+        // Iterate over each row in reverse order
+        for (int row = grid.GetLength(0) - 1; row >= 0; row--) {
+            // Iterate over each column in the current row
+            for (int col = 0; col < grid.GetLength(1); col++) {
+                // Print the value of the current element
+                Console.Write(grid[row, col] + " ");
+            }
+            // Move to the next line after printing all columns in the current row
+            Console.WriteLine();
         }
         Console.WriteLine();
         Console.WriteLine();
@@ -213,6 +217,7 @@ public class BSP_rooms
 
     private void randomRoomPlacement(List<BSPNode> nodeList, char[,] grid)
     {
+        int counter = 0;
         foreach (BSPNode node in nodeList)
         {
             if(node.GetChildren()[0] == null)
@@ -227,12 +232,14 @@ public class BSP_rooms
                 {
                     for(int j = roomBottomRightCornerY; j <= roomTopLeftCornerY;j++)
                     {
-                        grid[i,j] = 'f';
+                        //grid[j, i] = (char)(counter + '0');
+                        grid[j, i] = 'f';
                     }
                 }
 
                 Subset room = new Subset(roomTopLeftCornerX, roomTopLeftCornerY, roomBottomRightCornerX, roomBottomRightCornerY);
                 node.SetRoom(room);
+                counter++;
             }
         }
     }
@@ -246,7 +253,7 @@ public class BSP_rooms
         {
             foreach(var node in group)
             {
-                if(node.GetSibling() != null && node.GetConnected() == false && node.GetChildren()[0] == null)
+                if(node.GetSibling() != null && node.GetConnected() == false && node.GetChildren()[0] == null && node.GetSibling().GetRoom() != null)
                 {
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
@@ -268,21 +275,57 @@ public class BSP_rooms
         int endX = 0;
         int endY = 0;
 
-        Console.WriteLine("Connecting new rooms");
+        //Console.WriteLine("Connecting new rooms");
+        //Console.WriteLine("From room has coordinates: " + fromRoom.GetRoom().startX + ", " + fromRoom.GetRoom().startY + " and " + fromRoom.GetRoom().endX + ", " + fromRoom.GetRoom().endY); 
+        //Console.WriteLine("To room has coordinates: " + toRoom.GetRoom().startX + ", " + toRoom.GetRoom().startY + " and " + toRoom.GetRoom().endX + ", " + toRoom.GetRoom().endY); 
+
+
+        // Check if toRoom is null
+        if (toRoom == null)
+        {
+            Console.WriteLine("Error: toRoom is null");
+            return;
+        }
+
+        // Check if toRoom.GetRoom() is null
+        var toRoomObj = toRoom.GetRoom();
+        if (toRoomObj == null)
+        {
+            Console.WriteLine("Error: toRoom.GetRoom() is null");
+            return;
+        }
+
+        // Check if toRoom.GetRoom().GetTiles() is null
+        var toRoomTiles = toRoomObj.GetTiles();
+        if (toRoomTiles == null)
+        {
+            Console.WriteLine("Error: toRoom.GetRoom().GetTiles() is null");
+            return;
+        }
+
         foreach(var fromTile in fromRoom.GetRoom().GetTiles())
         {
+            //Console.WriteLine("Checking a fromTile");
             foreach(var toTile in toRoom.GetRoom().GetTiles())
             {
-                
+                //Console.WriteLine("Checking a toTile");
                 if(fromTile.x == toTile.x)
                 {
                     currentX = fromTile.x;
                     currentY = fromTile.y;
                     while(currentY != toTile.y)
                     {
-                        grid[currentY, currentX] = 'c';
+                        grid[currentY, currentX] = 'f';
                         Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
-                        currentY +=1;
+                        if(currentY < toTile.y)
+                        {
+                            currentY +=1;
+                        }
+                        else
+                        {
+                            currentY -=1;
+                        }
+                        
                         
                     }
                     return;
@@ -293,13 +336,22 @@ public class BSP_rooms
                     currentY = fromTile.y;
                     while(currentX != toTile.x)
                     {
-                        grid[currentY, currentX] = 'c';
+                        grid[currentY, currentX] = 'f';
                         Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
-                        currentX +=1;
-                        
+                        if(currentX < toTile.x)
+                        {
+                            currentX +=1;
+                        }
+                        else
+                        {
+                            currentX -=1;
+                        }
                     }
                     return;
                 }
+                //Console.WriteLine("fromTile: " + fromTile.x + ", " + fromTile.y + " toTile: " + toTile.x + ", " + toTile.y);
+                //Console.WriteLine("Value of absolute x distance and smallestXdistance: " + Math.Abs(fromTile.x - toTile.x) + " and " + smallestXdifference);
+                //Console.WriteLine("Value of absolute y distance and smallestYdistance: " + Math.Abs(fromTile.y - toTile.y) + " and " + smallestYdifference);
                 if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
                 {
                     smallestXdifference = Math.Abs(fromTile.x - toTile.x);
@@ -308,7 +360,7 @@ public class BSP_rooms
                     endX = toTile.x;
                     endY = toTile.y;
                 }
-                if(Math.Abs(fromTile.y - toTile.y) < smallestXdifference)
+                if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
                 {
                     smallestYdifference = Math.Abs(fromTile.y - toTile.y);
                     startX = fromTile.x;
@@ -326,16 +378,30 @@ public class BSP_rooms
             currentY = startY;
             while(currentX != endX)
             {
-                grid[currentY, currentX] = 'c';
+                grid[currentY, currentX] = 'f';
                 Console.WriteLine("c in third: (" + currentX + ", " + currentY + ")");
-                currentX +=1;
+                if(currentX < endX)
+                {
+                    currentX +=1;
+                }
+                else
+                {
+                    currentX -=1;
+                }
                 
             }
             while(currentY != endY)
             {
-                grid[currentY, currentX] = 'c';
+                grid[currentY, currentX] = 'f';
                 Console.WriteLine("c in fourth: (" + currentX + ", " + currentY + ")");
-                currentY += 1;
+                if(currentY < endY)
+                {
+                    currentY +=1;
+                }
+                else
+                {
+                    currentY -=1;
+                }
                 
             }
             
@@ -344,25 +410,37 @@ public class BSP_rooms
         {
             currentX = startX;
             currentY = startY;
+            //Console.WriteLine("currentPoint: (" + currentX + ", " + currentY + ")");
+            //Console.WriteLine("endPoint: (" + endX + ", " + endY + ")");
             while(currentY != endY)
             {
-                grid[currentY, currentX] = 'c';
+                grid[currentY, currentX] = 'f';
                 Console.WriteLine("c in fifth: (" + currentX + ", " + currentY + ")");
-                currentY += 1;
+                if(currentY < endY)
+                {
+                    currentY +=1;
+                }
+                else
+                {
+                    currentY -=1;
+                }
                 
             }
             while(currentX != endX)
             {
-                grid[currentY, currentX] = 'c';
+                grid[currentY, currentX] = 'f';
                 Console.WriteLine("c in sixth: (" + currentX + ", " + currentY + ")");
-                currentX +=1;
+                if(currentX < endX)
+                {
+                    currentX +=1;
+                }
+                else
+                {
+                    currentX -=1;
+                }
                 
             }
         }
-
-
-        
-
     }
 
     
