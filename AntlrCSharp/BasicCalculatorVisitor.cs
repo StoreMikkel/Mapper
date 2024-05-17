@@ -113,6 +113,9 @@ namespace AntlrCSharp
             else if(context.mapModification() != null){
                 return VisitMapModification(context.mapModification());
             }
+            else if(context.mapPrint() != null){
+                return VisitMapPrint(context.mapPrint());
+            }
             else{
                 return "Unsupported Statement xdd";
             }
@@ -1077,7 +1080,52 @@ namespace AntlrCSharp
             return true;
         }
 
+        public override object VisitMapPrint(CalculatorParser.MapPrintContext context){
+            string identifier = context.IDENTIFIER().GetText();
+            Type declaredType = variableTypes[identifier];
 
+            if(declaredType == typeof(Dictionary<string,char[,]>)){
+                // Retrieve the map from the variables dictionary
+                Dictionary<string, char[,]> map = (Dictionary<string, char[,]>)variables[identifier];
+
+                // Define the path to the file on the desktop
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                // Write the contents of each 2D array to a separate file
+                foreach (var entry in map)
+                {
+                    string key = entry.Key;
+                    char[,] array2D = entry.Value;
+                    // Remove double quotes for correct filepath
+                    string keyForPrint = Path.GetFileNameWithoutExtension(entry.Key.Replace("\"", "")); 
+
+
+                    // Generate a unique file name based on the key
+                    string fileName = $"{keyForPrint}_output.txt";
+                    string filePath = Path.Combine(desktopPath, fileName);
+
+                    // Write the contents of the 2D array to the file
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+
+                        // Write the contents of the 2D array to the file
+                        for (int i = 0; i < array2D.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < array2D.GetLength(1); j++)
+                            {
+                                writer.Write(array2D[i, j]);
+                            }
+                            // Move to the next line after each row
+                            writer.WriteLine(); 
+                        }
+                    }
+
+                    Console.WriteLine($"Map entry '{key}' printed to file: {filePath}");
+                }
+            }else{
+                throw new Exception($"Variable {identifier} is not declared as a map type.");
+            }
+            return true;
+        }
     }
 }
 

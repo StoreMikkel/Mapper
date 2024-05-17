@@ -21,7 +21,8 @@ statement        : calculation
                  | fileWriteNewline
                  | mapDeclaration
                  | mapAccess
-                 | mapModification;
+                 | mapModification
+                 | mapPrint;
 
 calculation      : expression;
 
@@ -90,6 +91,7 @@ fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
 mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')' '=' STRING_LITERAL (',' STRING_LITERAL)*;
 mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
+mapPrint           : 'print' IDENTIFIER;
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;
