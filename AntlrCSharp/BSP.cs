@@ -92,27 +92,11 @@ public class BSPNode
         // Ensure there are children nodes
         if (children != null && children.Length > 0)
         {
-            // Initialize room boundaries to the first child's room
-            int minX = children[0].GetRoom().startX;
-            int minY = children[0].GetRoom().startY;
-            int maxX = children[0].GetRoom().endX;
-            int maxY = children[0].GetRoom().endY;
-
-            // Iterate over other children to update room boundaries
-            for (int i = 1; i < children.Length; i++)
-            {
-                Subset childRoom = children[i].GetRoom();
-                if (childRoom != null)
-                {
-                    minX = Math.Min(minX, childRoom.startX);
-                    minY = Math.Min(minY, childRoom.startY);
-                    maxX = Math.Max(maxX, childRoom.endX);
-                    maxY = Math.Max(maxY, childRoom.endY);
-                }
-            }
+            // Get all tiles from all children
+            var allTiles = children.SelectMany(child => child.GetRoom().GetTiles());
 
             // Set the room for the parent node
-            room = new Subset(minX, minY, maxX, maxY);
+            room = new Subset(allTiles);
         }
     }
 
@@ -120,36 +104,47 @@ public class BSPNode
 
 public class Subset
 {
-    public int startX;
-    public int startY;
-    public int endX;
-    public int endY;
-
-    public Subset(int startX, int startY, int endX, int endY)
+    private List<(int x, int y)> coordinates;
+    public Subset(IEnumerable<(int x, int y)> coordinates)
     {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        this.coordinates = coordinates.ToList();
+    }
+
+    public Subset((int x1, int y1) topLeft, (int x2, int y2) bottomRight)
+    {
+        coordinates = new List<(int, int)>();
+
+        for (int x = topLeft.x1; x <= bottomRight.x2; x++)
+        {
+            for (int y = topLeft.y1; y <= bottomRight.y2; y++)
+            {
+                coordinates.Add((x, y));
+            }
+        }
     }
 
     public int Length()
     {
-        return ((this.endX-this.startX) * (this.endY-this.startY));
+        return coordinates.Count;
     }
 
     public IEnumerable<(int x, int y)> GetTiles()
     {
-        int startX = Math.Min(this.startX, this.endX);
-        int endX = Math.Max(this.startX, this.endX);
-        int startY = Math.Min(this.startY, this.endY);
-        int endY = Math.Max(this.startY, this.endY);
+        return coordinates;
+    }
 
-        for (int y = startY; y <= endY; y++)
+    public void AddCoordinates(IEnumerable<(int x, int y)> newCoordinates)
+    {
+        coordinates.AddRange(newCoordinates);
+    }
+
+    public void AddCoordinates(int startX, int startY, int endX, int endY)
+    {
+        for (int x = startX; x <= endX; x++)
         {
-            for (int x = startX; x <= endX; x++)
+            for (int y = startY; y <= endY; y++)
             {
-                yield return (x, y);
+                coordinates.Add((x, y));
             }
         }
     }
@@ -197,13 +192,18 @@ public class BSP_rooms
     {
         BSPNode leftChild = new BSPNode(node.GetLevel()+1);
         BSPNode rightChild = new BSPNode(node.GetLevel()+1);
+        int minX = subset.GetTiles().Min(tile => tile.x);
+        int maxX = subset.GetTiles().Max(tile => tile.x);
+        int minY = subset.GetTiles().Min(tile => tile.y);
+        int maxY = subset.GetTiles().Max(tile => tile.y);
 
         if (directionOfSplit == 1)
         {
-            int splitValue = random.Next(subset.startX, subset.endX);
+            int splitValue = random.Next(minX, maxX);
+
             
-            Subset subset1 = new Subset(subset.startX, subset.startY, splitValue, subset.endY);
-            Subset subset2 = new Subset(splitValue, subset.startY, subset.endX, subset.endY);
+            Subset subset1 = new Subset((subset.GetTiles().Min(tile => tile.x), minY), (splitValue, maxY));
+            Subset subset2 = new Subset((splitValue, minY), (subset.GetTiles().Max(tile => tile.x), maxY));
 
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
@@ -222,10 +222,11 @@ public class BSP_rooms
         }
         if(directionOfSplit == 2)
         {
-            int splitValue = random.Next(subset.startY, subset.endY);
+            int splitValueY = random.Next(minY, maxY);
 
-            Subset subset1 = new Subset(subset.startX, subset.startY, subset.endX, splitValue); 
-            Subset subset2 = new Subset(subset.startX, splitValue, subset.endX, subset.endY);
+            // Create subsets based on the random split value
+            Subset subset1 = new Subset((subset.GetTiles().Min(tile => tile.x), minY), (subset.GetTiles().Max(tile => tile.x), splitValueY));
+            Subset subset2 = new Subset((subset.GetTiles().Min(tile => tile.x), splitValueY), (subset.GetTiles().Max(tile => tile.x), maxY));
 
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
@@ -252,10 +253,23 @@ public class BSP_rooms
             if(node.GetChildren()[0] == null)
             {
                 Subset subset = node.GetSubset();
-                int roomTopLeftCornerX = random.Next(subset.startX, subset.endX);
-                int roomTopLeftCornerY = random.Next(subset.startY, subset.endY);
-                int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, subset.endX);
-                int roomBottomRightCornerY = random.Next(subset.startY, roomTopLeftCornerY);
+                // Generate random coordinates for the top-left corner of the room
+                int minX = subset.GetTiles().Min(tile => tile.x);
+                int maxX = subset.GetTiles().Max(tile => tile.x);
+                int minY = subset.GetTiles().Min(tile => tile.y);
+                int maxY = subset.GetTiles().Max(tile => tile.y);
+
+                int roomTopLeftCornerX = random.Next(minX, maxX);
+                int roomTopLeftCornerY = random.Next(minY, maxY);
+
+                // Generate random coordinates for the bottom-right corner of the room
+                int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, maxX);
+                int roomBottomRightCornerY = random.Next(minY, roomTopLeftCornerY);
+                Console.WriteLine("Tiles:");
+                foreach (var tile in subset.GetTiles())
+                {
+                    Console.WriteLine("(" + tile.x + ", " + tile.y + ")");
+                }
 
                 for(int i = roomTopLeftCornerX; i <= roomBottomRightCornerX; i++)
                 {
@@ -266,7 +280,7 @@ public class BSP_rooms
                     }
                 }
 
-                Subset room = new Subset(roomTopLeftCornerX, roomTopLeftCornerY, roomBottomRightCornerX, roomBottomRightCornerY);
+                Subset room = new Subset((roomTopLeftCornerX, roomTopLeftCornerY), (roomBottomRightCornerX, roomBottomRightCornerY));
                 node.SetRoom(room);
                 counter++;
             }
@@ -341,77 +355,75 @@ public class BSP_rooms
 
         foreach(var fromTile in fromRoom.GetRoom().GetTiles())
         {
-            if(grid[fromTile.y, fromTile.x] == 'f')
+            
+            Console.WriteLine("Checking a fromTile");
+            foreach(var toTile in toRoom.GetRoom().GetTiles())
             {
-                //Console.WriteLine("Checking a fromTile");
-                foreach(var toTile in toRoom.GetRoom().GetTiles())
+                
+                //Console.WriteLine("Checking a toTile");
+                if(fromTile.x == toTile.x)
                 {
-                    if(grid[toTile.y, toTile.x] == 'f')
+                    currentX = fromTile.x;
+                    currentY = fromTile.y;
+                    while(currentY != toTile.y)
                     {
-                        //Console.WriteLine("Checking a toTile");
-                        if(fromTile.x == toTile.x)
+                        grid[currentY, currentX] = 'f';
+                        //Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
+                        if(currentY < toTile.y)
                         {
-                            currentX = fromTile.x;
-                            currentY = fromTile.y;
-                            while(currentY != toTile.y)
-                            {
-                                grid[currentY, currentX] = 'f';
-                                //Console.WriteLine("c in first: (" + currentX + ", " + currentY + ")");
-                                if(currentY < toTile.y)
-                                {
-                                    currentY +=1;
-                                }
-                                else
-                                {
-                                    currentY -=1;
-                                }
-                                
-                                
-                            }
-                            return;
+                            currentY +=1;
                         }
-                        if(fromTile.y == toTile.y)
+                        else
                         {
-                            currentX = fromTile.x;
-                            currentY = fromTile.y;
-                            while(currentX != toTile.x)
-                            {
-                                grid[currentY, currentX] = 'f';
-                                //Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
-                                if(currentX < toTile.x)
-                                {
-                                    currentX +=1;
-                                }
-                                else
-                                {
-                                    currentX -=1;
-                                }
-                            }
-                            return;
+                            currentY -=1;
                         }
-                        //Console.WriteLine("fromTile: " + fromTile.x + ", " + fromTile.y + " toTile: " + toTile.x + ", " + toTile.y);
-                        //Console.WriteLine("Value of absolute x distance and smallestXdistance: " + Math.Abs(fromTile.x - toTile.x) + " and " + smallestXdifference);
-                        //Console.WriteLine("Value of absolute y distance and smallestYdistance: " + Math.Abs(fromTile.y - toTile.y) + " and " + smallestYdifference);
-                        if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
+                        
+                        
+                    }
+                    return;
+                }
+                if(fromTile.y == toTile.y)
+                {
+                    currentX = fromTile.x;
+                    currentY = fromTile.y;
+                    while(currentX != toTile.x)
+                    {
+                        grid[currentY, currentX] = 'f';
+                        //Console.WriteLine("c in second: (" + currentX + ", " + currentY + ")");
+                        if(currentX < toTile.x)
                         {
-                            smallestXdifference = Math.Abs(fromTile.x - toTile.x);
-                            startX = fromTile.x;
-                            startY = fromTile.y;
-                            endX = toTile.x;
-                            endY = toTile.y;
+                            currentX +=1;
                         }
-                        if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
+                        else
                         {
-                            smallestYdifference = Math.Abs(fromTile.y - toTile.y);
-                            startX = fromTile.x;
-                            startY = fromTile.y;
-                            endX = toTile.x;
-                            endY = toTile.y;
+                            currentX -=1;
                         }
                     }
-                    
+                    return;
                 }
+                //Console.WriteLine("fromTile: " + fromTile.x + ", " + fromTile.y + " toTile: " + toTile.x + ", " + toTile.y);
+                //Console.WriteLine("Value of absolute x distance and smallestXdistance: " + Math.Abs(fromTile.x - toTile.x) + " and " + smallestXdifference);
+                //Console.WriteLine("Value of absolute y distance and smallestYdistance: " + Math.Abs(fromTile.y - toTile.y) + " and " + smallestYdifference);
+                if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
+                {
+                    smallestXdifference = Math.Abs(fromTile.x - toTile.x);
+                    startX = fromTile.x;
+                    startY = fromTile.y;
+                    endX = toTile.x;
+                    endY = toTile.y;
+                }
+                if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
+                {
+                    smallestYdifference = Math.Abs(fromTile.y - toTile.y);
+                    startX = fromTile.x;
+                    startY = fromTile.y;
+                    endX = toTile.x;
+                    endY = toTile.y;
+                }
+                
+                
             }
+            
 
         }
         if(smallestXdifference < smallestYdifference)
