@@ -901,7 +901,6 @@ namespace AntlrCSharp
                 char[,] grid = map[key];
                 BSPNode root = new BSPNode(0);
                 Subset gridSubset = new Subset((0, grid.GetLength(0)-1), (grid.GetLength(1)-1, 0));
-                Console.WriteLine("grid: " + gridSubset);
                 List<BSPNode> nodeList = new List<BSPNode>();
                 BSP_rooms BSPrunner = new BSP_rooms();
                 BSPrunner.run(gridSubset, root, maxAcceptedSize, nodeList, grid);
