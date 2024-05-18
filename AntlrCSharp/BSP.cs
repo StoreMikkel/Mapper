@@ -1,5 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 public class BSPNode
 {
@@ -116,7 +119,7 @@ public class Subset
 
         for (int x = topLeft.x1; x <= bottomRight.x2; x++)
         {
-            for (int y = topLeft.y1; y <= bottomRight.y2; y++)
+            for (int y = topLeft.y1; y >= bottomRight.y2; y++)
             {
                 coordinates.Add((x, y));
             }
@@ -147,6 +150,16 @@ public class Subset
                 coordinates.Add((x, y));
             }
         }
+    }
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Subset coordinates: ");
+        foreach (var coord in coordinates)
+        {
+            sb.Append($"({coord.x}, {coord.y}) ");
+        }
+        return sb.ToString();
     }
 
 }
@@ -252,7 +265,7 @@ public class BSP_rooms
 
     private void randomRoomPlacement(List<BSPNode> nodeList, char[,] grid)
     {
-        int counter = 0;
+        
         foreach (BSPNode node in nodeList)
         {
             if(node.GetChildren()[0] == null)
@@ -263,31 +276,30 @@ public class BSP_rooms
                 int maxX = subset.GetTiles().Max(tile => tile.x);
                 int minY = subset.GetTiles().Min(tile => tile.y);
                 int maxY = subset.GetTiles().Max(tile => tile.y);
+                Console.WriteLine("min og max x: " + minX + " " + maxX + " og y: " + minY + " " + maxY);
 
                 int roomTopLeftCornerX = random.Next(minX, maxX);
                 int roomTopLeftCornerY = random.Next(minY, maxY);
+                Console.WriteLine("topleft: " + roomTopLeftCornerX +", " + roomTopLeftCornerY);
 
                 // Generate random coordinates for the bottom-right corner of the room
                 int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, maxX);
-                int roomBottomRightCornerY = random.Next(minY, roomTopLeftCornerY);
-                Console.WriteLine("Tiles:");
-                foreach (var tile in subset.GetTiles())
-                {
-                    Console.WriteLine("(" + tile.x + ", " + tile.y + ")");
-                }
+                int roomBottomRightCornerY = random.Next(minY, roomTopLeftCornerY);  
 
                 for(int i = roomTopLeftCornerX; i <= roomBottomRightCornerX; i++)
                 {
                     for(int j = roomBottomRightCornerY; j <= roomTopLeftCornerY;j++)
                     {
-                        grid[j, i] = (char)(counter + '0');
+                        grid[j, i] = (char)('0' + node.GetLevel());
                         //grid[j, i] = 'f';
                     }
                 }
 
                 Subset room = new Subset((roomTopLeftCornerX, roomTopLeftCornerY), (roomBottomRightCornerX, roomBottomRightCornerY));
+                Console.WriteLine("Values for SetRoom: " + roomTopLeftCornerX + " " + roomTopLeftCornerY + " " + roomBottomRightCornerX + " " + roomBottomRightCornerY);
                 node.SetRoom(room);
-                counter++;
+                Console.WriteLine("Node at level: " + node.GetLevel() + " has been set to: " + node.GetRoom());
+                
             }
         }
     }
@@ -301,8 +313,13 @@ public class BSP_rooms
         {
             foreach(var node in group)
             {
+                Console.WriteLine(node.GetLevel());
                 if(node.GetSibling() != null && node.GetConnected() == false && node.GetSibling().GetRoom() != null)
                 {
+                    Console.WriteLine("Valid node");
+                    Console.WriteLine("fromNode: " + node.GetRoom());
+                    Console.WriteLine("toNode: " + node.GetSibling().GetRoom());
+
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
                     node.GetSibling().SetConnected();
