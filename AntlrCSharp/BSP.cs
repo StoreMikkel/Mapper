@@ -15,11 +15,12 @@ public class BSPNode
     private Subset subset;
     private Subset room;
 
+    //Represents a node on BSP Tree - is also connected to its subset of grid and room
     public BSPNode(int assignlevel)
     {
         parent = null;
         sibling = null;
-        children = new BSPNode[2]; // Each node can have at most two children
+        children = new BSPNode[2]; //Each node can have at most two children
         subset = null;
         this.level = assignlevel;
         connected = false;
@@ -90,21 +91,23 @@ public class BSPNode
         return this.room;
     }
 
+    //Set nodes room to all floortile in children nodes
     public void SetRoomFromChildren()
     {
-        // Ensure there are children nodes
+        //Ensure there are children nodes
         if (children != null && children.Length > 0)
         {
-            // Get all tiles from all children
+            //Get all tiles from all children
             var allTiles = children.SelectMany(child => child.GetRoom().GetTiles());
 
-            // Set the room for the parent node
+            //Set the room for the parent node
             room = new Subset(allTiles);
         }
     }
 
 }
 
+//Subset class to represent a subset of the grid, has a list of coordinates i.e. tiles which are in it
 public class Subset
 {
     private List<(int x, int y)> coordinates;
@@ -116,7 +119,6 @@ public class Subset
     public Subset((int x1, int y1) topLeft, (int x2, int y2) bottomRight)
     {
         coordinates = new List<(int, int)>();
-        //Console.WriteLine($"Creating subset from ({topLeft.x1}, {topLeft.y1}) to ({bottomRight.x2}, {bottomRight.y2})");
 
 
         for (int x = topLeft.x1; x <= bottomRight.x2; x++)
@@ -133,6 +135,7 @@ public class Subset
         return coordinates.Count;
     }
 
+    //Returns all coordinates
     public IEnumerable<(int x, int y)> GetTiles()
     {
         return coordinates;
@@ -171,121 +174,122 @@ public class BSP_rooms
     private Random random = new Random();
 
 
-    public void run(Subset subset, BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList, char[,] grid)
+    public void run(BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList, char[,] grid)
     {
-        partition(subset, node, maxAcceptedSize, nodeList);
+        partition(node, maxAcceptedSize, nodeList);
         randomRoomPlacement(nodeList, grid);
-        // Iterate over each row in reverse order
-        for (int row = grid.GetLength(0) - 1; row >= 0; row--) {
-            // Iterate over each column in the current row
-            for (int col = 0; col < grid.GetLength(1); col++) {
-                // Print the value of the current element
-                Console.Write(grid[row, col] + " ");
-            }
-            // Move to the next line after printing all columns in the current row
-            Console.WriteLine();
-        }
-        Console.WriteLine();
-        Console.WriteLine();
         BSP_corridors(nodeList, grid);
     }
     
-    public void partition(Subset subset, BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList)
+    //partitions the nodes subset if its larger than maxAcceptedSize in a random direction, along the x-axis or y-axis
+    public void partition(BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList)
     {
-        if (subset.Length() <= maxAcceptedSize)
+        if (node.GetSubset().Length() <= maxAcceptedSize)
         {
             return;
         }
         int directionOfFirstSplit = random.Next(1, 3);
 
         if (directionOfFirstSplit == 1)
-            split(1, subset, node, nodeList, maxAcceptedSize);
+            split(1, node, nodeList, maxAcceptedSize);
         else if (directionOfFirstSplit == 2)
-            split(2, subset, node, nodeList, maxAcceptedSize);
+            split(2, node, nodeList, maxAcceptedSize);
     }
-    private void split(int directionOfSplit, Subset subset, BSPNode node, List<BSPNode> nodeList, int maxAcceptedSize)
+    //Split a subset along x- or y-axis
+    private void split(int directionOfSplit, BSPNode node, List<BSPNode> nodeList, int maxAcceptedSize)
     {
+        //Create children nodes
         BSPNode leftChild = new BSPNode(node.GetLevel()+1);
         BSPNode rightChild = new BSPNode(node.GetLevel()+1);
-        int minX = subset.GetTiles().Min(tile => tile.x);
-        int maxX = subset.GetTiles().Max(tile => tile.x);
-        int minY = subset.GetTiles().Min(tile => tile.y);
-        int maxY = subset.GetTiles().Max(tile => tile.y);
 
+        //Get nodes subset bottom left corner and top right corner
+        int minX = node.GetSubset().GetTiles().Min(tile => tile.x);
+        int maxX = node.GetSubset().GetTiles().Max(tile => tile.x);
+        int minY = node.GetSubset().GetTiles().Min(tile => tile.y);
+        int maxY = node.GetSubset().GetTiles().Max(tile => tile.y);
+
+        //Split along x-axis
         if (directionOfSplit == 1)
         {
+            //Find splitvalue within possible x values in subset
             int splitValue = random.Next(minX, maxX);
 
+            //Create split subsets
             
-            Subset subset1 = new Subset((subset.GetTiles().Min(tile => tile.x), maxY), (splitValue, minY));
-            Subset subset2 = new Subset((splitValue, maxY), (subset.GetTiles().Max(tile => tile.x), minY));
+            Subset subset1 = new Subset((minX, maxY), (splitValue, minY));
+            Subset subset2 = new Subset((splitValue, maxY), (maxX, minY));
 
+            //Setup child nodes
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
             leftChild.SetSibling(rightChild);
             rightChild.SetSibling(leftChild);
             leftChild.SetParent(node);
             rightChild.SetParent(node);
-
+            //Add child nodes to "tree"
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
-
-            BSPNode[] children= {leftChild, rightChild};
+            //Setup child-parent relation
+            BSPNode[] children = {leftChild, rightChild};
             node.SetChildren(children);         
 
-        
-            partition(subset1, leftChild, maxAcceptedSize, nodeList);
-            partition(subset2, rightChild, maxAcceptedSize, nodeList);
+            //Partition child nodes
+            partition(leftChild, maxAcceptedSize, nodeList);
+            partition(rightChild, maxAcceptedSize, nodeList);
         }
+        //Split along y-axis
         if(directionOfSplit == 2)
         {
+            //Find splitvalue within possible y values in subset
             int splitValueY = random.Next(minY, maxY);
 
-            // Create subsets based on the random split value
-            Subset subset1 = new Subset((subset.GetTiles().Min(tile => tile.x), maxY), (subset.GetTiles().Max(tile => tile.x), splitValueY));
-            Subset subset2 = new Subset((subset.GetTiles().Min(tile => tile.x), splitValueY), (subset.GetTiles().Max(tile => tile.x), minY));
-
+            //Create subsets based on the random split value
+            Subset subset1 = new Subset((minX, maxY), (maxX, splitValueY));
+            Subset subset2 = new Subset((minX, splitValueY), (maxX, minY));
+            
+            //Setup child nodes
             leftChild.SetSubset(subset1);
             rightChild.SetSubset(subset2);
             leftChild.SetSibling(rightChild);
             rightChild.SetSibling(leftChild);
             leftChild.SetParent(node);
             rightChild.SetParent(node);
-
+            //Add child nodes to "tree"
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
-
+            //Setup child-parent relation
             BSPNode[] children= {leftChild, rightChild};
             node.SetChildren(children);
             
-            partition(subset1, leftChild, maxAcceptedSize, nodeList);
-            partition(subset2, rightChild, maxAcceptedSize, nodeList);
+            //Partition child nodes
+            partition(leftChild, maxAcceptedSize, nodeList);
+            partition(rightChild, maxAcceptedSize, nodeList);
         }
 
 
     }
 
+    //Randomly place rooms within subsets with no children i.e. highest level
+    //Take a random coordinate as a topleftcorner and a random coordinate with larger x and smaller y as bottomrightcorner
     private void randomRoomPlacement(List<BSPNode> nodeList, char[,] grid)
     {
-        
         foreach (BSPNode node in nodeList)
         {
             if(node.GetChildren()[0] == null)
             {
                 Subset subset = node.GetSubset();
-                // Generate random coordinates for the top-left corner of the room
-                //Console.WriteLine(subset);
+                
+                //Get nodes subset bottom left corner and top right corner
                 int minX = subset.GetTiles().Min(tile => tile.x);
                 int maxX = subset.GetTiles().Max(tile => tile.x);
                 int minY = subset.GetTiles().Min(tile => tile.y);
                 int maxY = subset.GetTiles().Max(tile => tile.y);
-                //Console.WriteLine("min og max x: " + minX + " " + maxX + " og y: " + minY + " " + maxY);
-
+                
+                //Generate random coordinates for the top-left corner of the room
                 int roomTopLeftCornerX = random.Next(minX, maxX);
                 int roomTopLeftCornerY = random.Next(minY, maxY);
-                //Console.WriteLine("topleft: " + roomTopLeftCornerX +", " + roomTopLeftCornerY);
 
-                // Generate random coordinates for the bottom-right corner of the room
+                //Generate random coordinates for the bottom-right corner of the room
                 int roomBottomRightCornerX = random.Next(roomTopLeftCornerX, maxX);
                 int roomBottomRightCornerY = random.Next(minY, roomTopLeftCornerY);  
 
@@ -293,41 +297,34 @@ public class BSP_rooms
                 {
                     for(int j = roomBottomRightCornerY; j <= roomTopLeftCornerY;j++)
                     {
-                        grid[j, i] = (char)('0' + node.GetLevel());
-                        //grid[j, i] = 'f';
+                        grid[j, i] = 'f';
                     }
                 }
 
                 Subset room = new Subset((roomTopLeftCornerX, roomTopLeftCornerY), (roomBottomRightCornerX, roomBottomRightCornerY));
-                //Console.WriteLine("Values for SetRoom: " + roomTopLeftCornerX + " " + roomTopLeftCornerY + " " + roomBottomRightCornerX + " " + roomBottomRightCornerY);
                 node.SetRoom(room);
-                //Console.WriteLine("Node at level: " + node.GetLevel() + " has been set to: " + node.GetRoom());
                 
             }
         }
     }
 
+    //From highest level and down in BSP tree, connect nodes with siblings that arent connected and also have room
     private void BSP_corridors(List<BSPNode> nodeList, char[,] grid)
     {
-        // Group nodes by their level
-        var groupedNodes = nodeList.GroupBy(n => n.GetLevel()).OrderByDescending(g => g.Key);
-        //Iterate through each group of nodes
-        foreach(var group in groupedNodes)
+        //Group nodes by their level
+        var leveledNodes = nodeList.GroupBy(n => n.GetLevel()).OrderByDescending(g => g.Key);
+        //Iterate through each level of nodes
+        foreach(var level in leveledNodes)
         {
-            foreach(var node in group)
+            foreach(var node in level)
             {
-                //Console.WriteLine(node.GetLevel());
                 if(node.GetSibling() != null && node.GetConnected() == false && node.GetSibling().GetRoom() != null)
                 {
-                    //Console.WriteLine("Valid node");
-                    //Console.WriteLine("fromNode: " + node.GetRoom());
-                    //Console.WriteLine("toNode: " + node.GetSibling().GetRoom());
-
                     connect_rooms(node, node.GetSibling(), grid);
                     node.SetConnected();
                     node.GetSibling().SetConnected();
                     
-                    // Set room for the parent node after connecting children
+                    //Set room for the parent node after connecting children
                     if (node.GetParent() != null)
                     {
                         node.GetParent().SetRoomFromChildren();
@@ -339,12 +336,19 @@ public class BSP_rooms
         }
     }
 
+    //Determines if rooms are aligned along any axis, if yes: connects them with a straight corridor
+    //Else finds the tiles with smallest distance between them along one of the axis: connects them with L-corridor
     private void connect_rooms(BSPNode fromRoom, BSPNode toRoom, char[,] grid)
     {
+        //Used to move around on grid
         int currentX = 0;
         int currentY = 0;
-        int smallestXdifference = grid.GetLength(1);
-        int smallestYdifference = grid.GetLength(0);
+
+        //Used if rooms are not aligned along any axis
+        int smallestXdistance = grid.GetLength(1);
+        int smallestYdistance = grid.GetLength(0);
+
+        //Used to determine where corridor should start and end
         int startX = 0;
         int startY = 0;
         int endX = 0;
@@ -360,7 +364,6 @@ public class BSP_rooms
                     currentY = fromTile.y;
                     while(currentY != toTile.y)
                     {
-                        grid[currentY, currentX] = 'c';
                         if(currentY < toTile.y)
                         {
                             currentY +=1;
@@ -369,8 +372,7 @@ public class BSP_rooms
                         {
                             currentY -=1;
                         }
-                        
-                        
+                        grid[currentY, currentX] = 'f'; 
                     }
                     return;
                 }
@@ -380,7 +382,6 @@ public class BSP_rooms
                     currentY = fromTile.y;
                     while(currentX != toTile.x)
                     {
-                        grid[currentY, currentX] = 'c';
                         if(currentX < toTile.x)
                         {
                             currentX +=1;
@@ -389,39 +390,39 @@ public class BSP_rooms
                         {
                             currentX -=1;
                         }
+                        grid[currentY, currentX] = 'f';
                     }
                     return;
                 }
-                if(Math.Abs(fromTile.x - toTile.x) < smallestXdifference)
+                //Update distances
+                //.Abs() finds absolute value - 5-10 = 5 fx.
+                if(Math.Abs(fromTile.x - toTile.x) < smallestXdistance)
                 {
-                    smallestXdifference = Math.Abs(fromTile.x - toTile.x);
+                    smallestXdistance = Math.Abs(fromTile.x - toTile.x);
                     startX = fromTile.x;
                     startY = fromTile.y;
                     endX = toTile.x;
                     endY = toTile.y;
                 }
-                if(Math.Abs(fromTile.y - toTile.y) < smallestYdifference)
+                if(Math.Abs(fromTile.y - toTile.y) < smallestYdistance)
                 {
-                    smallestYdifference = Math.Abs(fromTile.y - toTile.y);
+                    smallestYdistance = Math.Abs(fromTile.y - toTile.y);
                     startX = fromTile.x;
                     startY = fromTile.y;
                     endX = toTile.x;
                     endY = toTile.y;
                 }
-                
-                
             }
             
 
         }
-        if(smallestXdifference < smallestYdifference)
+        //If no tiles were found to be aligned: create L-corridor
+        if(smallestXdistance < smallestYdistance)
         {
             currentX = startX;
             currentY = startY;
             while(currentX != endX)
             {
-                grid[currentY, currentX] = 'c';
-                //Console.WriteLine("c in third: (" + currentX + ", " + currentY + ")");
                 if(currentX < endX)
                 {
                     currentX +=1;
@@ -430,12 +431,10 @@ public class BSP_rooms
                 {
                     currentX -=1;
                 }
-                
+                grid[currentY, currentX] = 'f';
             }
             while(currentY != endY)
             {
-                grid[currentY, currentX] = 'c';
-                //Console.WriteLine("c in fourth: (" + currentX + ", " + currentY + ")");
                 if(currentY < endY)
                 {
                     currentY +=1;
@@ -444,7 +443,7 @@ public class BSP_rooms
                 {
                     currentY -=1;
                 }
-                
+                grid[currentY, currentX] = 'f';
             }
             
         }
@@ -452,12 +451,8 @@ public class BSP_rooms
         {
             currentX = startX;
             currentY = startY;
-            //Console.WriteLine("currentPoint: (" + currentX + ", " + currentY + ")");
-            //Console.WriteLine("endPoint: (" + endX + ", " + endY + ")");
             while(currentY != endY)
             {
-                grid[currentY, currentX] = 'c';
-                //Console.WriteLine("c in fifth: (" + currentX + ", " + currentY + ")");
                 if(currentY < endY)
                 {
                     currentY +=1;
@@ -466,12 +461,10 @@ public class BSP_rooms
                 {
                     currentY -=1;
                 }
-                
+                grid[currentY, currentX] = 'f';
             }
             while(currentX != endX)
             {
-                grid[currentY, currentX] = 'c';
-                //Console.WriteLine("c in sixth: (" + currentX + ", " + currentY + ")");
                 if(currentX < endX)
                 {
                     currentX +=1;
@@ -480,7 +473,7 @@ public class BSP_rooms
                 {
                     currentX -=1;
                 }
-                
+                grid[currentY, currentX] = 'f';
             }
         }
     }

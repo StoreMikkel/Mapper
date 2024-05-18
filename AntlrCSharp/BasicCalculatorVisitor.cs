@@ -901,9 +901,10 @@ namespace AntlrCSharp
                 char[,] grid = map[key];
                 BSPNode root = new BSPNode(0);
                 Subset gridSubset = new Subset((0, grid.GetLength(0)-1), (grid.GetLength(1)-1, 0));
+                root.SetSubset(gridSubset);
                 List<BSPNode> nodeList = new List<BSPNode>();
                 BSP_rooms BSPrunner = new BSP_rooms();
-                BSPrunner.run(gridSubset, root, maxAcceptedSize, nodeList, grid);
+                BSPrunner.run(root, maxAcceptedSize, nodeList, grid);
             } else {
                 throw new KeyNotFoundException($"Key '{key}' not found in the map.");
             }
