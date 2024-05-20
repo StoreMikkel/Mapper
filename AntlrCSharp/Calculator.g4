@@ -22,7 +22,8 @@ statement        : calculation
                  | mapDeclaration
                  | mapAccess
                  | mapModification
-                 | mapBSP;
+                 | mapBSP
+                 | mapObject;
 
 calculation      : expression;
 
@@ -90,6 +91,7 @@ mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
 
 mapBSP             : 'bsp' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
+mapObject          : 'object' IDENTIFIER '(' STRING_LITERAL ')' '(' STRING_LITERAL ')' '=' 'randomObjectPlacer(' NUMBER ', ' CHARACTER_LITERAL ')';
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;

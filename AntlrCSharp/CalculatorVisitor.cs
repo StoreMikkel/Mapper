@@ -199,4 +199,10 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMapBSP([NotNull] CalculatorParser.MapBSPContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapObject"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapObject([NotNull] CalculatorParser.MapObjectContext context);
 }

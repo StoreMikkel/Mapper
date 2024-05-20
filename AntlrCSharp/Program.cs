@@ -25,9 +25,9 @@ namespace AntlrCSharp
         
         try{
             AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-            CustomLexer lexer = new CustomLexer(inputStream);
+            CalculatorLexer lexer = new CalculatorLexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            CustomParser parser = new CustomParser(tokenStream);
+            CalculatorParser parser = new CalculatorParser (tokenStream);
 
             IParseTree tree = parser.input();
 

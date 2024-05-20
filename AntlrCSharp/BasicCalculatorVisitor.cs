@@ -11,6 +11,7 @@ using AntlrCSharp;
 using static CalculatorParser;
 using System.IO;
 using System.ComponentModel.Design.Serialization;
+using System.Security.Cryptography;
 
 namespace AntlrCSharp
 {
@@ -115,6 +116,9 @@ namespace AntlrCSharp
             }
             else if(context.mapBSP() != null){
                 return VisitMapBSP(context.mapBSP());
+            }
+            else if(context.mapObject() != null){
+                return VisitMapObject(context.mapObject());
             }
             else{
                 return "Unsupported Statement xdd";
@@ -801,8 +805,7 @@ namespace AntlrCSharp
             string declaredTypeName = context.TYPE().GetText();
             Type declaredType = GetTypeFromName(declaredTypeName);
 
-            List<string> keys = context.STRING_LITERAL().Select(x => x.GetText()).ToList();
-            
+            List<string> keys = context.STRING_LITERAL().Select(x => x.GetText()).ToList();            
 
             Dictionary<string, char[,]> map = new Dictionary<string, char[,]>();
 
@@ -861,7 +864,6 @@ namespace AntlrCSharp
             string layerName = context.STRING_LITERAL().GetText();
             string arrayIdentifier = context.IDENTIFIER(1).GetText();
 
-
             if(variableTypes[identifier] != typeof(Dictionary<string,char[,]>)){
                 throw new Exception($"Variable {identifier} is not of type 'map'.");
             }else if(variableTypes[arrayIdentifier] != typeof(char)){
@@ -870,21 +872,21 @@ namespace AntlrCSharp
 
             Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
 
-            char[,] newArray = (char[,])variables[arrayIdentifier];
+            if(arrayIdentifier != null)
+            {
+                char[,] newArray = (char[,])variables[arrayIdentifier];
 
-            if (map.ContainsKey(layerName)){
+                if (map.ContainsKey(layerName)){
 
-                char[,] oldArray = map[layerName];
-                if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
-                    throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                    char[,] oldArray = map[layerName];
+                    if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
+                        throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                    }
+                    map[layerName] = newArray;
+                }else{
+                    throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
                 }
-
-
-                map[layerName] = newArray;
-            }else{
-                throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
             }
-            
             variables[identifier] = map;
             
             return true;
@@ -905,13 +907,36 @@ namespace AntlrCSharp
                 List<BSPNode> nodeList = new List<BSPNode>();
                 BSP_rooms BSPrunner = new BSP_rooms();
                 BSPrunner.run(root, maxAcceptedSize, nodeList, grid);
+                map[key] = grid;
             } else {
                 throw new KeyNotFoundException($"Key '{key}' not found in the map.");
             }
+            variables[identifier] = map;
             return null;
         }
 
+        public override object VisitMapObject(CalculatorParser.MapObjectContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            string layerName = context.STRING_LITERAL(0).GetText();
+            string secondLayerName = context.STRING_LITERAL(1).GetText();
 
+            Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
+
+            if(context.NUMBER != null && secondLayerName != null && map.ContainsKey(layerName) && map.ContainsKey(secondLayerName))
+            {
+                char[,] firstLayer = map[layerName];
+                char[,] secondLayer = map[secondLayerName];
+                randomObjectPlacer randomObjectPlacer = new randomObjectPlacer();
+                char objectChar = context.CHARACTER_LITERAL().GetText().Trim('\'')[0];
+                int numberOfObjectsToPlace = int.Parse(context.NUMBER().GetText());
+                randomObjectPlacer.run(firstLayer,secondLayer, numberOfObjectsToPlace, objectChar);
+                map[secondLayerName] = secondLayer;
+            }
+            variables[identifier] = map;
+
+            return base.VisitMapObject(context);
+        }
     }
     
 
