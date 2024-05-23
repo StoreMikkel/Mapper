@@ -371,15 +371,10 @@ namespace AntlrCSharp
                 return value;
             }
             
-            
-
-            
-
             /*if (variableTypes.ContainsKey(identifier)){
                 throw new Exception($"Variable {identifier} has already been declared, {identifier} is of type {declaredType}");
             }*/
 
-            
             return 0;
         }
 
