@@ -22,7 +22,7 @@ statement        : calculation
                  | mapDeclaration
                  | mapAccess
                  | mapModification
-                 | mapPrint;
+                 | mapPrint
                  | mapBSP
                  | mapObject;
 
