@@ -205,4 +205,10 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMapObject([NotNull] CalculatorParser.MapObjectContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapTest"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapTest([NotNull] CalculatorParser.MapTestContext context);
 }

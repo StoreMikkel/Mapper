@@ -67,7 +67,7 @@ ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  s
 
 whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
 
-variableDeclaration : TYPE IDENTIFIER '=' expression;
+variableDeclaration : TYPE IDENTIFIER '=' (expression | mapTest);
 
 variableAssignment : IDENTIFIER '=' expression;
 
@@ -92,6 +92,7 @@ mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
 
 mapBSP             : 'bsp' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
 mapObject          : 'object' IDENTIFIER '(' STRING_LITERAL ')' '(' STRING_LITERAL ')' '=' 'randomObjectPlacer(' NUMBER ', ' CHARACTER_LITERAL ')';
+mapTest            : 'dijkstra' '(' IDENTIFIER ',' STRING_LITERAL ',' STRING_LITERAL ')';  
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;

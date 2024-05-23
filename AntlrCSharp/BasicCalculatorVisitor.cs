@@ -349,24 +349,38 @@ namespace AntlrCSharp
 
         public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context){
             string identifier = context.IDENTIFIER().GetText();
-            object value = Visit(context.expression());
+            object value;
             string declaredTypeName = context.TYPE().GetText();
-
             Type declaredType = GetTypeFromName(declaredTypeName);
 
-            if(value is int && declaredTypeName == "double " ){
-                value = (double)(int)value;
+            if(context.expression() != null){
+                value = Visit(context.expression());
+
+                CheckType(identifier, declaredType, value);
+                if(value is int && declaredTypeName == "double " ){
+                    value = (double)(int)value;
+                }
+
+                variableTypes[identifier] = declaredType;
+                variables[identifier] = value;
+                return value;            
+            }else if(context.mapTest() != null && declaredTypeName == "boolean "){
+                value = Visit(context.mapTest());
+                variableTypes[identifier] = declaredType;
+                variables[identifier] = value;
+                return value;
             }
+            
+            
+
+            
 
             /*if (variableTypes.ContainsKey(identifier)){
                 throw new Exception($"Variable {identifier} has already been declared, {identifier} is of type {declaredType}");
             }*/
 
-            CheckType(identifier, declaredType, value);
-
-            variableTypes[identifier] = declaredType;
-            variables[identifier] = value;
-            return value;
+            
+            return 0;
         }
 
         public override object VisitVariableAssignment(CalculatorParser.VariableAssignmentContext context){
@@ -936,6 +950,23 @@ namespace AntlrCSharp
             variables[identifier] = map;
 
             return base.VisitMapObject(context);
+        }
+
+        public override object VisitMapTest(CalculatorParser.MapTestContext context)
+        {
+            Console.WriteLine("Visiting maptesting");
+            string identifier = context.IDENTIFIER().GetText();
+            string layerName = context.STRING_LITERAL(0).GetText();
+            string secondLayerName = context.STRING_LITERAL(1).GetText();
+
+            Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
+
+            char[,] firstLayer = map[layerName];
+            char[,] secondLayer = map[secondLayerName];
+
+            dijkstra dijkstra = new dijkstra();
+            bool resultOfTest = dijkstra.run(firstLayer, secondLayer);
+            return resultOfTest;
         }
     }
     
