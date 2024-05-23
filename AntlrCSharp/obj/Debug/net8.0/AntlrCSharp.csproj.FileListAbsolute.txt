@@ -71,3 +71,4 @@ C:\Users\ajapo\Documents\GitHub\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\
 C:\Users\ajapo\Documents\GitHub\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.pdb
 C:\Users\ajapo\Documents\GitHub\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\AntlrCSharp.genruntimeconfig.cache
 C:\Users\ajapo\Documents\GitHub\CalculatorLanguage\AntlrCSharp\obj\Debug\net8.0\ref\AntlrCSharp.dll
+C:\Users\Mikkel\Documents\UNI\4. Semester\CalculatorLanguage\AntlrCSharp\bin\Debug\net8.0\nunit.framework.dll

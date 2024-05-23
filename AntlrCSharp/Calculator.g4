@@ -23,6 +23,8 @@ statement        : calculation
                  | mapAccess
                  | mapModification
                  | mapPrint;
+                 | mapBSP
+                 | mapObject;
 
 calculation      : expression;
 
@@ -69,7 +71,7 @@ ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  s
 
 whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
 
-variableDeclaration : TYPE IDENTIFIER '=' expression;
+variableDeclaration : TYPE IDENTIFIER '=' (expression | mapTest);
 
 variableAssignment : IDENTIFIER '=' expression;
 
@@ -92,6 +94,10 @@ mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')
 mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
 mapPrint           : 'print' IDENTIFIER;
+
+mapBSP             : 'bsp' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
+mapObject          : 'object' IDENTIFIER '(' STRING_LITERAL ')' '(' STRING_LITERAL ')' '=' 'randomObjectPlacer(' NUMBER ', ' CHARACTER_LITERAL ')';
+mapTest            : 'dijkstra' '(' IDENTIFIER ',' STRING_LITERAL ',' STRING_LITERAL ')';  
 
 /* Lexer Rules */
 NUMBER           : [0-9]+ ;

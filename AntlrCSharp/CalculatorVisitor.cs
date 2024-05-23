@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/Users/ajapo/Documents/GitHub/CalculatorLanguage/AntlrCSharp/Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -194,9 +194,21 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitMapModification([NotNull] CalculatorParser.MapModificationContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapPrint"/>.
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapBSP"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitMapPrint([NotNull] CalculatorParser.MapPrintContext context);
+	Result VisitMapBSP([NotNull] CalculatorParser.MapBSPContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapObject"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapObject([NotNull] CalculatorParser.MapObjectContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapTest"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMapTest([NotNull] CalculatorParser.MapTestContext context);
 }

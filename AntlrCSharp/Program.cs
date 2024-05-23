@@ -16,7 +16,7 @@ namespace AntlrCSharp
         public static void Main(string[] args){
 
          StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\ajapo\Desktop\Tests.txt";
+         string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
          string[] lines = File.ReadAllLines(fileLocation);
          foreach(var element in lines)
              {
@@ -27,7 +27,7 @@ namespace AntlrCSharp
             AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
             CustomLexer lexer = new CustomLexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            CustomParser parser = new CustomParser(tokenStream);
+            CustomParser parser = new CustomParser (tokenStream);
 
             IParseTree tree = parser.input();
 
@@ -44,12 +44,16 @@ namespace AntlrCSharp
                 if (ex is ParseCanceledException)
                 {
                     
-                     Console.WriteLine("Parsing was canceled." + ex.Message);
+                    Console.WriteLine("Parsing was canceled.");
+                    Console.WriteLine($"Error occurred while parsing with message: {ex.Message}");
+                    // Optionally, you can print the stack trace for more detailed debugging information
+                    Console.WriteLine($"StackTrace: {ex.StackTrace}");
                 
                 }
                 else
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 }
             }
         
