@@ -11,6 +11,8 @@ using Antlr4.Runtime.Tree;
 using AntlrCSharp;
 using static CalculatorParser;
 using System.IO;
+using System.ComponentModel.Design.Serialization;
+using System.Security.Cryptography;
 
 namespace AntlrCSharp
 {
@@ -115,6 +117,12 @@ namespace AntlrCSharp
             }
             else if(context.mapPrint() != null){
                 return VisitMapPrint(context.mapPrint());
+            }
+            else if(context.mapBSP() != null){
+                return VisitMapBSP(context.mapBSP());
+            }
+            else if(context.mapObject() != null){
+                return VisitMapObject(context.mapObject());
             }
             else{
                 return "Unsupported Statement xdd";
@@ -368,24 +376,38 @@ namespace AntlrCSharp
 
         public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context){
             string identifier = context.IDENTIFIER().GetText();
-            object value = Visit(context.expression());
+            object value;
             string declaredTypeName = context.TYPE().GetText();
-
             Type declaredType = GetTypeFromName(declaredTypeName);
 
-            if(value is int && declaredTypeName == "double " ){
-                value = (double)(int)value;
+            if(context.expression() != null){
+                value = Visit(context.expression());
+
+                CheckType(identifier, declaredType, value);
+                if(value is int && declaredTypeName == "double " ){
+                    value = (double)(int)value;
+                }
+
+                variableTypes[identifier] = declaredType;
+                variables[identifier] = value;
+                return value;            
+            }else if(context.mapTest() != null && declaredTypeName == "boolean "){
+                value = Visit(context.mapTest());
+                variableTypes[identifier] = declaredType;
+                variables[identifier] = value;
+                return value;
             }
+            
+            
+
+            
 
             /*if (variableTypes.ContainsKey(identifier)){
                 throw new Exception($"Variable {identifier} has already been declared, {identifier} is of type {declaredType}");
             }*/
 
-            CheckType(identifier, declaredType, value);
-
-            variableTypes[identifier] = declaredType;
-            variables[identifier] = value;
-            return value;
+            
+            return 0;
         }
 
         public override object VisitVariableAssignment(CalculatorParser.VariableAssignmentContext context){
@@ -991,8 +1013,7 @@ namespace AntlrCSharp
             string declaredTypeName = context.TYPE().GetText();
             Type declaredType = GetTypeFromName(declaredTypeName);
 
-            List<string> keys = context.STRING_LITERAL().Select(x => x.GetText()).ToList();
-            
+            List<string> keys = context.STRING_LITERAL().Select(x => x.GetText()).ToList();            
 
             Dictionary<string, char[,]> map = new Dictionary<string, char[,]>();
 
@@ -1030,7 +1051,7 @@ namespace AntlrCSharp
                 var array = map[key];
 
                 //FOR TESTING PURPOSES
-                for (int i = 0; i < array.GetLength(0); i++) {
+                for (int i = array.GetLength(0) - 1; i >= 0; i--) {
                     for (int j = 0; j < array.GetLength(1); j++) {
                         Console.Write(array[i, j] + " ");
                     }
@@ -1051,7 +1072,6 @@ namespace AntlrCSharp
             string layerName = context.STRING_LITERAL().GetText();
             string arrayIdentifier = context.IDENTIFIER(1).GetText();
 
-
             if(variableTypes[identifier] != typeof(Dictionary<string,char[,]>)){
                 throw new Exception($"Variable {identifier} is not of type 'map'.");
             }else if(variableTypes[arrayIdentifier] != typeof(char)){
@@ -1060,21 +1080,21 @@ namespace AntlrCSharp
 
             Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
 
-            char[,] newArray = (char[,])variables[arrayIdentifier];
+            if(arrayIdentifier != null)
+            {
+                char[,] newArray = (char[,])variables[arrayIdentifier];
 
-            if (map.ContainsKey(layerName)){
+                if (map.ContainsKey(layerName)){
 
-                char[,] oldArray = map[layerName];
-                if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
-                    throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                    char[,] oldArray = map[layerName];
+                    if (oldArray.GetLength(0) != newArray.GetLength(0) || oldArray.GetLength(1) != newArray.GetLength(1)) {
+                        throw new Exception($"New array dimensions do not match the dimensions of the existing array for key '{layerName}'.");
+                    }
+                    map[layerName] = newArray;
+                }else{
+                    throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
                 }
-
-
-                map[layerName] = newArray;
-            }else{
-                throw new KeyNotFoundException($"Key '{layerName}' not found in the map '{identifier}'.");
             }
-            
             variables[identifier] = map;
             
             return true;
@@ -1125,7 +1145,70 @@ namespace AntlrCSharp
                 throw new Exception($"Variable {identifier} is not declared as a map type.");
             }
             return true;
+        public override object VisitMapBSP(CalculatorParser.MapBSPContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            string key = context.STRING_LITERAL().GetText();
+            int maxAcceptedSize = int.Parse(context.NUMBER().GetText());
+
+            Dictionary<string,char[,]> map = (Dictionary<string,char[,]>)variables[identifier]; 
+            if (map.ContainsKey(key)) {
+                char[,] grid = map[key];
+                BSPNode root = new BSPNode(0);
+                Subset gridSubset = new Subset((0, grid.GetLength(0)-1), (grid.GetLength(1)-1, 0));
+                root.SetSubset(gridSubset);
+                List<BSPNode> nodeList = new List<BSPNode>();
+                BSP_rooms BSPrunner = new BSP_rooms();
+                BSPrunner.run(root, maxAcceptedSize, nodeList, grid);
+                map[key] = grid;
+            } else {
+                throw new KeyNotFoundException($"Key '{key}' not found in the map.");
+            }
+            variables[identifier] = map;
+            return null;
+        }
+
+        public override object VisitMapObject(CalculatorParser.MapObjectContext context)
+        {
+            string identifier = context.IDENTIFIER().GetText();
+            string layerName = context.STRING_LITERAL(0).GetText();
+            string secondLayerName = context.STRING_LITERAL(1).GetText();
+
+            Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
+
+            if(context.NUMBER != null && secondLayerName != null && map.ContainsKey(layerName) && map.ContainsKey(secondLayerName))
+            {
+                char[,] firstLayer = map[layerName];
+                char[,] secondLayer = map[secondLayerName];
+                randomObjectPlacer randomObjectPlacer = new randomObjectPlacer();
+                char objectChar = context.CHARACTER_LITERAL().GetText().Trim('\'')[0];
+                int numberOfObjectsToPlace = int.Parse(context.NUMBER().GetText());
+                randomObjectPlacer.run(firstLayer,secondLayer, numberOfObjectsToPlace, objectChar);
+                map[secondLayerName] = secondLayer;
+            }
+            variables[identifier] = map;
+
+            return base.VisitMapObject(context);
+        }
+
+        public override object VisitMapTest(CalculatorParser.MapTestContext context)
+        {
+            Console.WriteLine("Visiting maptesting");
+            string identifier = context.IDENTIFIER().GetText();
+            string layerName = context.STRING_LITERAL(0).GetText();
+            string secondLayerName = context.STRING_LITERAL(1).GetText();
+
+            Dictionary<string, char[,]> map = (Dictionary<string,char[,]>)variables[identifier];
+
+            char[,] firstLayer = map[layerName];
+            char[,] secondLayer = map[secondLayerName];
+
+            dijkstra dijkstra = new dijkstra();
+            bool resultOfTest = dijkstra.run(firstLayer, secondLayer);
+            return resultOfTest;
         }
     }
+    
+
 }
 

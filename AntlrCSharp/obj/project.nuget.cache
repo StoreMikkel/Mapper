@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "JNy9eET8p1FqAaCuxL2FT+D3+R4fHSHOKW1v0cZQSBQi6XX195sDCEMHS1h7ChaCpKkofJaCcGOZPv9ljrZaWw==",
+  "dgSpecHash": "z0r/rfEEEMQhppPJbW60cvB7zu0qZ0WZiWmrakx6eZjbEXSETKtVn6JrQUsCH4hTpTEgnRn79YL8O9HoUHMbAQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ajapo\\Documents\\GitHub\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
+  "projectFilePath": "C:\\Users\\Mikkel\\Documents\\UNI\\4. Semester\\CalculatorLanguage\\AntlrCSharp\\AntlrCSharp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ajapo\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512",
-    "C:\\Users\\ajapo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\ajapo\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
-    "C:\\Users\\ajapo\\.nuget\\packages\\nunit\\3.13.2\\nunit.3.13.2.nupkg.sha512"
+    "C:\\Users\\Mikkel\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512",
+    "C:\\Users\\Mikkel\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Mikkel\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Mikkel\\.nuget\\packages\\nunit\\3.13.2\\nunit.3.13.2.nupkg.sha512"
   ],
   "logs": []
 }
