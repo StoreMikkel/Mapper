@@ -1145,6 +1145,7 @@ namespace AntlrCSharp
                 throw new Exception($"Variable {identifier} is not declared as a map type.");
             }
             return true;
+        }
         public override object VisitMapBSP(CalculatorParser.MapBSPContext context)
         {
             string identifier = context.IDENTIFIER().GetText();
