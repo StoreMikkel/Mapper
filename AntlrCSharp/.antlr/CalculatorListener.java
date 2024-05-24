@@ -1,4 +1,4 @@
-// Generated from c:/Users/ajapo/Documents/GitHub/CalculatorLanguage/AntlrCSharp/Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -276,4 +276,44 @@ public interface CalculatorListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMapModification(CalculatorParser.MapModificationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#mapPrint}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapPrint(CalculatorParser.MapPrintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#mapPrint}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapPrint(CalculatorParser.MapPrintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#mapBSP}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapBSP(CalculatorParser.MapBSPContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#mapBSP}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapBSP(CalculatorParser.MapBSPContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#mapObject}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapObject(CalculatorParser.MapObjectContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#mapObject}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapObject(CalculatorParser.MapObjectContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#mapTest}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapTest(CalculatorParser.MapTestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#mapTest}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapTest(CalculatorParser.MapTestContext ctx);
 }
