@@ -340,6 +340,7 @@ namespace AntlrCSharp
             int elseTokenIndex = context.ELSE()?.Symbol.TokenIndex ?? int.MaxValue;
 
             //If condition is true visit statements before ELSE token
+            //If ELSE token exists, visit statements after ELSE token
             if (conditionValue){
                 foreach(var statement in context.statement()){
                     if(statement.Stop.TokenIndex < elseTokenIndex){
@@ -347,9 +348,7 @@ namespace AntlrCSharp
                     }
                 }
                 return true;
-            }
-            //If ELSE token exists, visit statements after ELSE token
-            else if (context.ELSE() != null){
+            } else if (context.ELSE() != null){
                 foreach(var statement in context.statement()){
                     if(statement.Stop.TokenIndex > elseTokenIndex){
                         Visit(statement);
@@ -387,10 +386,8 @@ namespace AntlrCSharp
                 
                 }
             }
-    
             return result;
         }
-
 
         public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context){
             string identifier = context.IDENTIFIER().GetText();
@@ -410,15 +407,14 @@ namespace AntlrCSharp
                 variables[identifier] = value;
                 return value;            
             }
-            //If any mapTest function is aclled, type must be boolean
-            else if(context.mapTest() != null && declaredTypeName == "boolean "){
+            //If any mapTest function is called, type must be boolean
+            if(context.mapTest() != null && declaredTypeName == "boolean "){
                 value = Visit(context.mapTest());
                 //Save type in typetable and value in valuetable
                 variableTypes[identifier] = declaredType;
                 variables[identifier] = value;
                 return value;
             }
-            
             return 0;
         }
 
@@ -926,12 +922,12 @@ namespace AntlrCSharp
                 number2String = number2.ToString();
             }
             //If lower bound is expression and upper bound is expression
-            else if(context.expression(0) != null && context.children[4].GetType() == context.expression(0).GetType() && context.children[2].GetType() == context.expression(0).GetType()){
+            if(context.expression(0) != null && context.children[4].GetType() == context.expression(0).GetType() && context.children[2].GetType() == context.expression(0).GetType()){
                 number2 = Visit(context.expression(1));
                 number2String = number2.ToString();
             }
             //If lowerbound is expression and upper bound is number
-            else if(context.children[2].GetType() == context.expression().GetType()){
+            if(context.children[2].GetType() == context.expression().GetType()){
                 number2String = context.number(0).GetText();
             }
             //If lowerbound is number and upper bound is number

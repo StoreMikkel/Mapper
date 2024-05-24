@@ -8,11 +8,10 @@ public class randomObjectPlacer
         {
             int xCoordinate = random.Next(0, firstLayer.GetLength(0)-1);
             int yCoordinate = random.Next(0,firstLayer.GetLength(1)-1);
-            if(firstLayer[yCoordinate,xCoordinate] == 'f' && secondLayer[yCoordinate, xCoordinate] == 'Q')
+            if(firstLayer[yCoordinate,xCoordinate] == 'f' && secondLayer[yCoordinate, xCoordinate] == ' ')
             {
                 secondLayer[yCoordinate, xCoordinate] = item;
                 objectsCreated++;
-                Console.WriteLine("Placed an object");
             }
         }
     }
