@@ -72,7 +72,6 @@ ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  s
 whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
 
 variableDeclaration : TYPE IDENTIFIER '=' (expression | mapTest);
-
 variableAssignment : IDENTIFIER '=' expression;
 
 forLoop            : 'for' '(' variableDeclaration ';' compare ';' crementer ')' '{' statement+ '}';
@@ -85,6 +84,7 @@ arrayAccess        : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) RIGHTARRAYB
 arrayDeclaration2d : TYPE IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET ('=' '{' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET (',' LEFTCURLYBRACKET (expression (',' expression)*)? RIGHTCURLYBRACKET)* '}' )?;
 arrayAssignment2d  : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET '=' expression;
 arrayAccess2d      : IDENTIFIER LEFTARRAYBRACKET (number|IDENTIFIER) ',' (number|IDENTIFIER) RIGHTARRAYBRACKET;
+
 breakStatement     : BREAK;
 randomStatement    : RANDOM '(' (number|expression) ',' (number|expression) ')';
 fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|CHARACTER_LITERAL) ',' STRING_LITERAL ')';
@@ -104,7 +104,7 @@ NUMBER           : [0-9]+ ;
 OPERATOR1        : ('+' | '-' ) ;
 OPERATOR2        : ('/' | '*');
 BOOLEANOPERATORS : ('||'| '&&');
-COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); // Added comparison operators
+COMPARISON_OPERATOR: ('>' | '<' | '==' | '!=' | '>=' | '<='); 
 BOOLEAN_LITERAL  : ('true'|'false');
 BREAK            : 'BREAK';
 RANDOM           : 'RANDOM';

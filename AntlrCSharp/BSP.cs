@@ -174,9 +174,14 @@ public class BSP_rooms
     private Random random = new Random();
 
 
-    public void run(BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList, char[,] grid)
+    public void run(int maxAcceptedSize, char[,] grid)
     {
-        partition(node, maxAcceptedSize, nodeList);
+        BSPNode root = new BSPNode(0);
+        Subset gridSubset = new Subset((0, grid.GetLength(0)-1), (grid.GetLength(1)-1, 0));
+        root.SetSubset(gridSubset);
+        List<BSPNode> nodeList = new List<BSPNode>();
+        
+        partition(root, maxAcceptedSize, nodeList);
         randomRoomPlacement(nodeList, grid);
         BSP_corridors(nodeList, grid);
     }
