@@ -64,8 +64,13 @@ namespace AntlrCSharp
 
         public override object VisitStatement(CalculatorParser.StatementContext context){
             // Determine the type of statement and delegate to the appropriate visit method
-            if (context.calculation() != null){
-                return VisitCalculation(context.calculation());
+            //if (context.calculation() != null){
+            //    return VisitCalculation(context.calculation());
+            //}
+            if(context.expression() != null){
+                object result = VisitExpression(context.expression());
+                Console.WriteLine(result);
+                return result;
             }
             else if (context.ifStatement() != null){
                 return VisitIfStatement(context.ifStatement());
@@ -115,14 +120,14 @@ namespace AntlrCSharp
             else if(context.mapDeclaration() != null){
                 return VisitMapDeclaration(context.mapDeclaration());
             }
-            else if(context.mapAccess() != null){
-                return VisitMapAccess(context.mapAccess());
+            else if(context.mapPrint() != null){
+                return VisitMapPrint(context.mapPrint());
             }
             else if(context.mapModification() != null){
                 return VisitMapModification(context.mapModification());
             }
-            else if(context.mapPrint() != null){
-                return VisitMapPrint(context.mapPrint());
+            else if(context.mapWrite() != null){
+                return VisitMapWrite(context.mapWrite());
             }
             else if(context.mapBSP() != null){
                 return VisitMapBSP(context.mapBSP());
@@ -133,12 +138,6 @@ namespace AntlrCSharp
             else{
                 return "Unsupported Statement ";
             }
-        }
-
-        public override object VisitCalculation(CalculatorParser.CalculationContext context){
-            object result = Visit(context.expression());
-            Console.WriteLine("Result: " + result);
-            return result;
         }
 
         public override object VisitExpression(CalculatorParser.ExpressionContext context){
@@ -214,8 +213,8 @@ namespace AntlrCSharp
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
             }
-            if(context.mapAccess() != null){
-                return VisitMapAccess(context.mapAccess());
+            if(context.mapPrint() != null){
+                return VisitMapPrint(context.mapPrint());
             }
             return Visit(context.term());
         }
@@ -266,8 +265,8 @@ namespace AntlrCSharp
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
             }
-            if(context.mapAccess() != null){
-                return VisitMapAccess(context.mapAccess());
+            if(context.mapPrint() != null){
+                return VisitMapPrint(context.mapPrint());
             }
             //If term is none of the above, it is a factor
             return Visit(context.factor());
@@ -318,8 +317,8 @@ namespace AntlrCSharp
             if(context.randomStatement() != null){
                 return VisitRandomStatement(context.randomStatement());
             }
-            if(context.mapAccess() != null){
-                return VisitMapAccess(context.mapAccess());
+            if(context.mapPrint() != null){
+                return VisitMapPrint(context.mapPrint());
             }
             else{
                 return Visit(context.expression());
@@ -1018,7 +1017,7 @@ namespace AntlrCSharp
             return map;
         }
 
-        public override object VisitMapAccess(CalculatorParser.MapAccessContext context){
+        public override object VisitMapPrint(CalculatorParser.MapPrintContext context){
             string identifier = context.IDENTIFIER().GetText();
             //Lookup map in valuetable
             Dictionary<string,char[,]> map = (Dictionary<string,char[,]>)variables[identifier]; 
@@ -1026,6 +1025,12 @@ namespace AntlrCSharp
             string key = context.STRING_LITERAL().GetText(); 
             if (map.ContainsKey(key)) {
                 var array = map[key];
+                for (int i = array.GetLength(0) - 1; i >= 0; i--) {
+                    for (int j = 0; j < array.GetLength(1); j++) {
+                        Console.Write(array[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
                 return array;
             } else {
                 throw new KeyNotFoundException($"Key '{key}' not found in the map.");
@@ -1066,7 +1071,7 @@ namespace AntlrCSharp
             return true;
         }
 
-        public override object VisitMapPrint(CalculatorParser.MapPrintContext context){
+        public override object VisitMapWrite(CalculatorParser.MapWriteContext context){
             string identifier = context.IDENTIFIER().GetText();
             Type declaredType = variableTypes[identifier];
 
@@ -1104,7 +1109,7 @@ namespace AntlrCSharp
                             writer.WriteLine(); 
                         }
                     }
-                    Console.WriteLine($"Map entry '{key}' printed to file: {filePath}");
+                    Console.WriteLine($"Map layer '{key}' written to file: {filePath}");
                 }
             }else{
                 throw new Exception($"Variable {identifier} is not declared as a map type.");

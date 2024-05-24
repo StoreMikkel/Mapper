@@ -3,7 +3,7 @@ grammar Calculator;
 /* Parser Rules */
 input            : statement+ EOF;
 
-statement        : calculation 
+statement        : expression 
                  | ifStatement
                  | whileStatement
                  | variableDeclaration
@@ -20,26 +20,24 @@ statement        : calculation
                  | fileWriteStatement
                  | fileWriteNewline
                  | mapDeclaration
-                 | mapAccess
-                 | mapModification
                  | mapPrint
+                 | mapModification
+                 | mapWrite
                  | mapBSP
                  | mapObject;
-
-calculation      : expression;
 
 expression       : term
                  | expression OPERATOR1 term
                  | expression COMPARISON_OPERATOR term
                  | IDENTIFIER
-                 | STRING_LITERAL // Added comparison operator
+                 | STRING_LITERAL 
                  | BOOLEAN_LITERAL
                  | CHARACTER_LITERAL
                  | DOUBLE_LITERAL
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
-                 | mapAccess;
+                 | mapPrint;
 
 term             : factor
                  | term OPERATOR2 factor
@@ -51,7 +49,7 @@ term             : factor
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
-                 | mapAccess;
+                 | mapPrint;
 
 factor           : number
                  | '(' expression ')'
@@ -63,11 +61,11 @@ factor           : number
                  | arrayAccess
                  | arrayAccess2d
                  | randomStatement
-                 | mapAccess;
+                 | mapPrint;
 
 number           : NUMBER;
 
-ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  statement+ '}'  (ELSE '{' statement+ '}')?; // Adjusted ifStatement rule
+ifStatement      : 'if' '(' expression (BOOLEANOPERATORS expression)* ')' '{'  statement+ '}'  (ELSE '{' statement+ '}')?;
 
 whileStatement   : 'while' '(' expression ')' '{' statement+ '}' ;
 
@@ -91,9 +89,9 @@ fileWriteStatement : 'fileWrite' '(' (arrayAccess2d|CHARACTER_LITERAL) ',' STRIN
 fileWriteNewline   : 'fileWriteNewline' '(' STRING_LITERAL ')';
 
 mapDeclaration     : TYPE IDENTIFIER '(' NUMBER ')' '(' NUMBER ')' '(' NUMBER ')' '=' STRING_LITERAL (',' STRING_LITERAL)*;
-mapAccess          : 'access' IDENTIFIER '(' STRING_LITERAL ')';
+mapPrint           : 'print' IDENTIFIER '(' STRING_LITERAL ')';
 mapModification    : 'modify' IDENTIFIER '(' STRING_LITERAL ')' '=' IDENTIFIER;
-mapPrint           : 'print' IDENTIFIER;
+mapWrite           : 'write' IDENTIFIER;
 
 mapBSP             : 'bsp' IDENTIFIER '(' STRING_LITERAL ')' '=' NUMBER;
 mapObject          : 'object' IDENTIFIER '(' STRING_LITERAL ')' '(' STRING_LITERAL ')' '=' 'randomObjectPlacer(' NUMBER ', ' CHARACTER_LITERAL ')';

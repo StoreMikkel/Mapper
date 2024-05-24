@@ -44,12 +44,6 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] CalculatorParser.StatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.calculation"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCalculation([NotNull] CalculatorParser.CalculationContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -182,11 +176,11 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitMapDeclaration([NotNull] CalculatorParser.MapDeclarationContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapAccess"/>.
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapPrint"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitMapAccess([NotNull] CalculatorParser.MapAccessContext context);
+	Result VisitMapPrint([NotNull] CalculatorParser.MapPrintContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.mapModification"/>.
 	/// </summary>
@@ -194,11 +188,11 @@ public interface ICalculatorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitMapModification([NotNull] CalculatorParser.MapModificationContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapPrint"/>.
+	/// Visit a parse tree produced by <see cref="CalculatorParser.mapWrite"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitMapPrint([NotNull] CalculatorParser.MapPrintContext context);
+	Result VisitMapWrite([NotNull] CalculatorParser.MapWriteContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="CalculatorParser.mapBSP"/>.
 	/// </summary>
