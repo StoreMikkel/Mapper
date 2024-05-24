@@ -14,41 +14,29 @@ namespace AntlrCSharp
     class Program
     {
         public static void Main(string[] args){
-
-         StringBuilder text = new StringBuilder();
-         string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
-         string[] lines = File.ReadAllLines(fileLocation);
-         foreach(var element in lines)
-             {
-                text.AppendLine(element);
-             }
-        
-        try{
-            AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-            CustomLexer lexer = new CustomLexer(inputStream);
-            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            CustomParser parser = new CustomParser (tokenStream);
-
-            IParseTree tree = parser.input();
-
-        /*tokenStream.Fill();
-            foreach (var token in tokenStream.GetTokens())
+            //Read lines from input text file
+            StringBuilder text = new StringBuilder();
+            string fileLocation = @"C:\Users\Mikkel\Documents\calcLangTest.txt";
+            string[] lines = File.ReadAllLines(fileLocation);
+            foreach(var element in lines)
             {
-                Console.WriteLine($"Token Type: {token.Type}, Text: {token.Text}, Start Index: {token.StartIndex}, Stop Index: {token.StopIndex}");
-            }*/
-        
-            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
-            visitor.Visit(tree);
-        }catch (Exception ex)
+                text.AppendLine(element);
+            }
+            try{
+                AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
+                CustomLexer lexer = new CustomLexer(inputStream);
+                CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+                CustomParser parser = new CustomParser (tokenStream);
+                IParseTree tree = parser.input();
+                BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+                visitor.Visit(tree);
+            }catch (Exception ex)
             {
                 if (ex is ParseCanceledException)
                 {
-                    
                     Console.WriteLine("Parsing was canceled.");
                     Console.WriteLine($"Error occurred while parsing with message: {ex.Message}");
-                    // Optionally, you can print the stack trace for more detailed debugging information
                     Console.WriteLine($"StackTrace: {ex.StackTrace}");
-                
                 }
                 else
                 {
@@ -56,10 +44,6 @@ namespace AntlrCSharp
                     Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 }
             }
-        
-        }
-    
-    }
-
-    
+        }  
+    }   
 }
