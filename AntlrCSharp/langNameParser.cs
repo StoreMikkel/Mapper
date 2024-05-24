@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//langName.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -32,7 +32,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.CLSCompliant(false)]
-public partial class CalculatorParser : Parser {
+public partial class langNameParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
@@ -89,29 +89,29 @@ public partial class CalculatorParser : Parser {
 		}
 	}
 
-	public override string GrammarFileName { get { return "Calculator.g4"; } }
+	public override string GrammarFileName { get { return "langName.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
 	public override int[] SerializedAtn { get { return _serializedATN; } }
 
-	static CalculatorParser() {
+	static langNameParser() {
 		decisionToDFA = new DFA[_ATN.NumberOfDecisions];
 		for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
 			decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);
 		}
 	}
 
-		public CalculatorParser(ITokenStream input) : this(input, Console.Out, Console.Error) { }
+		public langNameParser(ITokenStream input) : this(input, Console.Out, Console.Error) { }
 
-		public CalculatorParser(ITokenStream input, TextWriter output, TextWriter errorOutput)
+		public langNameParser(ITokenStream input, TextWriter output, TextWriter errorOutput)
 		: base(input, output, errorOutput)
 	{
 		Interpreter = new ParserATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
 	}
 
 	public partial class InputContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(CalculatorParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(langNameParser.Eof, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
@@ -125,7 +125,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_input; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitInput(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -242,7 +242,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_statement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -427,11 +427,11 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TermContext term() {
 			return GetRuleContext<TermContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(CalculatorParser.BOOLEAN_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(CalculatorParser.DOUBLE_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(langNameParser.BOOLEAN_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(langNameParser.CHARACTER_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(langNameParser.DOUBLE_LITERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayAccessContext arrayAccess() {
 			return GetRuleContext<ArrayAccessContext>(0);
 		}
@@ -447,8 +447,8 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR1() { return GetToken(CalculatorParser.OPERATOR1, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMPARISON_OPERATOR() { return GetToken(CalculatorParser.COMPARISON_OPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR1() { return GetToken(langNameParser.OPERATOR1, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMPARISON_OPERATOR() { return GetToken(langNameParser.COMPARISON_OPERATOR, 0); }
 		public ExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -456,7 +456,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_expression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -603,11 +603,11 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
 			return GetRuleContext<FactorContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(CalculatorParser.BOOLEAN_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(CalculatorParser.DOUBLE_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(langNameParser.BOOLEAN_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(langNameParser.CHARACTER_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(langNameParser.DOUBLE_LITERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayAccessContext arrayAccess() {
 			return GetRuleContext<ArrayAccessContext>(0);
 		}
@@ -623,7 +623,7 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TermContext term() {
 			return GetRuleContext<TermContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR2() { return GetToken(CalculatorParser.OPERATOR2, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPERATOR2() { return GetToken(langNameParser.OPERATOR2, 0); }
 		public TermContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -631,7 +631,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_term; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTerm(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -763,11 +763,11 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(CalculatorParser.BOOLEAN_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(CalculatorParser.DOUBLE_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEAN_LITERAL() { return GetToken(langNameParser.BOOLEAN_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(langNameParser.CHARACTER_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOUBLE_LITERAL() { return GetToken(langNameParser.DOUBLE_LITERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayAccessContext arrayAccess() {
 			return GetRuleContext<ArrayAccessContext>(0);
 		}
@@ -787,7 +787,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_factor; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFactor(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -896,7 +896,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class NumberContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(CalculatorParser.NUMBER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(langNameParser.NUMBER, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -904,7 +904,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_number; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNumber(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -939,17 +939,17 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression(int i) {
 			return GetRuleContext<ExpressionContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LEFTCURLYBRACKET() { return GetTokens(CalculatorParser.LEFTCURLYBRACKET); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LEFTCURLYBRACKET() { return GetTokens(langNameParser.LEFTCURLYBRACKET); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET(int i) {
-			return GetToken(CalculatorParser.LEFTCURLYBRACKET, i);
+			return GetToken(langNameParser.LEFTCURLYBRACKET, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RIGHTCURLYBRACKET() { return GetTokens(CalculatorParser.RIGHTCURLYBRACKET); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RIGHTCURLYBRACKET() { return GetTokens(langNameParser.RIGHTCURLYBRACKET); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET(int i) {
-			return GetToken(CalculatorParser.RIGHTCURLYBRACKET, i);
+			return GetToken(langNameParser.RIGHTCURLYBRACKET, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] BOOLEANOPERATORS() { return GetTokens(CalculatorParser.BOOLEANOPERATORS); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] BOOLEANOPERATORS() { return GetTokens(langNameParser.BOOLEANOPERATORS); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOLEANOPERATORS(int i) {
-			return GetToken(CalculatorParser.BOOLEANOPERATORS, i);
+			return GetToken(langNameParser.BOOLEANOPERATORS, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
@@ -957,7 +957,7 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext statement(int i) {
 			return GetRuleContext<StatementContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSE() { return GetToken(CalculatorParser.ELSE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSE() { return GetToken(langNameParser.ELSE, 0); }
 		public IfStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -965,7 +965,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_ifStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitIfStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1066,8 +1066,8 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(CalculatorParser.LEFTCURLYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(CalculatorParser.RIGHTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(langNameParser.LEFTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(langNameParser.RIGHTCURLYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
@@ -1081,7 +1081,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_whileStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitWhileStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1135,9 +1135,9 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class VariableDeclarationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(CalculatorParser.TYPE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(langNameParser.TYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -1151,7 +1151,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_variableDeclaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariableDeclaration(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1210,8 +1210,8 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class VariableAssignmentContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -1222,7 +1222,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_variableAssignment; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariableAssignment(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1264,8 +1264,8 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public CrementerContext crementer() {
 			return GetRuleContext<CrementerContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(CalculatorParser.LEFTCURLYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(CalculatorParser.RIGHTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(langNameParser.LEFTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(langNameParser.RIGHTCURLYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
@@ -1279,7 +1279,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_forLoop; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitForLoop(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1341,9 +1341,9 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class CrementerContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INCREMENTER() { return GetToken(CalculatorParser.INCREMENTER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DECREMENTER() { return GetToken(CalculatorParser.DECREMENTER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INCREMENTER() { return GetToken(langNameParser.INCREMENTER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DECREMENTER() { return GetToken(langNameParser.DECREMENTER, 0); }
 		public CrementerContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1351,7 +1351,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_crementer; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitCrementer(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1400,7 +1400,7 @@ public partial class CalculatorParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMPARISON_OPERATOR() { return GetToken(CalculatorParser.COMPARISON_OPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMPARISON_OPERATOR() { return GetToken(langNameParser.COMPARISON_OPERATOR, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public TermContext term() {
 			return GetRuleContext<TermContext>(0);
 		}
@@ -1411,7 +1411,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_compare; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitCompare(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1444,19 +1444,19 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayDeclarationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(CalculatorParser.TYPE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(langNameParser.TYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
 			return GetRuleContext<NumberContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(CalculatorParser.LEFTCURLYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(CalculatorParser.RIGHTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET() { return GetToken(langNameParser.LEFTCURLYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET() { return GetToken(langNameParser.RIGHTCURLYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
 		}
@@ -1470,7 +1470,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayDeclaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayDeclaration(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1564,13 +1564,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayAssignementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -1584,7 +1584,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayAssignement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayAssignement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1639,12 +1639,12 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayAccessContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
 			return GetRuleContext<NumberContext>(0);
 		}
@@ -1655,7 +1655,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayAccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayAccess(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1706,27 +1706,27 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayDeclaration2dContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(CalculatorParser.TYPE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(langNameParser.TYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext[] number() {
 			return GetRuleContexts<NumberContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number(int i) {
 			return GetRuleContext<NumberContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LEFTCURLYBRACKET() { return GetTokens(CalculatorParser.LEFTCURLYBRACKET); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LEFTCURLYBRACKET() { return GetTokens(langNameParser.LEFTCURLYBRACKET); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTCURLYBRACKET(int i) {
-			return GetToken(CalculatorParser.LEFTCURLYBRACKET, i);
+			return GetToken(langNameParser.LEFTCURLYBRACKET, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RIGHTCURLYBRACKET() { return GetTokens(CalculatorParser.RIGHTCURLYBRACKET); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RIGHTCURLYBRACKET() { return GetTokens(langNameParser.RIGHTCURLYBRACKET); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTCURLYBRACKET(int i) {
-			return GetToken(CalculatorParser.RIGHTCURLYBRACKET, i);
+			return GetToken(langNameParser.RIGHTCURLYBRACKET, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
@@ -1741,7 +1741,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayDeclaration2d; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayDeclaration2d(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1903,13 +1903,13 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayAssignment2dContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -1926,7 +1926,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayAssignment2d; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayAssignment2d(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2001,12 +2001,12 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class ArrayAccess2dContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(CalculatorParser.LEFTARRAYBRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(CalculatorParser.RIGHTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LEFTARRAYBRACKET() { return GetToken(langNameParser.LEFTARRAYBRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RIGHTARRAYBRACKET() { return GetToken(langNameParser.RIGHTARRAYBRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext[] number() {
 			return GetRuleContexts<NumberContext>();
 		}
@@ -2020,7 +2020,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayAccess2d; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayAccess2d(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2091,7 +2091,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class BreakStatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BREAK() { return GetToken(CalculatorParser.BREAK, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BREAK() { return GetToken(langNameParser.BREAK, 0); }
 		public BreakStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2099,7 +2099,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_breakStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBreakStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2128,7 +2128,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class RandomStatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RANDOM() { return GetToken(CalculatorParser.RANDOM, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RANDOM() { return GetToken(langNameParser.RANDOM, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext[] number() {
 			return GetRuleContexts<NumberContext>();
 		}
@@ -2148,7 +2148,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_randomStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitRandomStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2215,11 +2215,11 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class FileWriteStatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayAccess2dContext arrayAccess2d() {
 			return GetRuleContext<ArrayAccess2dContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(langNameParser.CHARACTER_LITERAL, 0); }
 		public FileWriteStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2227,7 +2227,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_fileWriteStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFileWriteStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2282,7 +2282,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class FileWriteNewlineContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
 		public FileWriteNewlineContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2290,7 +2290,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_fileWriteNewline; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFileWriteNewline(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2325,16 +2325,16 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapDeclarationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(CalculatorParser.TYPE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NUMBER() { return GetTokens(CalculatorParser.NUMBER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(langNameParser.TYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NUMBER() { return GetTokens(langNameParser.NUMBER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER(int i) {
-			return GetToken(CalculatorParser.NUMBER, i);
+			return GetToken(langNameParser.NUMBER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(CalculatorParser.STRING_LITERAL); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(langNameParser.STRING_LITERAL); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL(int i) {
-			return GetToken(CalculatorParser.STRING_LITERAL, i);
+			return GetToken(langNameParser.STRING_LITERAL, i);
 		}
 		public MapDeclarationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -2343,7 +2343,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapDeclaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapDeclaration(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2413,8 +2413,8 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapPrintContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
 		public MapPrintContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2422,7 +2422,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapPrint; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapPrint(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2459,12 +2459,12 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapModificationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(CalculatorParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(langNameParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(CalculatorParser.IDENTIFIER, i);
+			return GetToken(langNameParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
 		public MapModificationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2472,7 +2472,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapModification; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapModification(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2513,7 +2513,7 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapWriteContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
 		public MapWriteContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2521,7 +2521,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapWrite; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapWrite(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2552,10 +2552,10 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapBSPContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(CalculatorParser.STRING_LITERAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(CalculatorParser.NUMBER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL() { return GetToken(langNameParser.STRING_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(langNameParser.NUMBER, 0); }
 		public MapBSPContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2563,7 +2563,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapBSP; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapBSP(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2604,14 +2604,14 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapObjectContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(CalculatorParser.STRING_LITERAL); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(langNameParser.STRING_LITERAL); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL(int i) {
-			return GetToken(CalculatorParser.STRING_LITERAL, i);
+			return GetToken(langNameParser.STRING_LITERAL, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(CalculatorParser.EQUALS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(CalculatorParser.NUMBER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(CalculatorParser.CHARACTER_LITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALS() { return GetToken(langNameParser.EQUALS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(langNameParser.NUMBER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CHARACTER_LITERAL() { return GetToken(langNameParser.CHARACTER_LITERAL, 0); }
 		public MapObjectContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2619,7 +2619,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapObject; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapObject(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2674,10 +2674,10 @@ public partial class CalculatorParser : Parser {
 	}
 
 	public partial class MapTestContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(CalculatorParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(CalculatorParser.STRING_LITERAL); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(langNameParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STRING_LITERAL() { return GetTokens(langNameParser.STRING_LITERAL); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING_LITERAL(int i) {
-			return GetToken(CalculatorParser.STRING_LITERAL, i);
+			return GetToken(langNameParser.STRING_LITERAL, i);
 		}
 		public MapTestContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -2686,7 +2686,7 @@ public partial class CalculatorParser : Parser {
 		public override int RuleIndex { get { return RULE_mapTest; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ICalculatorVisitor<TResult> typedVisitor = visitor as ICalculatorVisitor<TResult>;
+			IlangNameVisitor<TResult> typedVisitor = visitor as IlangNameVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMapTest(this);
 			else return visitor.VisitChildren(this);
 		}

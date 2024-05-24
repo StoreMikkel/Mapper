@@ -1,4 +1,4 @@
-grammar Calculator;
+grammar langName;
 
 /* Parser Rules */
 input            : statement+ EOF;

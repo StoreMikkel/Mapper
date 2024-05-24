@@ -10,7 +10,7 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 
 
-public class CustomParser : CalculatorParser
+public class CustomParser : langNameParser
 {
     public CustomParser(ITokenStream input) : base(input)
     {

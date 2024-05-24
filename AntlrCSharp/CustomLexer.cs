@@ -10,7 +10,7 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 
 namespace AntlrCSharp{
-public class CustomLexer : CalculatorLexer
+public class CustomLexer : langNameLexer
 {
     public CustomLexer(ICharStream input) : base(input)
     {
