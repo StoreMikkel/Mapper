@@ -186,7 +186,7 @@ public class BSP_rooms
         BSP_corridors(nodeList, grid);
     }
     
-    //partitions the nodes subset if its larger than maxAcceptedSize in a random direction, along the x-axis or y-axis
+    //Partitions the nodes subset if its larger than maxAcceptedSize in a random direction, along the x-axis or y-axis
     public void partition(BSPNode node, int maxAcceptedSize, List<BSPNode> nodeList)
     {
         if (node.GetSubset().Length() <= maxAcceptedSize)
@@ -200,7 +200,8 @@ public class BSP_rooms
         else if (directionOfFirstSplit == 2)
             split(2, node, nodeList, maxAcceptedSize);
     }
-    //Split a subset along x- or y-axis
+
+    //Splits a subset along x- or y-axis
     private void split(int directionOfSplit, BSPNode node, List<BSPNode> nodeList, int maxAcceptedSize)
     {
         //Create children nodes
@@ -220,7 +221,6 @@ public class BSP_rooms
             int splitValue = random.Next(minX, maxX);
 
             //Create split subsets
-            
             Subset subset1 = new Subset((minX, maxY), (splitValue, minY));
             Subset subset2 = new Subset((splitValue, maxY), (maxX, minY));
 
@@ -231,9 +231,11 @@ public class BSP_rooms
             rightChild.SetSibling(leftChild);
             leftChild.SetParent(node);
             rightChild.SetParent(node);
+            
             //Add child nodes to "tree"
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
+            
             //Setup child-parent relation
             BSPNode[] children = {leftChild, rightChild};
             node.SetChildren(children);         
@@ -259,9 +261,11 @@ public class BSP_rooms
             rightChild.SetSibling(leftChild);
             leftChild.SetParent(node);
             rightChild.SetParent(node);
+            
             //Add child nodes to "tree"
             nodeList.Add(leftChild);
             nodeList.Add(rightChild);
+            
             //Setup child-parent relation
             BSPNode[] children= {leftChild, rightChild};
             node.SetChildren(children);
@@ -334,10 +338,8 @@ public class BSP_rooms
                     {
                         node.GetParent().SetRoomFromChildren();
                     }
-
                 }
-            }
-            
+            }  
         }
     }
 
@@ -418,8 +420,6 @@ public class BSP_rooms
                     endY = toTile.y;
                 }
             }
-            
-
         }
         //If no tiles were found to be aligned: create L-corridor
         if(smallestXdistance < smallestYdistance)
@@ -450,7 +450,6 @@ public class BSP_rooms
                 }
                 grid[currentY, currentX] = 'f';
             }
-            
         }
         else
         {
@@ -482,6 +481,4 @@ public class BSP_rooms
             }
         }
     }
-
-    
 }

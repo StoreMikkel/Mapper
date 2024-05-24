@@ -42,7 +42,6 @@ public class dijkstra
             }
         }
 
-
         //Set initial distances to a large value, indicating that they are not yet reachable
         for (int i = 0; i < rows; i++)
         {
@@ -64,7 +63,6 @@ public class dijkstra
         while(Q.Count > 0)
         {
             var current = Q.Dequeue();
-
             int currentX = current.xCoordinate;
             int currentY = current.yCoordinate;
             int currentDist = current.distance;
