@@ -1,4 +1,4 @@
-grammar langName;
+grammar Mapper;
 
 /* Parser Rules */
 input            : statement+ EOF;
