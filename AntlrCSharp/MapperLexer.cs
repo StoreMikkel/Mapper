@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Mapper.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -29,7 +29,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.CLSCompliant(false)]
-public partial class CalculatorLexer : Lexer {
+public partial class MapperLexer : Lexer {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
@@ -59,10 +59,10 @@ public partial class CalculatorLexer : Lexer {
 	};
 
 
-	public CalculatorLexer(ICharStream input)
+	public MapperLexer(ICharStream input)
 	: this(input, Console.Out, Console.Error) { }
 
-	public CalculatorLexer(ICharStream input, TextWriter output, TextWriter errorOutput)
+	public MapperLexer(ICharStream input, TextWriter output, TextWriter errorOutput)
 	: base(input, output, errorOutput)
 	{
 		Interpreter = new LexerATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
@@ -95,7 +95,7 @@ public partial class CalculatorLexer : Lexer {
 		}
 	}
 
-	public override string GrammarFileName { get { return "Calculator.g4"; } }
+	public override string GrammarFileName { get { return "Mapper.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
@@ -105,7 +105,7 @@ public partial class CalculatorLexer : Lexer {
 
 	public override int[] SerializedAtn { get { return _serializedATN; } }
 
-	static CalculatorLexer() {
+	static MapperLexer() {
 		decisionToDFA = new DFA[_ATN.NumberOfDecisions];
 		for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
 			decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Calculator.g4 by ANTLR 4.13.1
+// Generated from c://Users//Mikkel//Documents//UNI//4. Semester//CalculatorLanguage//AntlrCSharp//Mapper.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -25,7 +25,7 @@ using IToken = Antlr4.Runtime.IToken;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 /// <summary>
-/// This class provides an empty implementation of <see cref="ICalculatorVisitor{Result}"/>,
+/// This class provides an empty implementation of <see cref="IMapperVisitor{Result}"/>,
 /// which can be extended to create a visitor which only needs to handle a subset
 /// of the available methods.
 /// </summary>
@@ -33,9 +33,9 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.Diagnostics.DebuggerNonUserCode]
 [System.CLSCompliant(false)]
-public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ICalculatorVisitor<Result> {
+public partial class MapperBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, IMapperVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.input"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.input"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -43,9 +43,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitInput([NotNull] CalculatorParser.InputContext context) { return VisitChildren(context); }
+	public virtual Result VisitInput([NotNull] MapperParser.InputContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.statement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -53,9 +53,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStatement([NotNull] CalculatorParser.StatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitStatement([NotNull] MapperParser.StatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.calculation"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.calculation"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -63,9 +63,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCalculation([NotNull] CalculatorParser.CalculationContext context) { return VisitChildren(context); }
+	public virtual Result VisitCalculation([NotNull] MapperParser.CalculationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.expression"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -73,9 +73,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExpression([NotNull] CalculatorParser.ExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitExpression([NotNull] MapperParser.ExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.term"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.term"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -83,9 +83,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTerm([NotNull] CalculatorParser.TermContext context) { return VisitChildren(context); }
+	public virtual Result VisitTerm([NotNull] MapperParser.TermContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.factor"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.factor"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -93,9 +93,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFactor([NotNull] CalculatorParser.FactorContext context) { return VisitChildren(context); }
+	public virtual Result VisitFactor([NotNull] MapperParser.FactorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.number"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.number"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -103,9 +103,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNumber([NotNull] CalculatorParser.NumberContext context) { return VisitChildren(context); }
+	public virtual Result VisitNumber([NotNull] MapperParser.NumberContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.ifStatement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.ifStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -113,9 +113,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitIfStatement([NotNull] CalculatorParser.IfStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitIfStatement([NotNull] MapperParser.IfStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.whileStatement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.whileStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -123,9 +123,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitWhileStatement([NotNull] CalculatorParser.WhileStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitWhileStatement([NotNull] MapperParser.WhileStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.variableDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.variableDeclaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -133,9 +133,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariableDeclaration([NotNull] CalculatorParser.VariableDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariableDeclaration([NotNull] MapperParser.VariableDeclarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.variableAssignment"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.variableAssignment"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -143,9 +143,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariableAssignment([NotNull] CalculatorParser.VariableAssignmentContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariableAssignment([NotNull] MapperParser.VariableAssignmentContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.forLoop"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.forLoop"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -153,9 +153,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitForLoop([NotNull] CalculatorParser.ForLoopContext context) { return VisitChildren(context); }
+	public virtual Result VisitForLoop([NotNull] MapperParser.ForLoopContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.crementer"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.crementer"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -163,9 +163,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCrementer([NotNull] CalculatorParser.CrementerContext context) { return VisitChildren(context); }
+	public virtual Result VisitCrementer([NotNull] MapperParser.CrementerContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.compare"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.compare"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -173,9 +173,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCompare([NotNull] CalculatorParser.CompareContext context) { return VisitChildren(context); }
+	public virtual Result VisitCompare([NotNull] MapperParser.CompareContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayDeclaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -183,9 +183,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayDeclaration([NotNull] CalculatorParser.ArrayDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayDeclaration([NotNull] MapperParser.ArrayDeclarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayAssignement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -193,9 +193,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayAssignement([NotNull] CalculatorParser.ArrayAssignementContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayAssignement([NotNull] MapperParser.ArrayAssignementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayAccess"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -203,9 +203,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayAccess([NotNull] CalculatorParser.ArrayAccessContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayAccess([NotNull] MapperParser.ArrayAccessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayDeclaration2d"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayDeclaration2d"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -213,9 +213,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayDeclaration2d([NotNull] CalculatorParser.ArrayDeclaration2dContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayDeclaration2d([NotNull] MapperParser.ArrayDeclaration2dContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAssignment2d"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayAssignment2d"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -223,9 +223,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayAssignment2d([NotNull] CalculatorParser.ArrayAssignment2dContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayAssignment2d([NotNull] MapperParser.ArrayAssignment2dContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.arrayAccess2d"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.arrayAccess2d"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -233,9 +233,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayAccess2d([NotNull] CalculatorParser.ArrayAccess2dContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayAccess2d([NotNull] MapperParser.ArrayAccess2dContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.breakStatement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.breakStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -243,9 +243,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBreakStatement([NotNull] CalculatorParser.BreakStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitBreakStatement([NotNull] MapperParser.BreakStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.randomStatement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.randomStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -253,9 +253,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRandomStatement([NotNull] CalculatorParser.RandomStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitRandomStatement([NotNull] MapperParser.RandomStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteStatement"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.fileWriteStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -263,9 +263,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFileWriteStatement([NotNull] CalculatorParser.FileWriteStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitFileWriteStatement([NotNull] MapperParser.FileWriteStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.fileWriteNewline"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.fileWriteNewline"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -273,9 +273,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFileWriteNewline([NotNull] CalculatorParser.FileWriteNewlineContext context) { return VisitChildren(context); }
+	public virtual Result VisitFileWriteNewline([NotNull] MapperParser.FileWriteNewlineContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapDeclaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -283,9 +283,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapDeclaration([NotNull] CalculatorParser.MapDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapDeclaration([NotNull] MapperParser.MapDeclarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapAccess"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapAccess"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -293,9 +293,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapAccess([NotNull] CalculatorParser.MapAccessContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapAccess([NotNull] MapperParser.MapAccessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapModification"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapModification"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -303,9 +303,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapModification([NotNull] CalculatorParser.MapModificationContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapModification([NotNull] MapperParser.MapModificationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapPrint"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapPrint"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -313,9 +313,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapPrint([NotNull] CalculatorParser.MapPrintContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapPrint([NotNull] MapperParser.MapPrintContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapBSP"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapBSP"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -323,9 +323,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapBSP([NotNull] CalculatorParser.MapBSPContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapBSP([NotNull] MapperParser.MapBSPContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapObject"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapObject"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -333,9 +333,9 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapObject([NotNull] CalculatorParser.MapObjectContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapObject([NotNull] MapperParser.MapObjectContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CalculatorParser.mapTest"/>.
+	/// Visit a parse tree produced by <see cref="MapperParser.mapTest"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -343,5 +343,5 @@ public partial class CalculatorBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMapTest([NotNull] CalculatorParser.MapTestContext context) { return VisitChildren(context); }
+	public virtual Result VisitMapTest([NotNull] MapperParser.MapTestContext context) { return VisitChildren(context); }
 }

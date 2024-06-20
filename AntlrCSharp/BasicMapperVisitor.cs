@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AntlrCSharp;
-using static CalculatorParser;
+using static MapperParser;
 using System.IO;
 using System.ComponentModel.Design.Serialization;
 using System.Security.Cryptography;
 
 namespace AntlrCSharp
 {
-    public class BasicCalculatorVisitor : CalculatorBaseVisitor<object>
+    public class BasicMapperVisitor : MapperBaseVisitor<object>
     {
         //Value table
         private Dictionary<string, object> variables = new Dictionary<string, object>();
@@ -52,11 +52,11 @@ namespace AntlrCSharp
             }
         }
         //Start of visitor
-        public override object VisitInput(CalculatorParser.InputContext context){
+        public override object VisitInput(MapperParser.InputContext context){
             return VisitChildren(context);
         }
 
-        public override object VisitStatement(CalculatorParser.StatementContext context){
+        public override object VisitStatement(MapperParser.StatementContext context){
             // Determine the type of statement and delegate to the appropriate method
             if (context.calculation() != null){
                 return VisitCalculation(context.calculation());
@@ -129,13 +129,13 @@ namespace AntlrCSharp
             }
         }
 
-        public override object VisitCalculation(CalculatorParser.CalculationContext context){
+        public override object VisitCalculation(MapperParser.CalculationContext context){
             object result = Visit(context.expression());
             Console.WriteLine("Result: " + result);
             return result;
         }
 
-        public override object VisitExpression(CalculatorParser.ExpressionContext context){
+        public override object VisitExpression(MapperParser.ExpressionContext context){
             if (context.IDENTIFIER() != null){
                 string identifier = context.IDENTIFIER().GetText();
                 if (variables.ContainsKey(identifier)){
@@ -208,7 +208,7 @@ namespace AntlrCSharp
             return Visit(context.term());
         }
 
-        public override object VisitTerm(CalculatorParser.TermContext context){
+        public override object VisitTerm(MapperParser.TermContext context){
             if (context.IDENTIFIER() != null){
                 string identifier = context.IDENTIFIER().GetText();
                 if (variables.ContainsKey(identifier)){
@@ -259,7 +259,7 @@ namespace AntlrCSharp
             return Visit(context.factor());
         }   
 
-        public override object VisitFactor(CalculatorParser.FactorContext context){
+        public override object VisitFactor(MapperParser.FactorContext context){
             if (context.IDENTIFIER() != null){
                 string identifier = context.IDENTIFIER().GetText();
                 if (variables.ContainsKey(identifier)){
@@ -311,7 +311,7 @@ namespace AntlrCSharp
             }
         }
 
-        public override object VisitIfStatement(CalculatorParser.IfStatementContext context){
+        public override object VisitIfStatement(MapperParser.IfStatementContext context){
             //Initialize conditionvalue with first expression
             bool conditionValue = (bool)Visit(context.expression(0));
     
@@ -355,7 +355,7 @@ namespace AntlrCSharp
             }
         }
 
-        public override object VisitWhileStatement(CalculatorParser.WhileStatementContext context){
+        public override object VisitWhileStatement(MapperParser.WhileStatementContext context){
             object result = null;
             bool breakflag = false;
 
@@ -374,7 +374,7 @@ namespace AntlrCSharp
         }
 
 
-        public override object VisitVariableDeclaration(CalculatorParser.VariableDeclarationContext context){
+        public override object VisitVariableDeclaration(MapperParser.VariableDeclarationContext context){
             string identifier = context.IDENTIFIER().GetText();
             object value;
             string declaredTypeName = context.TYPE().GetText();
@@ -410,7 +410,7 @@ namespace AntlrCSharp
             return 0;
         }
 
-        public override object VisitVariableAssignment(CalculatorParser.VariableAssignmentContext context){
+        public override object VisitVariableAssignment(MapperParser.VariableAssignmentContext context){
             string identifier = context.IDENTIFIER().GetText();
             object value = Visit(context.expression());
             Type declaredType = variableTypes[identifier];
@@ -431,7 +431,7 @@ namespace AntlrCSharp
             return value;
         }
 
-        public override object VisitNumber(CalculatorParser.NumberContext context){
+        public override object VisitNumber(MapperParser.NumberContext context){
             string numberText = context.NUMBER().GetText();
 
             if(int.TryParse(numberText, out int intValue)){
@@ -443,7 +443,7 @@ namespace AntlrCSharp
             return 0;
         }
 
-        public override object VisitCrementer(CalculatorParser.CrementerContext context){
+        public override object VisitCrementer(MapperParser.CrementerContext context){
             
             string identifier = context.IDENTIFIER().GetText();
             int currentValue = Convert.ToInt32(variables[identifier]);
@@ -459,7 +459,7 @@ namespace AntlrCSharp
             return currentValue;
         }
 
-        public override object VisitForLoop(CalculatorParser.ForLoopContext context){
+        public override object VisitForLoop(MapperParser.ForLoopContext context){
 
             bool breakFlag = false;
             object result = null;
@@ -479,7 +479,7 @@ namespace AntlrCSharp
             return result;
         }
 
-        public override object VisitCompare(CalculatorParser.CompareContext context){
+        public override object VisitCompare(MapperParser.CompareContext context){
         
             if (context.COMPARISON_OPERATOR() != null){
                 object left = Visit(context.expression());
@@ -509,7 +509,7 @@ namespace AntlrCSharp
             return 0;
         }
 
-        public override object VisitArrayDeclaration(CalculatorParser.ArrayDeclarationContext context){
+        public override object VisitArrayDeclaration(MapperParser.ArrayDeclarationContext context){
     
             string identifier = context.IDENTIFIER(0).GetText();
             string declaredTypeName = context.TYPE().GetText();
@@ -557,7 +557,7 @@ namespace AntlrCSharp
             return array;
         }
 
-        public override object VisitArrayAccess(CalculatorParser.ArrayAccessContext context){
+        public override object VisitArrayAccess(MapperParser.ArrayAccessContext context){
             string identifier = context.IDENTIFIER(0).GetText();
             Type declaredType = variableTypes[identifier];
 
@@ -596,7 +596,7 @@ namespace AntlrCSharp
             }
         }
     
-        public override object VisitArrayAssignement(CalculatorParser.ArrayAssignementContext context){
+        public override object VisitArrayAssignement(MapperParser.ArrayAssignementContext context){
             string identifier = context.IDENTIFIER(0).GetText();
             // Get the declared type of the array
             Type declaredType = variableTypes[identifier];
@@ -679,7 +679,7 @@ namespace AntlrCSharp
             return value;
         }
 
-        public override object VisitArrayDeclaration2d(CalculatorParser.ArrayDeclaration2dContext context){
+        public override object VisitArrayDeclaration2d(MapperParser.ArrayDeclaration2dContext context){
             Console.WriteLine("Visiting 2darray");
             string identifier = context.IDENTIFIER(0).GetText();
             string declaredTypeName = context.TYPE().GetText();
@@ -770,7 +770,7 @@ namespace AntlrCSharp
             return array2d;
         }
 
-        public override object VisitArrayAssignment2d(CalculatorParser.ArrayAssignment2dContext context)
+        public override object VisitArrayAssignment2d(MapperParser.ArrayAssignment2dContext context)
         {
             string identifier = context.IDENTIFIER(0).GetText();
             // Get the declared type of the array
@@ -865,7 +865,7 @@ namespace AntlrCSharp
             return value;
         }
 
-        public override object VisitArrayAccess2d(CalculatorParser.ArrayAccess2dContext context)
+        public override object VisitArrayAccess2d(MapperParser.ArrayAccess2dContext context)
         {
             string identifier = context.IDENTIFIER(0).GetText();
             Type declaredType = variableTypes[identifier];
@@ -914,12 +914,12 @@ namespace AntlrCSharp
             }
         }
 
-        public override object VisitBreakStatement(CalculatorParser.BreakStatementContext context){
+        public override object VisitBreakStatement(MapperParser.BreakStatementContext context){
             //throw new Exception();
             return null;
         }
 
-        public override object VisitRandomStatement(CalculatorParser.RandomStatementContext context)
+        public override object VisitRandomStatement(MapperParser.RandomStatementContext context)
         {
             Random number = new Random();
             string number1String;
@@ -958,7 +958,7 @@ namespace AntlrCSharp
             return randomNumber;
         }
 
-        public override object VisitFileWriteStatement(CalculatorParser.FileWriteStatementContext context){
+        public override object VisitFileWriteStatement(MapperParser.FileWriteStatementContext context){
 
             string fileName;
             string identifier = context.arrayAccess2d().IDENTIFIER(0).GetText();          
@@ -986,7 +986,7 @@ namespace AntlrCSharp
             
         }
 
-        public override object VisitFileWriteNewline(CalculatorParser.FileWriteNewlineContext context){
+        public override object VisitFileWriteNewline(MapperParser.FileWriteNewlineContext context){
             string fileName = context.STRING_LITERAL().GetText();
             fileName = fileName.Substring(1,fileName.Length - 2);
             
@@ -1003,7 +1003,7 @@ namespace AntlrCSharp
 
         }
 
-        public override object VisitMapDeclaration(CalculatorParser.MapDeclarationContext context){
+        public override object VisitMapDeclaration(MapperParser.MapDeclarationContext context){
 
             string identifier = context.IDENTIFIER().GetText();
             int numKeyValuePairs = int.Parse(context.NUMBER(0).GetText());
@@ -1038,7 +1038,7 @@ namespace AntlrCSharp
             return map;
         }
 
-        public override object VisitMapAccess(CalculatorParser.MapAccessContext context){
+        public override object VisitMapAccess(MapperParser.MapAccessContext context){
 
             string identifier = context.IDENTIFIER().GetText();
             
@@ -1066,7 +1066,7 @@ namespace AntlrCSharp
         }
 
 
-        public override object VisitMapModification(CalculatorParser.MapModificationContext context){
+        public override object VisitMapModification(MapperParser.MapModificationContext context){
             
             string identifier = context.IDENTIFIER(0).GetText();
             string layerName = context.STRING_LITERAL().GetText();
@@ -1100,7 +1100,7 @@ namespace AntlrCSharp
             return true;
         }
 
-        public override object VisitMapPrint(CalculatorParser.MapPrintContext context){
+        public override object VisitMapPrint(MapperParser.MapPrintContext context){
             string identifier = context.IDENTIFIER().GetText();
             Type declaredType = variableTypes[identifier];
 
@@ -1146,7 +1146,7 @@ namespace AntlrCSharp
             }
             return true;
         }
-        public override object VisitMapBSP(CalculatorParser.MapBSPContext context)
+        public override object VisitMapBSP(MapperParser.MapBSPContext context)
         {
             string identifier = context.IDENTIFIER().GetText();
             string key = context.STRING_LITERAL().GetText();
@@ -1169,7 +1169,7 @@ namespace AntlrCSharp
             return null;
         }
 
-        public override object VisitMapObject(CalculatorParser.MapObjectContext context)
+        public override object VisitMapObject(MapperParser.MapObjectContext context)
         {
             string identifier = context.IDENTIFIER().GetText();
             string layerName = context.STRING_LITERAL(0).GetText();
@@ -1192,7 +1192,7 @@ namespace AntlrCSharp
             return base.VisitMapObject(context);
         }
 
-        public override object VisitMapTest(CalculatorParser.MapTestContext context)
+        public override object VisitMapTest(MapperParser.MapTestContext context)
         {
             string identifier = context.IDENTIFIER().GetText();
             string layerName = context.STRING_LITERAL(0).GetText();

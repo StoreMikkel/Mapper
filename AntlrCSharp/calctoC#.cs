@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime.Tree;
 using AntlrCSharp;
-using static CalculatorParser;
+using static MapperParser;
 
 
 

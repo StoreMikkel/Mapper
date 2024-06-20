@@ -37,7 +37,7 @@ namespace AntlrCSharp
                 Console.WriteLine($"Token Type: {token.Type}, Text: {token.Text}, Start Index: {token.StartIndex}, Stop Index: {token.StopIndex}");
             }*/
         
-            BasicCalculatorVisitor visitor = new BasicCalculatorVisitor();
+            BasicMapperVisitor visitor = new BasicMapperVisitor();
             visitor.Visit(tree);
         }catch (Exception ex)
             {
