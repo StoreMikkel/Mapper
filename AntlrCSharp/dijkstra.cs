@@ -88,20 +88,20 @@ public class dijkstra
             }
         }
         //TESTING PURPOSES
-        int rows2 = layer.GetLength(0);
-        int cols2 = layer.GetLength(1);
+        //int rows2 = layer.GetLength(0);
+        //int cols2 = layer.GetLength(1);
 
-        for (int i = rows2 - 1; i >= 0; i--)  // Iterate over the rows in reverse order
-        {
-            for (int j = 0; j < cols2; j++)  // Iterate over the columns in normal order
-            {
-                if (distances[i, j] == int.MaxValue)
-                    Console.Write("I ");  // Print 'INF' for unreachable cells
-                else
-                    Console.Write(distances[i, j] + " ");
-            }
-            Console.WriteLine();
-        }
+        //for (int i = rows2 - 1; i >= 0; i--)  // Iterate over the rows in reverse order
+        //{
+        //    for (int j = 0; j < cols2; j++)  // Iterate over the columns in normal order
+        //    {
+        //        if (distances[i, j] == int.MaxValue)
+        //            Console.Write("I ");  // Print 'INF' for unreachable cells
+        //        else
+        //            Console.Write(distances[i, j] + " ");
+        //    }
+        //    Console.WriteLine();
+        //}
         //If distance to exit point is reachable return true; return false otherwise
         if(distances[ExitYcoordinate, ExitXcoordinate] != int.MaxValue)
         {

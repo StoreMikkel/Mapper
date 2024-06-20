@@ -1194,7 +1194,6 @@ namespace AntlrCSharp
 
         public override object VisitMapTest(CalculatorParser.MapTestContext context)
         {
-            Console.WriteLine("Visiting maptesting");
             string identifier = context.IDENTIFIER().GetText();
             string layerName = context.STRING_LITERAL(0).GetText();
             string secondLayerName = context.STRING_LITERAL(1).GetText();
